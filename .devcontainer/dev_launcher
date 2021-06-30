@@ -1,3 +1,3 @@
 #!/bin/bash
-
-# TODO: Launch application with the appropriate config
+# adapt to package name
+my-microservice --config /workspace/.devcontainer/dev_config.yaml

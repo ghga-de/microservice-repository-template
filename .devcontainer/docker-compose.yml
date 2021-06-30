@@ -11,7 +11,7 @@ services:
         # [Choice] Install Node.js
         INSTALL_NODE: "true"
         NODE_VERSION: "lts/*"
-        # name of the python package: 
+        # Please adapt to package name:
         PACKAGE_NAME: "my_microservice"
         # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
         USER_UID: 1000
