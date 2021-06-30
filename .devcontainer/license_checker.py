@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Copyright 2021 Universität Tübingen, DKFZ and EMBL
 # for the German Human Genome-Phenome Archive (GHGA)
 #
@@ -13,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/usr/bin/env python3
 
 """This script checks that the license and license headers
 exists and that they are up to date.
@@ -21,6 +22,7 @@ exists and that they are up to date.
 
 import os
 import sys
+import argparse
 import itertools
 import re
 from datetime import date
@@ -109,6 +111,7 @@ def get_target_files(  # pylint: disable=dangerous-default-value
         os.path.relpath(os.path.join(abs_target_dir, excl), abs_target_dir)
         for excl in exclude
     ]
+
     # get all files:
     all_files = list(
         itertools.chain.from_iterable(
@@ -123,7 +126,7 @@ def get_target_files(  # pylint: disable=dangerous-default-value
         )
     )
     target_files = [
-        os.path.relpath(file_, abs_target_dir)
+        file_
         for file_ in all_files
         if not (
             any([file_.startswith(excl) for excl in exclude_normalized])
@@ -134,10 +137,16 @@ def get_target_files(  # pylint: disable=dangerous-default-value
     return target_files
 
 
-def normalized_license_header(license_header_text: str) -> str:
+def normalized_text(text: str) -> str:
     "Normalize a license header text."
     return "\n".join(
-        [line.strip("#").strip() for line in license_header_text.split("\n")]
+        [
+            line.strip("#").strip()
+            for line in text.split("\n")
+            if not (  # exclude shebang and empty lines
+                line.startswith("#!") or line.strip("#").strip() == ""
+            )
+        ]
     ).strip("\n")
 
 
@@ -147,7 +156,7 @@ def format_license_header_template(license_header_template: str, author: str) ->
     respectively, in the header template.
     """
     current_year = str(date.today().year)
-    return normalized_license_header(
+    return normalized_text(
         license_header_template.replace("{year}", current_year).replace(
             "{author}", author
         )
@@ -199,18 +208,20 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
     passed_files: List[str] = []
     failed_files: List[str] = []
 
-    n_lines = len(license_header_formatted.split("\n"))
+    n_header_lines = len(license_header_formatted.split("\n"))
 
     for target_file in target_files:
         # read in file
-        with open(target_file, "r") as file_:
-            file_lines = file_.readlines()
+        with open(os.path.join(target_dir, target_file), "r") as file_:
+            file_content = normalized_text(file_.read())
         # check whether file has enough lines
-        if len(file_lines) < n_lines:
+        file_lines = file_content.split("\n")
+        n_file_lines = len(file_lines)
+        if n_file_lines < n_header_lines:
             failed_files.append(target_file)
             continue
         # check whether first lines match the header:
-        header_expected = normalized_license_header("".join(file_lines[0:n_lines]))
+        header_expected = "\n".join(file_lines[0:n_header_lines])
         if header_expected == license_header_formatted:
             passed_files.append(target_file)
         else:
@@ -239,10 +250,12 @@ def check_license_file(
             notice. This defaults to an auther info for GHGA.
     """
 
-    assert os.path.isfile(license_file), f'License file "{license_file}" does not exist'
+    if not os.path.isfile(license_file):
+        print(f'Could not find license file "{license_file}".')
+        return False
 
     with open(license_file, "r") as file_:
-        license_text = normalized_license_header(file_.read())
+        license_text = normalized_text(file_.read())
 
     expected_copyright = format_license_header_template(copyright_notice, author)
 
@@ -251,10 +264,33 @@ def check_license_file(
 
 def run():
     """Run checks from CLI."""
-    target_dir = ROOT_DIR
+    parser = argparse.ArgumentParser(
+        prog="license-checker",
+        description=(
+            "This script checks that the license and license headers "
+            + "exists and that they are up to date."
+        ),
+    )
+
+    parser.add_argument(
+        "-L",
+        "--no-license-file-check",
+        help="Disables the check of the license file",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-t",
+        "--target-dir",
+        help="Specify a custom target dir. Overwrites the default package root.",
+    )
+
+    args = parser.parse_args()
+
+    target_dir = args.target_dir if args.target_dir else ROOT_DIR
     print(f'Working in "{target_dir}"\n')
 
-    print(f"Checking license headers in files:")
+    print("Checking license headers in files:")
     passed_files, failed_files = check_file_headers(target_dir)
     print(f"{len(passed_files)} files passed.")
     print(f"{len(failed_files)} files failed" + (":" if failed_files else "."))
@@ -262,14 +298,17 @@ def run():
         print(f'  - "{failed_file}"')
     print("")
 
-    license_file = os.path.join(target_dir, LICENCE_FILE)
-    print(f'Checking if LICENSE file is up to date: "{license_file}"')
-    license_file_valid = check_license_file(license_file)
-    print(
-        "Copyright notice in license file is "
-        + ("" if license_file_valid else "not ")
-        + "up to date.\n"
-    )
+    if args.no_license_file_check:
+        license_file_valid = True
+    else:
+        license_file = os.path.join(target_dir, LICENCE_FILE)
+        print(f'Checking if LICENSE file is up to date: "{license_file}"')
+        license_file_valid = check_license_file(license_file)
+        print(
+            "Copyright notice in license file is "
+            + ("" if license_file_valid else "not ")
+            + "up to date.\n"
+        )
 
     if failed_files or not license_file_valid:
         print("Some checks failed.")
