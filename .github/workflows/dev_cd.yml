@@ -89,4 +89,4 @@ jobs:
                 "context": "${{ needs.get_commit_version.outputs.branch }}",
                 "new_app_version": "${{ needs.get_commit_version.outputs.version }}"
               }
-  #           }'
+            }'
