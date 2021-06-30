@@ -22,9 +22,9 @@ jobs:
       - name: mypy
         run: |
           mypy --show-error-codes --disable-error-code import .
-      - name: pylint
-        run: |
-          pylint "${MAIN_SRC_DIR}"
+      # - name: pylint
+      #   run: |
+      #     pylint "${MAIN_SRC_DIR}"
       - name: flake8
         run: |
           flake8 .
