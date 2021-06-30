@@ -57,6 +57,7 @@ EXCLUDE = [
     "docs",
     "requirements.txt",
     ".vscode",
+    ".mypy_cache",
 ]
 
 # exclude file by file ending from license header check:
