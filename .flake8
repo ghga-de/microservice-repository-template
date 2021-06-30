@@ -1,0 +1,5 @@
+[flake8]
+ignore = 
+    E501 # E501 = too long line, this is checked by black
+exclude = .git,__pycache__,database_migration,build,dist
+max-complexity = 10

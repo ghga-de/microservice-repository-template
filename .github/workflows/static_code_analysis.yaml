@@ -1,0 +1,36 @@
+name: Static Code Analysis
+
+on: [push, pull_request]
+
+env:
+  # Please adapt to package name
+  MAIN_SRC_DIR: ./my_application
+
+jobs:
+  static-code-analysis:
+    runs-on: ubuntu-latest
+    name: Static Code Analysis
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install Dependencies
+        run: |
+          pip install ".[testing]"
+      - name: mypy
+        run: |
+          mypy --show-error-codes --disable-error-code import .
+      - name: pylint
+        run: |
+          pylint "${MAIN_SRC_DIR}"
+      - name: flake8
+        run: |
+          flake8 .
+      - name: black
+        run: |
+          black --check .
+      - name: bandit
+        run: |
+          bandit -r "${MAIN_SRC_DIR}"
