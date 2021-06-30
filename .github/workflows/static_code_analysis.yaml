@@ -1,6 +1,6 @@
 name: Static Code Analysis
 
-on: [push, pull_request]
+on: push
 
 env:
   # Please adapt to package name
