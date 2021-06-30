@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "dev"
+      - "firstpass"
       # - "int"
       # uncomment to also be triggered for the int branch,
       # this might also need adaptions to the update_deployment_repo job
