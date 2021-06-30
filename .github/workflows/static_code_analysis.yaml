@@ -22,15 +22,15 @@ jobs:
       - name: mypy
         run: |
           mypy --show-error-codes --disable-error-code import .
-      # - name: pylint
-      #   run: |
-      #     pylint "${MAIN_SRC_DIR}"
-      # - name: flake8
-      #   run: |
-      #     flake8 .
-      # - name: black
-      #   run: |
-      #     black --check .
+      - name: pylint
+        run: |
+          pylint "${MAIN_SRC_DIR}"
+      - name: flake8
+        run: |
+          flake8 .
+      - name: black
+        run: |
+          black --check .
       - name: bandit
         run: |
           bandit -r "${MAIN_SRC_DIR}"
