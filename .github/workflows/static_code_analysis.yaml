@@ -25,12 +25,12 @@ jobs:
       # - name: pylint
       #   run: |
       #     pylint "${MAIN_SRC_DIR}"
-      - name: flake8
-        run: |
-          flake8 .
-      - name: black
-        run: |
-          black --check .
+      # - name: flake8
+      #   run: |
+      #     flake8 .
+      # - name: black
+      #   run: |
+      #     black --check .
       - name: bandit
         run: |
           bandit -r "${MAIN_SRC_DIR}"
