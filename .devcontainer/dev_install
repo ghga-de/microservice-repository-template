@@ -3,13 +3,16 @@
 
 cd /workspace
 
+# install pre-commit:
+pre-commit install
+
 # install in edit mode
 # use-feature way of installing packages
 # install with testing dependencies
 pip install \
     --use-feature=in-tree-build \
     -e \
-    ".[testing, db_migration]"
+    ".[dev, db_migration]"
 
 cd db_migration
 

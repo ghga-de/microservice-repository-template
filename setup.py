@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Setup script for pip"""
+
 import os
 
 from setuptools import setup, find_packages
@@ -21,6 +23,8 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, "README.md")) as f:
     README = f.read()
 
+# Please adapt to package:
+# (only use the dependencies that are really required)
 requires = [
     "fastapi==0.65.2",
     "uvicorn[standard]==0.13.4",
@@ -30,7 +34,7 @@ requires = [
     "sqlalchemy==1.4.19",
 ]
 
-testing_require = [
+dev_require = [
     "pytest",
     "pytest-cov",
     "mypy",
@@ -38,11 +42,10 @@ testing_require = [
     "flake8",
     "black",
     "bandit",
+    "pre-commit",
 ]
 
-db_migration = [
-    "alembic==1.6.5",
-]
+db_migration_require = ["alembic==1.6.5"]
 
 setup(
     # Please adapt to package name
@@ -62,10 +65,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=requires,
-    extras_require={
-        "testing": testing_require,
-        "db_migration": db_migration,
-    },
+    extras_require={"dev": dev_require, "db_migration": db_migration_require},
     classifiers=[
         # Please adapt to package
         "Operating System :: POSIX :: Linux",
@@ -77,7 +77,7 @@ setup(
     entry_points={
         "console_scripts": [
             # Please adapt to package name
-            "my-microservice=my_microservice.__main__:run_cli",
-        ],
+            "my-microservice=my_microservice.__main__:run_cli"
+        ]
     },
 )
