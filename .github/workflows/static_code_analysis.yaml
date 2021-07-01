@@ -16,10 +16,10 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - uses: pre-commit/action@v2.0.3
       - name: Install Dependencies
         run: |
           pip install ".[testing]"
+      - uses: pre-commit/action@v2.0.3
       - name: mypy
         run: |
           mypy --show-error-codes --disable-error-code import .

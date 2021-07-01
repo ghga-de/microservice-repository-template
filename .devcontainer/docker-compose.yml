@@ -28,7 +28,7 @@ services:
 
     # Uncomment the next line to use a non-root user for all processes.
     user: vscode
-    
+
     # define environment variables
     environment:
       DB_URL: postgresql://postgres:postgres@postgresql/postgres

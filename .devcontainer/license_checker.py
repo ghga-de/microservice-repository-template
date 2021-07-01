@@ -52,7 +52,7 @@ EXCLUDE = [
     ".pylintrc",
     "example-config.yaml",
     "LICENSE",  # is checked but not for the license header
-    "pre-commit.yaml",
+    ".pre-commit-config.yaml",
     "README.md",
     "docs",
     "requirements.txt",
@@ -172,7 +172,7 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
     exclude: List[str] = EXCLUDE,
     exclude_endings: List[str] = EXCLUDE_ENDINGS,
     exclude_pattern: List[str] = EXCLUDE_PATTERN,
-) -> Tuple[str, str]:
+) -> Tuple[List[str], List[str]]:
     """Check files for presence of a license header and verify that
     the copyright notice is up to date (correct year).
 
