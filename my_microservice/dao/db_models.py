@@ -14,3 +14,25 @@
 # limitations under the License.
 
 """Defines all database specific ORM classes (e.g. for SQLAlchemy)"""
+
+from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.dialects.postgresql import JSON
+from .db import Base
+
+
+class ExampleObjectA(Base):
+    """An example object stored in the DB"""
+
+    __tablename__ = "visas"
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    some_json_details = Column(JSON, nullable=False)
+
+
+class ExampleObjectB(Base):
+    """Another example object stored in the DB"""
+
+    __tablename__ = "drs_objects"
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    active = Column(Boolean, nullable=False)

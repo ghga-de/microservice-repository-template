@@ -6,20 +6,21 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
-
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
+	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
-		"sqltools.connections": [{
-			"name": "Container database",
-			"driver": "PostgreSQL",
-			"previewLimit": 50,
-			"server": "localhost",
-			"port": 5432,
-			"database": "postgres",
-			"username": "postgres",
-			"password": "postgres"
-		}],
+		"sqltools.connections": [
+			{
+				"name": "Container database",
+				"driver": "PostgreSQL",
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"database": "postgres",
+				"username": "postgres",
+				"password": "postgres"
+			}
+		],
 		"python.pythonPath": "/usr/local/bin/python",
 		"python.languageServer": "Pylance",
 		"python.linting.enabled": true,
@@ -36,11 +37,10 @@
 		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
 		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
 		"python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
-		"editor.renderWhitespace": "all", 
+		"editor.renderWhitespace": "all",
 		"licenser.license": "AL2",
 		"licenser.author": "Universität Tübingen, DKFZ and EMBL\nfor the German Human Genome-Phenome Archive (GHGA)",
 	},
-
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python",
@@ -56,15 +56,13 @@
 		"arjun.swagger-viewer",
 		"ms-toolsai.jupyter",
 		"redhat.vscode-yaml",
-		"ymotongpoo.licenser"
+		"ymotongpoo.licenser",
+		"ms-azuretools.vscode-docker"
 	],
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [5000, 5432],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "pip install --user -r requirements.txt",
-
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
 }

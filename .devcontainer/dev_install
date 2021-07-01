@@ -10,3 +10,8 @@ pip install \
     --use-feature=in-tree-build \
     -e \
     ".[testing, db_migration]"
+
+cd db_migration
+
+# Check if the database has been initialized and if not initialize it
+alembic -c alembic.ini upgrade head
