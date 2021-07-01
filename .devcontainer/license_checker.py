@@ -58,6 +58,7 @@ EXCLUDE = [
     "requirements.txt",
     ".vscode",
     ".mypy_cache",
+    "db_migration",
 ]
 
 # exclude file by file ending from license header check:
