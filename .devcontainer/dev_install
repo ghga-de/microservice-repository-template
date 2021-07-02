@@ -10,7 +10,7 @@ cd /workspace
 pip install \
     --use-feature=in-tree-build \
     -e \
-    ".[dev, db_migration]"
+    ".[all]"
 
 # install pre-commit hooks to git:
 pre-commit install
