@@ -19,8 +19,6 @@ COPY . /service
 WORKDIR /service
 RUN pip install -r requirements.txt
 
-EXPOSE 5000
-
 # create new user and execute as that user
 RUN useradd --create-home appuser
 WORKDIR /home/appuser
