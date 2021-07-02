@@ -26,5 +26,5 @@ RUN useradd --create-home appuser
 WORKDIR /home/appuser
 USER appuser
 
-ENTRYPOINT ["python"]
-CMD [ "./src/app.py" ]
+# Please adapt to package name:
+ENTRYPOINT ["my-microservice"]
