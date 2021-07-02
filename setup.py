@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Copyright 2021 Universität Tübingen, DKFZ and EMBL
 # for the German Human Genome-Phenome Archive (GHGA)
 #
@@ -13,71 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Setup script for pip"""
+"""Setup script for pip. This setup configs are specified in the `setup.cfg` file"""
 
-import os
+import setuptools
 
-from setuptools import setup, find_packages
-
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, "README.md")) as f:
-    README = f.read()
-
-# Please adapt to package:
-# (only use the dependencies that are really required)
-requires = [
-    "fastapi==0.65.2",
-    "uvicorn[standard]==0.13.4",
-    "PyYAML==5.4.1",
-    "typer==0.3.2",
-    "psycopg2==2.9.1",
-    "sqlalchemy==1.4.19",
-]
-
-dev_require = [
-    "pytest",
-    "pytest-cov",
-    "mypy",
-    "pylint",
-    "flake8",
-    "black",
-    "bandit",
-    "pre-commit",
-]
-
-db_migration_require = ["alembic==1.6.5"]
-
-setup(
-    # Please adapt to package name
-    name="my_microservice",
-    version="0.1.0",
-    description=(
-        # Please adapt to package
-        "My-Microservice - a short description"
-    ),
-    long_description=README,
-    author="German Human Genome Phenome Archive (GHGA)",
-    author_email="contact@ghga.de",
-    url="",
-    keywords="",
-    packages=find_packages(exclude=("tests")),
-    license="Apache 2.0",
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=requires,
-    extras_require={"dev": dev_require, "db_migration": db_migration_require},
-    classifiers=[
-        # Please adapt to package
-        "Operating System :: POSIX :: Linux",
-        "Programming Language :: Python :: 3.9",
-        "License :: OSI Approved :: Apache Software License",
-        "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
-        "Topic :: Scientific/Engineering :: Bio-Informatics",
-    ],
-    entry_points={
-        "console_scripts": [
-            # Please adapt to package name
-            "my-microservice=my_microservice.__main__:run_cli"
-        ]
-    },
-)
+if __name__ == "__main__":
+    setuptools.setup()
