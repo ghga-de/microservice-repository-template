@@ -3,8 +3,6 @@
 
 cd /workspace
 
-# install pre-commit:
-pre-commit install
 
 # install in edit mode
 # use-feature way of installing packages
@@ -13,6 +11,9 @@ pip install \
     --use-feature=in-tree-build \
     -e \
     ".[dev, db_migration]"
+
+# install pre-commit hooks to git:
+pre-commit install
 
 cd db_migration
 

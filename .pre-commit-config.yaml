@@ -57,4 +57,5 @@ repos:
     rev: "v2.9.3"
     hooks:
       - id: pylint
+        args: [--disable=E0401]
         exclude: db_migration|tests|.devcontainer
