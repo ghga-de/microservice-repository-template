@@ -7,4 +7,4 @@ port: 8080
 log_level: info
 workers: 1
 auto_reload: true
-greeting: Yassou
+language: Greek

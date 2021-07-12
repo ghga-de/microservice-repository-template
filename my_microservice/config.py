@@ -18,6 +18,7 @@
 from functools import lru_cache
 from ghga_service_chassis_lib.config import config_from_yaml
 from ghga_service_chassis_lib.api import ApiConfigBase
+from .models import SupportedLanguages
 
 
 @config_from_yaml(prefix="my-microservice")
@@ -27,7 +28,7 @@ class Config(ApiConfigBase):
     # config parameter needed for the api server
     # are inherited from ApiConfigBase
 
-    greeting: str = "Dobar dan"
+    language: SupportedLanguages = "Croatian"
 
 
 @lru_cache

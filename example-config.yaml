@@ -3,4 +3,4 @@ port: 8080
 log_level: info
 workers: 2
 auto_reload: False
-greeting: Dobar Dan
+language: Croatian
