@@ -1,3 +1,7 @@
+# Please adapt to package name:
+# rename the file name to match the
+# "prefix" configured in the config
+# module
 host: 127.0.0.1
 port: 8080
 log_level: info
