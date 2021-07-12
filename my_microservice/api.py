@@ -13,4 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Defines all RESTful API routes"""
+"""Definition of RESTful API endpoints"""
+
+from fastapi import Depends, FastAPI
+from .config import get_config
+
+app = FastAPI()
+
+
+@app.get("/")
+async def index():
+    """Greet the World"""
+    return "Hello World."
+
+
+@app.get("/greet/{person}")
+async def greet(person: str, config=Depends(get_config)):
+    """Greet a person."""
+    return f"{config.greeting} {person}!"

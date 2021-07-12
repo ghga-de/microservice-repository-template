@@ -13,18 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Entrypoint of the package"""
+"""Config Parameter Modeling and Parsing"""
 
-from ghga_service_chassis_lib.api import run_server
-from .config import get_config
-from .api import app  # noqa: F401 pylint: disable=unused-import
-
-
-def run():
-    """Run the service"""
-    # Please adapt to package name
-    run_server(app="my_microservice.__main__:app", config=get_config())
+from functools import lru_cache
+from ghga_service_chassis_lib.config import config_from_yaml
+from ghga_service_chassis_lib.api import ApiConfigBase
 
 
-if __name__ == "__main__":
-    run()
+@config_from_yaml(prefix="my-microservice")
+class Config(ApiConfigBase):
+    """Config parameters and their defaults."""
+
+    # config parameter needed for the api server
+    # are inherited from ApiConfigBase
+
+    greeting: str = "Dobar dan"
+
+
+@lru_cache
+def get_config():
+    """Get config parameter."""
+    return Config()
