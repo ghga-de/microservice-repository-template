@@ -21,7 +21,7 @@ from copy import deepcopy
 from my_microservice.models import GreetingExpression
 from my_microservice.core.greeting import GREETINGS_EXPRESSIONS
 from . import BASE_DIR
-from .utils import read_yaml
+from ...fixtures.utils import read_yaml
 
 GREETING_EXPRESSIONS_YAML = os.path.join(BASE_DIR, "greeting_expressions.yaml")
 GREETINGS_EXPRESSIONS_BACKUP = deepcopy(GREETINGS_EXPRESSIONS)
