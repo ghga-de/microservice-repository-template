@@ -34,7 +34,7 @@ GREETINGS_EXPRESSIONS = [
 
 
 def generate_greeting(name: str, language: str, isinformal: bool):
-    """Gerenate a greeting for a specific person."""
+    """Generate a greeting for a specific person."""
 
     # search for suitable expressions (might be multiple):
     expression_hits = [
@@ -42,6 +42,13 @@ def generate_greeting(name: str, language: str, isinformal: bool):
         for expr in GREETINGS_EXPRESSIONS
         if expr.language == language and expr.isinformal == isinformal
     ]
+
+    # throw error if no hits were found:
+    if not expression_hits:
+        raise ValueError(
+            f'No greeting expressions found for language=="{language}" '
+            'and isinformal="{isinformal}"'
+        )
 
     # pick a random expression from the list of hits:
     expression = random.choice(expression_hits)  # nosec
