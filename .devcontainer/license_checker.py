@@ -20,16 +20,16 @@
 exists and that they are up to date.
 """
 
-import os
 import sys
 import argparse
 import itertools
 import re
 from datetime import date
 from typing import List, Tuple
+from pathlib import Path
 
 # root directory of the package:
-ROOT_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+ROOT_DIR = str(Path(__file__).parent.resolve())
 
 # exlude files and dirs from license header check:
 EXCLUDE = [
@@ -109,9 +109,9 @@ def get_target_files(  # pylint: disable=dangerous-default-value
             Overwrite default list of regex patterns match file path
             for exclusion.
     """
-    abs_target_dir = os.path.abspath(target_dir)
+    abs_target_dir = Path(target_dir).resolve()
     exclude_normalized = [
-        os.path.relpath(os.path.join(abs_target_dir, excl), abs_target_dir)
+        (abs_target_dir / excl).relative_to(abs_target_dir)
         for excl in exclude
     ]
 
@@ -120,11 +120,10 @@ def get_target_files(  # pylint: disable=dangerous-default-value
         itertools.chain.from_iterable(
             [
                 [
-                    os.path.relpath(os.path.join(root, file_), abs_target_dir)
+                    str(file_.relative_to(abs_target_dir))
                     for file_ in files
                 ]
-                for root, _, files in os.walk(abs_target_dir)
-                if len(files) > 0
+                for files in Path(abs_target_dir).rglob('*')
             ]
         )
     )
@@ -215,7 +214,7 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
 
     for target_file in target_files:
         # read in file
-        with open(os.path.join(target_dir, target_file), "r") as file_:
+        with open(Path(target_dir / target_file), "r") as file_:
             file_content = normalized_text(file_.read())
         # check whether file has enough lines
         file_lines = file_content.split("\n")
@@ -253,7 +252,7 @@ def check_license_file(
             notice. This defaults to an auther info for GHGA.
     """
 
-    if not os.path.isfile(license_file):
+    if not Path(license_file).is_file():
         print(f'Could not find license file "{license_file}".')
         return False
 
@@ -304,7 +303,7 @@ def run():
     if args.no_license_file_check:
         license_file_valid = True
     else:
-        license_file = os.path.join(target_dir, LICENCE_FILE)
+        license_file = str(Path(target_dir / LICENCE_FILE))
         print(f'Checking if LICENSE file is up to date: "{license_file}"')
         license_file_valid = check_license_file(license_file)
         print(
