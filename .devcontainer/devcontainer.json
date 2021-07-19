@@ -57,7 +57,8 @@
 		"ms-toolsai.jupyter",
 		"redhat.vscode-yaml",
 		"ymotongpoo.licenser",
-		"ms-azuretools.vscode-docker"
+		"ms-azuretools.vscode-docker",
+		"EditorConfig.EditorConfig"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [5000, 5432],
