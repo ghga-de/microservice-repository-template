@@ -118,7 +118,7 @@ If you prefer not to use vscode, you could get a similar setup (without the edit
 by running the following commands:
 ``` bash
 # Execute in the repo's root dir:
-cd ./devcontainer
+cd ./.devcontainer
 
 # build and run the environment with docker-compose
 docker-compose up
