@@ -124,7 +124,7 @@ cd ./devcontainer
 docker-compose up
 
 # attach to the main container:
-# (you open multiple shell sessions like this)
+# (you can open multiple shell sessions like this)
 docker exec -it devcontainer_app_1 /bin/bash
 ```
 
