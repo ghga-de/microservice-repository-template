@@ -65,7 +65,7 @@ EXCLUDE = [
 EXCLUDE_ENDINGS = ["json", "pyc", "yaml", "yml"]
 
 # exclude any files with names that match any of the following regex:
-EXCLUDE_PATTERN = [r".*\.egg-info.*", r".*__cache__.*", r".git*"]
+EXCLUDE_PATTERN = [r".*\.egg-info.*", r".*__cache__.*", r".*\.git.*"]
 
 # The License header, "{year}" will be replaced by current year:
 LICENSE_HEADER = """Copyright {year} {author}
