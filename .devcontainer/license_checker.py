@@ -22,7 +22,6 @@ exists and that they are up to date.
 
 import sys
 import argparse
-import itertools
 import re
 from datetime import date
 from typing import List, Tuple
