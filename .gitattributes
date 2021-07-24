@@ -8,6 +8,6 @@
 requirements.txt		text eol=lf
 .editorconfig			text eol=lf
 .git*					text eol=lf
-# 
+#
 **/dev_*		    	text eol=lf
 **/Dockerfile			text eol=lf
