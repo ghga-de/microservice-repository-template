@@ -278,7 +278,7 @@ def run():
 
     args = parser.parse_args()
 
-    target_dir = args.target_dir if args.target_dir else ROOT_DIR
+    target_dir = Path(args.target_dir).absolute() if args.target_dir else ROOT_DIR
     print(f'Working in "{target_dir}"\n')
 
     print("Checking license headers in files:")
@@ -286,7 +286,7 @@ def run():
     print(f"{len(passed_files)} files passed.")
     print(f"{len(failed_files)} files failed" + (":" if failed_files else "."))
     for failed_file in failed_files:
-        print(f'  - "{failed_file}"')
+        print(f'  - "{failed_file.relative_to(target_dir)}"')
     print("")
 
     if args.no_license_file_check:
