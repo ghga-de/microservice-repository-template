@@ -45,4 +45,3 @@ jobs:
 
           # compare with existing yaml:
           diff openapi_regenerated.yaml openapi.yaml
-
