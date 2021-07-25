@@ -16,8 +16,8 @@
 FROM python:3.9.6-buster
 
 COPY . /service
-WORKDIR /servicet
-=======
+WORKDIR /service
+
 RUN pip install .
 
 # create new user and execute as that user
