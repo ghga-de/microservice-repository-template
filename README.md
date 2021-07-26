@@ -13,7 +13,7 @@ The python package (and thus the source repository) contains underscores "_"
 instead of hyphens, e.g.: `my_microservice`
 
 The command-line script that is used to run the service, the docker repository
-(published to docker hub), and the helm chart (not part of this repository) uses the
+(published to docker hub), and the helm chart (not part of this repository) use the
 same pattern as the repository name, e.g.: `my-microservice`
 ## Adapt to your service
 This is just a template and needs some adaption to your specific use case.
