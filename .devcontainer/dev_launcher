@@ -1,6 +1,4 @@
 #!/bin/bash
 
-cd /workspace/.devcontainer
-
 # adapt to package name
 my-microservice --config /workspace/.devcontainer/dev_config.yaml
