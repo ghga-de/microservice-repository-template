@@ -117,7 +117,6 @@ def get_target_files(  # pylint: disable=dangerous-default-value
         file_.absolute() for file_ in Path(abs_target_dir).rglob("*") if file_.is_file()
     ]
 
-
     target_files = [
         file_
         for file_ in all_files
@@ -125,7 +124,6 @@ def get_target_files(  # pylint: disable=dangerous-default-value
             any([file_.is_relative_to(excl) for excl in exclude_normalized])
             or any([str(file_).endswith(ending) for ending in exclude_endings])
             or any([re.match(pattern, str(file_)) for pattern in exclude_pattern])
-
         )
     ]
     return target_files
