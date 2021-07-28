@@ -49,7 +49,7 @@ def generate_greeting(name: str, language: str, isinformal: bool):
             f'No greeting expressions found for language=="{language}" '
             'and isinformal="{isinformal}"'
         )
-        
+
     # pick a random expression from the list of hits:
     expression = random.choice(expression_hits)  # nosec
 
