@@ -32,7 +32,7 @@ class ExampleObjectA(Base):
 class ExampleObjectB(Base):
     """Another example object stored in the DB"""
 
-    __tablename__ = "drs_objects"
+    __tablename__ = "table_b"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     active = Column(Boolean, nullable=False)

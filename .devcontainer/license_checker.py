@@ -48,6 +48,7 @@ EXCLUDE = [
     ".git",
     ".github",
     ".flake8",
+    ".gitignore",
     ".pylintrc",
     "example-config.yaml",
     "LICENSE",  # is checked but not for the license header
