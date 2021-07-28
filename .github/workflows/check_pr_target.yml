@@ -3,7 +3,7 @@ name: Check if PRs have the right target (base) branch
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
-    
+
 jobs:
   branch_check:
     runs-on: ubuntu-latest
