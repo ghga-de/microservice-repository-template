@@ -14,3 +14,39 @@
 # limitations under the License.
 
 """Defines all dataclasses/classes pertaining to a data model or schema"""
+
+from typing import Literal
+from datetime import datetime
+from pydantic import BaseModel, Field
+
+SupportedLanguages = Literal["Greek", "Croatian", "French", "German"]
+
+
+class MessageBase(BaseModel):
+    """A message base container"""
+
+    message: str = Field(..., description="The message content.")
+    created_at: datetime = Field(
+        ..., description="The date/time when the message was created"
+    )
+
+
+class GreetingBase(BaseModel):
+    """A container for basic metadata on a greeting phrase/expression"""
+
+    language: SupportedLanguages = Field(..., description="The language.")
+    isinformal: bool = Field(
+        ..., description="Is the expression used in informal contexts?"
+    )
+
+
+class GreetingExpression(GreetingBase):
+    """A container for describing a greeting expression"""
+
+    expression: str = Field(..., description="The actual greeting expression")
+
+
+class Greeting(GreetingBase, MessageBase):
+    """A container storing a greeting for a specfic person incl. metadata"""
+
+    pass  # pylint: disable=unnecessary-pass

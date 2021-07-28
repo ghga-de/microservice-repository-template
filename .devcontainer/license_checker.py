@@ -47,6 +47,7 @@ EXCLUDE = [
     ".git",
     ".github",
     ".flake8",
+    ".gitignore",
     ".pylintrc",
     "example-config.yaml",
     "LICENSE",  # is checked but not for the license header
@@ -116,6 +117,7 @@ def get_target_files(  # pylint: disable=dangerous-default-value
         file_.absolute() for file_ in Path(abs_target_dir).rglob("*") if file_.is_file()
     ]
 
+
     target_files = [
         file_
         for file_ in all_files
@@ -123,6 +125,7 @@ def get_target_files(  # pylint: disable=dangerous-default-value
             any([file_.is_relative_to(excl) for excl in exclude_normalized])
             or any([str(file_).endswith(ending) for ending in exclude_endings])
             or any([re.match(pattern, str(file_)) for pattern in exclude_pattern])
+
         )
     ]
     return target_files
@@ -279,6 +282,7 @@ def run():
     args = parser.parse_args()
 
     target_dir = Path(args.target_dir).absolute() if args.target_dir else ROOT_DIR
+
     print(f'Working in "{target_dir}"\n')
 
     print("Checking license headers in files:")
@@ -287,6 +291,7 @@ def run():
     print(f"{len(failed_files)} files failed" + (":" if failed_files else "."))
     for failed_file in failed_files:
         print(f'  - "{failed_file.relative_to(target_dir)}"')
+
     print("")
 
     if args.no_license_file_check:

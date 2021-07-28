@@ -38,3 +38,10 @@ jobs:
       - name: Check license header and file
         run: |
           python3 ./.devcontainer/license_checker.py
+      - name: Check if openapi.yaml is up to date
+        run: |
+          # regenerate openapi.yaml
+          python3 ./.devcontainer/openapi_from_app.py > openapi_regenerated.yaml
+
+          # compare with existing yaml:
+          diff openapi_regenerated.yaml openapi.yaml
