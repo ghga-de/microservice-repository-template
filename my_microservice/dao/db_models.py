@@ -23,7 +23,7 @@ from .db import Base
 class ExampleObjectA(Base):
     """An example object stored in the DB"""
 
-    __tablename__ = "table_a"
+    __tablename__ = "visas"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     some_json_details = Column(JSON, nullable=False)
