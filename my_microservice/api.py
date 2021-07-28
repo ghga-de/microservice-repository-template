@@ -33,7 +33,7 @@ async def index():
     "/greet/{name}",
     summary="Greet a person",
     description=(
-        "Greet a person by name. You may choose a formal or an informa greeting."
+        "Greet a person by name. You may choose a formal or an informal greeting."
         "The language for the greeting is configured in the backend."
     ),
     response_model=Greeting,

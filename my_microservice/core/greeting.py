@@ -20,9 +20,9 @@ import random
 from ..models import GreetingExpression, Greeting
 
 GREETINGS_EXPRESSIONS = [
-    GreetingExpression(expression="Kaliméra", language="Greek", isinformal=False),
-    GreetingExpression(expression="Yassou", language="Greek", isinformal=True),
-    GreetingExpression(expression="Ya", language="Greek", isinformal=True),
+    GreetingExpression(expression="Καλημέρα", language="Greek", isinformal=False),
+    GreetingExpression(expression="Γεια σου", language="Greek", isinformal=True),
+    GreetingExpression(expression="Γεια", language="Greek", isinformal=True),
     GreetingExpression(expression="Dobar dan", language="Croatian", isinformal=False),
     GreetingExpression(expression="Bok", language="Croatian", isinformal=True),
     GreetingExpression(expression="Zdravo", language="Croatian", isinformal=True),
@@ -49,7 +49,7 @@ def generate_greeting(name: str, language: str, isinformal: bool):
             f'No greeting expressions found for language=="{language}" '
             'and isinformal="{isinformal}"'
         )
-
+        
     # pick a random expression from the list of hits:
     expression = random.choice(expression_hits)  # nosec
 
