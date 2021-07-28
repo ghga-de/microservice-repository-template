@@ -32,5 +32,5 @@ class Config(ApiConfigBase):
 
 @lru_cache
 def get_config():
-    """Get config parameter."""
+    """Get runtime configuration."""
     return Config()
