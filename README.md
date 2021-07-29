@@ -94,7 +94,7 @@ For setting up the development environment, we rely on the
 in combination with Docker Compose.
 
 To use it, you have to have Docker Compose as well as vscode with its "Remote - Containers" extension (`ms-vscode-remote.remote-containers`) installed.
-Then, you just have to open this repo in vscode and run the command
+Then open this repository in vscode and run the command
 `Remote-Containers: Reopen in Container` from the vscode "Command Palette".
 
 This will give you a full-fledged, pre-configured development environment including:
