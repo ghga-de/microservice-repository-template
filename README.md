@@ -109,7 +109,7 @@ Moreover, inside the devcontainer, there are two convenience commands available
 - `dev_install` - install the service with all development dependencies,
 installs pre-commit, and applies any migration scripts to the test database
 (please run that if you are starting the devcontainer for the first time
-or if added any python dependencies to the [`./setup.cfg`](./setup.cfg))
+or if you added any python dependencies to the [`./setup.cfg`](./setup.cfg))
 - `dev_launcher` - starts the service with the development config yaml
 (located in the `./.devcontainer/` dir)
 
