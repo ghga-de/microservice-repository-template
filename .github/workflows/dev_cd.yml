@@ -4,10 +4,8 @@ on:
   push:
     branches:
       - "dev"
-      # - "int"
-      # uncomment to also be triggered for the int branch,
-      # this might also need adaptions to the update_deployment_repo job
-      # so that a different config repo is used for the int deployment
+      # you may add other branches to
+      # activate deployment for them, too.
 
 jobs:
   # Please adapt to package
