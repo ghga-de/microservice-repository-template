@@ -53,6 +53,7 @@ EXCLUDE = [
     "LICENSE",  # is checked but not for the license header
     ".pre-commit-config.yaml",
     "README.md",
+    "*/README.md",
     "docs",
     "requirements.txt",
     ".vscode",
