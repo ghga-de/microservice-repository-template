@@ -15,9 +15,10 @@
 
 """This module contains functionalities for greeting persons."""
 
-from datetime import datetime
 import random
-from ..models import GreetingExpression, Greeting
+from datetime import datetime
+
+from ..models import Greeting, GreetingExpression
 
 GREETINGS_EXPRESSIONS = [
     GreetingExpression(expression="Καλημέρα", language="Greek", isinformal=False),

@@ -16,8 +16,10 @@
 """Config Parameter Modeling and Parsing"""
 
 from functools import lru_cache
-from ghga_service_chassis_lib.config import config_from_yaml
+
 from ghga_service_chassis_lib.api import ApiConfigBase
+from ghga_service_chassis_lib.config import config_from_yaml
+
 from .models import SupportedLanguages
 
 

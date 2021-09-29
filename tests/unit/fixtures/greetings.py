@@ -16,12 +16,14 @@
 """Greeting fixtures"""
 
 import os
-from typing import List
 from copy import deepcopy
-from my_microservice.models import GreetingExpression
+from typing import List
+
 from my_microservice.core.greeting import GREETINGS_EXPRESSIONS
-from . import BASE_DIR
+from my_microservice.models import GreetingExpression
+
 from ...fixtures.utils import read_yaml
+from . import BASE_DIR
 
 GREETING_EXPRESSIONS_YAML = os.path.join(BASE_DIR, "greeting_expressions.yaml")
 GREETINGS_EXPRESSIONS_BACKUP = deepcopy(GREETINGS_EXPRESSIONS)

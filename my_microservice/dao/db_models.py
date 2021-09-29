@@ -15,8 +15,9 @@
 
 """Defines all database specific ORM classes (e.g. for SQLAlchemy)"""
 
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.dialects.postgresql import JSON
+
 from .db import Base
 
 

@@ -16,9 +16,10 @@
 """Definition of RESTful API endpoints"""
 
 from fastapi import Depends, FastAPI
+
 from .config import get_config
-from .models import Greeting
 from .core.greeting import generate_greeting
+from .models import Greeting
 
 app = FastAPI()
 

@@ -15,11 +15,14 @@
 
 """Test the core.greetings module"""
 
-from typing import Optional, Type, Any
 from contextlib import nullcontext
+from typing import Any, Optional, Type
+
 import pytest
+
 from my_microservice.core.greeting import generate_greeting
 from my_microservice.models import Greeting
+
 from .fixtures.greetings import greeting_expression_fixture
 
 

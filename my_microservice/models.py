@@ -15,8 +15,9 @@
 
 """Defines all dataclasses/classes pertaining to a data model or schema"""
 
-from typing import Literal
 from datetime import datetime
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 SupportedLanguages = Literal["Greek", "Croatian", "French", "German"]

@@ -20,12 +20,12 @@
 exists and that they are up to date.
 """
 
-import sys
 import argparse
 import re
+import sys
 from datetime import date
-from typing import List, Tuple
 from pathlib import Path
+from typing import List, Tuple
 
 # root directory of the package:
 ROOT_DIR = Path(__file__).parent.parent.resolve()
