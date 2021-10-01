@@ -21,11 +21,12 @@
         `.devcontainer/openapi_from_app.py > openapi.yaml`
 """
 
-# Please adapt to package name:
+
 import sys
 
 import yaml
 
+# Please adapt to package name:
 from my_microservice.api import app
 
 # get openapi spec as dict:
