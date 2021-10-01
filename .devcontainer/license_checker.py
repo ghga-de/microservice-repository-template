@@ -46,7 +46,6 @@ EXCLUDE = [
     "pip-wheel-metadata",
     ".git",
     ".github",
-    ".flake8",
     ".gitignore",
     ".pylintrc",
     "example-config.yaml",
