@@ -1,3 +1,6 @@
+![tests](https://github.com/ghga-de/ghga-service-chassis-lib/actions/workflows/unit_and_int_tests.yaml/badge.svg)
+
+
 # Microservice Repository Template
 
 This repo is a template for creating a new microservice.
