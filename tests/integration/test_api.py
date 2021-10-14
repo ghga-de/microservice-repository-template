@@ -20,7 +20,6 @@ from fastapi.testclient import TestClient
 
 from my_microservice.api import app
 
-
 # def test_index():
 #     """Test the index endpoint"""
 

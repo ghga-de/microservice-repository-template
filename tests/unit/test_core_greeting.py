@@ -25,7 +25,6 @@ from my_microservice.models import Greeting
 
 from .fixtures.greetings import greeting_expression_fixture
 
-
 # @pytest.mark.parametrize(
 #     "language,isinformal,exception_expected",
 #     [
