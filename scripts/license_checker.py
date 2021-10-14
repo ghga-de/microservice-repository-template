@@ -60,6 +60,7 @@ EXCLUDE = [
     "db_migration",
     ".pytest_cache",
     ".editorconfig",
+    ".static_files",
 ]
 
 # exclude file by file ending from license header check:
