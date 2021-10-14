@@ -13,4 +13,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Defines all async pub/sub communication"""
+"""Consuming or Subscribing to Async Messaging Topics"""

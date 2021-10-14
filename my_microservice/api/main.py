@@ -13,13 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Definition of RESTful API endpoints"""
+"""
+Module containing the main FastAPI router and (optionally) top-level API enpoints.
+Additional endpoints might be structured in dedicated modules
+(each of them having a sub-router).
+"""
 
 from fastapi import Depends, FastAPI
 
-from .config import get_config
-from .core.greeting import generate_greeting
-from .models import Greeting
+from ..config import get_config
+from ..core.greeting import generate_greeting
+from ..models import Greeting
 
 app = FastAPI()
 

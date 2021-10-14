@@ -13,8 +13,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Consuming or Subscribing to Async Messaging Topics"""
-
-# import pika
-# from ghga_service_chassis_lib.pubsub import AmqpTopic
-# from .config import get_config
+"""Subpackage defineing a RESTful API"""
