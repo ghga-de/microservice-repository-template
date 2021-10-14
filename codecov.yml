@@ -6,7 +6,6 @@ coverage:
         threshold: 1% # the leniency in hitting the target
 
 comment:
-  require_changes: false
   behavior: new
   require_head: no # default yes
   require_base: no # default yes
