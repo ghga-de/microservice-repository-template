@@ -24,6 +24,27 @@ from .models import Greeting
 app = FastAPI()
 
 
+def not_covered_by_test():
+    """will not be covered by tests"""
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+    print("not covered")
+
+
 @app.get("/", summary="Greet the world")
 async def index():
     """Greet the World"""
