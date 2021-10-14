@@ -40,4 +40,4 @@ jobs:
           bandit -r "${MAIN_SRC_DIR}"
       - name: Check license header and file
         run: |
-          python3 ./.devcontainer/license_checker.py
+          python3 ./scripts/license_checker.py
