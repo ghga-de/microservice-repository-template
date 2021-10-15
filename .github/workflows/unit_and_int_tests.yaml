@@ -2,6 +2,10 @@ name: Unit and Integration Tests
 
 on: push
 
+env:
+  # Please adapt to package name
+  MAIN_SRC_DIR: ./my_microservice
+
 jobs:
   unit_and_int_tests:
     runs-on: ubuntu-latest
@@ -25,7 +29,7 @@ jobs:
           pip install ".[all]"
       - name: Run pytest
         run: |
-          pytest --cov=./ --cov-report=xml
+          pytest --cov="./${MAIN_SRC_DIR}" --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
