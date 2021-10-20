@@ -10,7 +10,7 @@
 
 scripts/license_checker.py
 scripts/openapi_from_app.py
-scripts/move_from_template.py
+scripts/update_static_files.py
 scripts/README.md
 
 .github/workflows/check_openapi_spec.yml
