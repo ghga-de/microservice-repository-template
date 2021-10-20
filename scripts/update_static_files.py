@@ -24,7 +24,7 @@ from pathlib import Path
 
 import requests
 
-BASE_DIR = Path(__file__).parent.resolve()
+REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 
 STATIC_FILE_LIST = ".static_files"
 RAW_TEMPLATE_URL = (
@@ -35,18 +35,22 @@ RAW_TEMPLATE_URL = (
 def run():
     """Moves the files"""
 
+    print("Updating static file from template repo:")
+
     with open(STATIC_FILE_LIST, "r", encoding="utf8") as list_file:
         for line in list_file:
-            line_stripped = line.rstrip("\n")
+            relative_file_path = line.rstrip("\n")
 
-            if line_stripped.startswith("#"):
+            if relative_file_path == "" or relative_file_path.startswith("#"):
                 continue
 
+            print(relative_file_path)
+
             remote_file = requests.get(
-                urllib.parse.urljoin(RAW_TEMPLATE_URL, line_stripped)
+                urllib.parse.urljoin(RAW_TEMPLATE_URL, relative_file_path)
             )
 
-            local_file_path = BASE_DIR / line_stripped
+            local_file_path = REPO_ROOT_DIR / Path(relative_file_path)
 
             with open(local_file_path, "w", encoding="utf8") as local_file:
                 local_file.seek(0)
