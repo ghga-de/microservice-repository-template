@@ -34,7 +34,7 @@ jobs:
       - name: Run pytest
         run: |
           pytest \
-            --cov="./${{ steps.main_src_dir.outputs.MAIN_SRC_DIR }}" \
+            --cov="${{ steps.main_src_dir.outputs.MAIN_SRC_DIR }}" \
             --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
