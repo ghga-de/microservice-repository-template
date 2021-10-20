@@ -26,7 +26,7 @@ import requests
 
 REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 
-STATIC_FILE_LIST = ".static_files"
+STATIC_FILE_LIST = REPO_ROOT_DIR / ".static_files"
 RAW_TEMPLATE_URL = (
     "https://raw.githubusercontent.com/ghga-de/microservice-repository-template/main/"
 )
@@ -44,7 +44,7 @@ def run():
             if relative_file_path == "" or relative_file_path.startswith("#"):
                 continue
 
-            print(relative_file_path)
+            print(f"  - {relative_file_path}")
 
             remote_file_url = urllib.parse.urljoin(RAW_TEMPLATE_URL, relative_file_path)
             remote_file_request = requests.get(remote_file_url)
