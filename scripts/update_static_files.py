@@ -46,16 +46,22 @@ def run():
 
             print(relative_file_path)
 
-            remote_file = requests.get(
-                urllib.parse.urljoin(RAW_TEMPLATE_URL, relative_file_path)
-            )
+            remote_file_url = urllib.parse.urljoin(RAW_TEMPLATE_URL, relative_file_path)
+            remote_file_request = requests.get(remote_file_url)
 
+            if remote_file_request.status_code != 200:
+                print(
+                    f"WARNING: request to remote file {remote_file_url} returned "
+                    f"non-200 status code: {remote_file_request.status_code}"
+                    f"\nWARNING: ignoring file: {relative_file_path}"
+                )
+                continue
+
+            remote_file_content = remote_file_request.text
             local_file_path = REPO_ROOT_DIR / Path(relative_file_path)
 
             with open(local_file_path, "w", encoding="utf8") as local_file:
-                local_file.seek(0)
-                local_file.write(remote_file.text)
-                local_file.truncate()
+                local_file.write(remote_file_content)
 
 
 if __name__ == "__main__":
