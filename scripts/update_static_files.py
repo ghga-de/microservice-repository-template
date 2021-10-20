@@ -15,13 +15,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This script moves all files considered static from the microservice template
-repository over to this repository
+"""This script moves all files considered static (as defined in `../.static_files`)
+from the microservice template repository over to this repository
 """
 
 import urllib.parse
+from pathlib import Path
 
 import requests
+
+BASE_DIR = Path(__file__).parent.resolve()
 
 STATIC_FILE_LIST = ".static_files"
 RAW_TEMPLATE_URL = (
@@ -30,21 +33,25 @@ RAW_TEMPLATE_URL = (
 
 
 def run():
-
     """Moves the files"""
 
-    with open(STATIC_FILE_LIST) as list_file:
+    with open(STATIC_FILE_LIST, "r", encoding="utf8") as list_file:
         for line in list_file:
             line_stripped = line.rstrip("\n")
 
-            request_file = requests.get(
+            if line_stripped.startswith("#"):
+                continue
+
+            remote_file = requests.get(
                 urllib.parse.urljoin(RAW_TEMPLATE_URL, line_stripped)
             )
 
-            with open(line_stripped, "w") as static_file:
-                static_file.seek(0)
-                static_file.write(request_file.text)
-                static_file.truncate()
+            local_file_path = BASE_DIR / line_stripped
+
+            with open(local_file_path, "w", encoding="utf8") as local_file:
+                local_file.seek(0)
+                local_file.write(remote_file.text)
+                local_file.truncate()
 
 
 if __name__ == "__main__":
