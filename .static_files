@@ -9,7 +9,6 @@
 # ./scripts/update_static_files.py
 
 scripts/license_checker.py
-scripts/openapi_from_app.py
 scripts/check_mandatory_and_static_files.py
 scripts/README.md
 
@@ -25,9 +24,10 @@ example_data/README.md
 .pre-commit-config.yaml
 .pylintrc
 codecov.yml
-.static_files
-.mandatory_files
 
 LICENSE
 requirements.txt
 setup.py
+
+.static_files
+.mandatory_files
