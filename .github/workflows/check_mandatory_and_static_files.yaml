@@ -13,7 +13,7 @@ jobs:
           python-version: 3.9
       - name: Check mandatory and static files
         run: |
-          if [ "${{ github.event.repository.name }}" -eq "microservice-repository-template" ]
+          if [ "${{ github.event.repository.name }}" == "microservice-repository-template" ]
           then
             echo "Skipping this test as operating on the template repo."
           else:
