@@ -6,6 +6,7 @@
 # https://github.com/ghga-de/microservice-repository-template
 # You pull the updates from the template repository to
 # your repo by running the script at:
+# ./scripts/update_static_files.py
 
 .devcontainer/library-scripts/docker-in-docker-debian.sh
 
