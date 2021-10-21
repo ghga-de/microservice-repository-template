@@ -2,10 +2,6 @@ name: Static Code Analysis
 
 on: push
 
-env:
-  # Please adapt to package name
-  MAIN_SRC_DIR: ./my_microservice
-
 jobs:
   static-code-analysis:
     runs-on: ubuntu-latest

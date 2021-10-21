@@ -2,10 +2,6 @@ name: Unit and Integration Tests
 
 on: push
 
-env:
-  # Please adapt to package name
-  MAIN_SRC_DIR: ./my_microservice
-
 jobs:
   unit_and_int_tests:
     runs-on: ubuntu-latest
