@@ -1,6 +1,4 @@
-\# please adapt the links following badges to the service:
-![tests](https://github.com/ghga-de/microservice-repository-template/actions/workflows/unit_and_int_tests.yaml/badge.svg)
-[![codecov](https://codecov.io/gh/ghga-de/microservice-repository-template/branch/main/graph/badge.svg?token=GYH99Y71CK)](https://codecov.io/gh/ghga-de/microservice-repository-template)
+
 
 
 # Microservice Repository Template
@@ -23,11 +21,18 @@ same pattern as the repository name, e.g.: `my-microservice`
 ## Adapt to your service
 This is just a template and needs some adaption to your specific use case.
 
-Please search for "Please adapt to package" comments to find all locations
-that need modification and then remove them after your modifications.
----
+Please search for **"please adapt"** comments. They will indicate all locations
+that need modification. Once the adaptions are in place, please remove these #
+comments.
+
 The following should serve as a template for the final repo's README,
-please adapt accordingly:
+please adapt it accordingly (e.g. replace all occurences of `my-microservice` or `my_microservice` with the final package name and don't forget to adapt the links):
+
+---
+
+**\# please adapt the links of following badges:**
+![tests](https://github.com/ghga-de/microservice-repository-template/actions/workflows/unit_and_int_tests.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/ghga-de/microservice-repository-template/branch/main/graph/badge.svg?token=GYH99Y71CK)](https://codecov.io/gh/ghga-de/microservice-repository-template)
 # My-Microservice - A Short Description
 
 A longer description explaining the use case of this service.
@@ -42,7 +47,7 @@ We recommend using the provided Docker container.
 
 A pre-build version is available at [docker hub](https://hub.docker.com/repository/docker/ghga/my-microservice):
 ```bash
-# Please adapt the version as required:
+# Please feel free to choose the version as needed:
 docker pull ghga/my-microservice:<version>
 ```
 
