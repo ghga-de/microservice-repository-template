@@ -12,7 +12,6 @@
 .devcontainer/Dockerfile
 
 .github/workflows/dev_cd.yaml
-.github/workflows/static_code_analysis.yaml
 .github/workflows/unit_and_int_tests.yaml
 
 db_migration
