@@ -24,7 +24,7 @@ from ghga_service_chassis_lib.pubsub import PubSubConfigBase
 from .models import SupportedLanguages
 
 
-@config_from_yaml(prefix="my-microservice")
+@config_from_yaml(prefix="my_microservice")
 class Config(ApiConfigBase, PubSubConfigBase):
     """Config parameters and their defaults."""
 
