@@ -33,6 +33,7 @@ class Config(ApiConfigBase, PubSubConfigBase):
     # config parameter needed for the api server
     # are inherited from PubSubConfigBase;
 
+    service_name: str = "my_microservice"  # Please adapt
     language: SupportedLanguages = "Croatian"
 
 
