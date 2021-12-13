@@ -13,12 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Defines all database specific ORM classes (e.g. for SQLAlchemy)"""
+"""Defines all database specific ORM models"""
 
-from sqlalchemy import Boolean, Column, Integer, String
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy import JSON, Boolean, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm.decl_api import DeclarativeMeta
 
-from .db import Base
+Base: DeclarativeMeta = declarative_base()
 
 
 class ExampleObjectA(Base):

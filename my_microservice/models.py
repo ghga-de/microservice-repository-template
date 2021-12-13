@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Defines all dataclasses/classes pertaining to a data model or schema"""
+"""Defines dataclasses for holding business-logic data"""
 
 from datetime import datetime
 from typing import Literal
