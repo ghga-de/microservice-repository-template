@@ -17,7 +17,7 @@ jobs:
 
   # check_db_migration_scripts:
   #   runs-on: ubuntu-latest
-  #   name: Check if DB migration scripts
+  #   name: Check if DB migration scripts are up to date
   #   env:
   #     DB_URL: postgresql://postgres:postgres@localhost/postgres
   #   services:
