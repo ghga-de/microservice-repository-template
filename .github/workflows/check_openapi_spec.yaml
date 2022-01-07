@@ -9,32 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Get/export important runtime variables
-        id: runtime_variables
-        run: |
-          PACKAGE_NAME="$(./scripts/get_package_name.py)"
-          MAIN_SRC_DIR="${PWD}/${PACKAGE_NAME}"
-          CONFIG_YAML_ENV_VAR_NAME="$( echo ${PACKAGE_NAME^^} | sed "s/-/_/g" )_CONFIG_YAML"
-          CONFIG_YAML="${PWD}/.devcontainer/.dev_config.yaml"
-
-          # attach all other variables to the step's output:
-          echo "::set-output name=PACKAGE_NAME::${PACKAGE_NAME}"
-          echo "::set-output name=MAIN_SRC_DIR::${MAIN_SRC_DIR}"
-          echo "::set-output name=CONFIG_YAML_ENV_VAR_NAME::${CONFIG_YAML_ENV_VAR_NAME}"
-          echo "::set-output name=CONFIG_YAML::${CONFIG_YAML}"
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-
-      - name: Install Dependencies
-        run: |
-          pip install ".[all]"
+      - id: common
+        uses: ghga-de/gh-action-common@v1
 
       - name: Check if openapi.yaml is up to date
         run: |
-          export ${{ steps.runtime_variables.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.runtime_variables.outputs.CONFIG_YAML }}"
+          export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
 
           # regenerate openapi.yaml
           python3 ./scripts/openapi_from_app.py > openapi_regenerated.yaml
