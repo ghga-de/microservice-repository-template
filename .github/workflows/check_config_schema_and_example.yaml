@@ -1,12 +1,10 @@
-name: Unit and Integration Tests
+name: Check if the config schema and the example are up to date.
 
 on: push
 
 jobs:
-  unit_and_int_tests:
+  static-code-analysis:
     runs-on: ubuntu-latest
-    name: Unit and Integration Tests
-
     steps:
       - uses: actions/checkout@v1
 
@@ -33,15 +31,22 @@ jobs:
         run: |
           pip install ".[all]"
 
-      - name: Run pytest
+      - name: Check if config schema is up to date
         run: |
           export ${{ steps.runtime_variables.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.runtime_variables.outputs.CONFIG_YAML }}"
-          pytest \
-            --cov="${{ steps.runtime_variables.outputs.MAIN_SRC_DIR }}" \
-            --cov-report=xml
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
-        with:
-          fail_ci_if_error: true
-          verbose: true
+          # regenerate config schema:
+          ./scripts/get_config_shema_and_example.py print-schema > config_schema_regen.json
+
+          # compare with existing json:
+          diff config_schema_regen.json config_schema.json
+
+      - name: Check if config example is up to date
+        run: |
+          export ${{ steps.runtime_variables.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.runtime_variables.outputs.CONFIG_YAML }}"
+
+          # regenerate config schema:
+          ./scripts/get_config_shema_and_example.py print-example > example_config_regen.yaml
+
+          # compare with existing yaml:
+          diff example_config_regen.yaml example_config.yaml
