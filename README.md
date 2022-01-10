@@ -31,11 +31,11 @@ please adapt it accordingly (e.g. replace all occurences of `my-microservice` or
 ---
 
 **\# please adapt the links of following badges:**
-![tests](https://github.com/ghga-de/microservice-repository-template/actions/workflows/unit_and_int_tests.yaml/badge.svg)
-[![codecov](https://codecov.io/gh/ghga-de/microservice-repository-template/branch/main/graph/badge.svg?token=GYH99Y71CK)](https://codecov.io/gh/ghga-de/microservice-repository-template)
-# My-Microservice - A Short Description
+![tests](https://github.com/ghga-de/my-microservice/actions/workflows/unit_and_int_tests.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/ghga-de/my-microservice/branch/main/graph/badge.svg?token=GYH99Y71CK)](https://codecov.io/gh/ghga-de/my-microservice)
+# My-Microservice
 
-A longer description explaining the use case of this service.
+A description explaining the use case of this service.
 
 ## Documentation:
 
@@ -77,9 +77,11 @@ my-microservice
 
 ### Configuration:
 The [`./example-config.yaml`](./example-config.yaml) gives an overview of the available configuration options.
-Please adapt it, rename it to `.my_microservice.yaml`, and place it to one of the following locations:
-- in the current working directory were you are execute the service (on unix: `./.my_microservice.yaml`)
-- in your home directory (on unix: `~/.my_microservice.yaml`)
+Please adapt it and choose one of the following options for injecting it into the service:
+- specify the path to via the `MY_MICROSERVICE_CONFIG_YAML` env variable
+- rename it to `.my_microservice.yaml` and place it into one of the following locations:
+  - the current working directory were you are execute the service (on unix: `./.my_microservice.yaml`)
+  - your home directory (on unix: `~/.my_microservice.yaml`)
 
 The config yaml will be automatically parsed by the service.
 

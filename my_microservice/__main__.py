@@ -18,13 +18,13 @@
 from ghga_service_chassis_lib.api import run_server
 
 from .api.main import app  # noqa: F401 pylint: disable=unused-import
-from .config import get_config
+from .config import CONFIG, Config
 
 
-def run():
+def run(config: Config = CONFIG):
     """Run the service"""
     # Please adapt to package name
-    run_server(app="my_microservice.__main__:app", config=get_config())
+    run_server(app="my_microservice.__main__:app", config=config)
 
 
 if __name__ == "__main__":

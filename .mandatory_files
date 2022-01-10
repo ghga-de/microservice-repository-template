@@ -21,6 +21,7 @@ docs/README.md
 example_data
 
 scripts
+scripts/get_config_shema_and_example.py
 
 tests/fixtures/__init__.py
 tests/integration/fixtures/__init__.py
@@ -29,6 +30,7 @@ tests/integration/__init__.py
 tests/unit/__init__.py
 
 Dockerfile
-example-config.yaml
+config_schema.json
+example_config.yaml
 README.md
 setup.py

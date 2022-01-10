@@ -1,5 +1,4 @@
-# This file is only needed, if your repository uses FastAPI
-name: Check if openapi.yaml is up to date
+name: Check if the config schema and the example are up to date.
 
 on: push
 
@@ -32,12 +31,22 @@ jobs:
         run: |
           pip install ".[all]"
 
-      - name: Check if openapi.yaml is up to date
+      - name: Check if config schema is up to date
         run: |
           export ${{ steps.runtime_variables.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.runtime_variables.outputs.CONFIG_YAML }}"
 
-          # regenerate openapi.yaml
-          python3 ./scripts/openapi_from_app.py > openapi_regenerated.yaml
+          # regenerate config schema:
+          ./scripts/get_config_shema_and_example.py print-schema > config_schema_regen.json
+
+          # compare with existing json:
+          diff config_schema_regen.json config_schema.json
+
+      - name: Check if config example is up to date
+        run: |
+          export ${{ steps.runtime_variables.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.runtime_variables.outputs.CONFIG_YAML }}"
+
+          # regenerate config schema:
+          ./scripts/get_config_shema_and_example.py print-example > example_config_regen.yaml
 
           # compare with existing yaml:
-          diff openapi_regenerated.yaml openapi.yaml
+          diff example_config_regen.yaml example_config.yaml

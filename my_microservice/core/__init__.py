@@ -13,4 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This sub-package contains the core functionality"""
+"""
+This sub-package contains the main business functionality of this service.
+It should not contain any service API-related code.
+"""
