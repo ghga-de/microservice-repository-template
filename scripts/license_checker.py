@@ -91,6 +91,9 @@ COMMENT_CHARS = ["#"]
 AUTHOR = """Universität Tübingen, DKFZ and EMBL
 for the German Human Genome-Phenome Archive (GHGA)"""
 
+# The copyright notice should not date earlier than this year:
+MIN_YEAR = 2021
+
 # The path to the License file relative to target dir
 LICENCE_FILE = "LICENSE"
 
@@ -220,14 +223,14 @@ def get_header_lines(file_path: Path, comment_chars: List[str] = COMMENT_CHARS):
     return norm_header_lines
 
 
-def validate_year_string(year_string: str) -> bool:
+def validate_year_string(year_string: str, min_year: int = MIN_YEAR) -> bool:
     """Check if the specified year string is valid.
     Returns `True` if valid or `False` otherwise."""
-    current_year = str(date.today().year)
+    current_year = date.today().year
 
     # If the year_string is a single number, it must be the current year:
     if year_string.isnumeric():
-        return year_string == current_year
+        return int(year_string) == current_year
 
     # Otherwise, a range (e.g. 2021 - 2022) is expected:
     match = re.match("(\d+) - (\d+)", year_string)
@@ -235,11 +238,11 @@ def validate_year_string(year_string: str) -> bool:
     if not match:
         return False
 
-    year_1 = match.group(1)
-    year_2 = match.group(2)
+    year_1 = int(match.group(1))
+    year_2 = int(match.group(2))
 
-    # year_2 must be larger that year_1
-    if int(year_2) <= int(year_1):
+    # Check the validity of the range:
+    if year_1 >= min_year and year_2 <= year_1:
         return False
 
     # year_2 must be equal to the current year:
@@ -254,6 +257,7 @@ def check_file_header(  # pylint: disable=dangerous-default-value
     exclude_endings: List[str] = EXCLUDE_ENDINGS,
     exclude_pattern: List[str] = EXCLUDE_PATTERN,
     comment_chars: List[str] = COMMENT_CHARS,
+    min_year: int = MIN_YEAR,
 ) -> bool:
     """Check files for presence of a license header and verify that
     the copyright notice is up to date (correct year).
@@ -304,7 +308,7 @@ def check_file_header(  # pylint: disable=dangerous-default-value
                 return False
 
             year_string = match.group(1)
-            if not validate_year_string(year_string):
+            if not validate_year_string(year_string, min_year=min_year):
                 return False
 
         elif template_line != header_line:
@@ -321,6 +325,7 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
     exclude_endings: List[str] = EXCLUDE_ENDINGS,
     exclude_pattern: List[str] = EXCLUDE_PATTERN,
     comment_chars: List[str] = COMMENT_CHARS,
+    min_year: int = MIN_YEAR,
 ) -> Tuple[List[Path], List[Path]]:
     """Check files for presence of a license header and verify that
     the copyright notice is up to date (correct year).
@@ -363,6 +368,7 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
                 license_header_template=license_header_template,
                 author=author,
                 comment_chars=comment_chars,
+                min_year=min_year,
             ):
                 passed_files.append(target_file)
             else:
