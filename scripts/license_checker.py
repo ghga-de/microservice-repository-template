@@ -71,7 +71,7 @@ EXCLUDE_ENDINGS = ["json", "pyc", "yaml", "yml", "md", "html", "xml"]
 EXCLUDE_PATTERN = [r".*\.egg-info.*", r".*__cache__.*", r".*\.git.*"]
 
 # The License header, "{year}" will be replaced by current year:
-LICENSE_HEADER = """Copyright {year} {author}
+COPYRIGHT_TEMPLATE = """Copyright {year} {author}
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -106,7 +106,7 @@ class UnexpectedBinaryFileError(RuntimeError):
         super().__init__(message)
 
 
-def get_target_files(  # pylint: disable=dangerous-default-value
+def get_target_files(
     target_dir: Path,
     exclude: List[str] = EXCLUDE,
     exclude_endings: List[str] = EXCLUDE_ENDINGS,
@@ -177,11 +177,11 @@ def normalized_text(text: str, chars_to_trim: List[str] = COMMENT_CHARS) -> str:
     return "\n".join(norm_lines).strip("\n")
 
 
-def format_license_header_template(license_header_template: str, author: str) -> str:
+def format_copyright_template(copyright_template: str, author: str) -> str:
     """Formats license header by inserting the specified author for every occurence of
     "{author}" in the header template.
     """
-    return normalized_text(license_header_template.replace("{author}", author))
+    return normalized_text(copyright_template.replace("{author}", author))
 
 
 def is_commented_line(line: str, comment_chars: List[str] = COMMENT_CHARS) -> bool:
@@ -199,7 +199,7 @@ def is_empty_line(line: str) -> bool:
     return line.strip("\n").strip("\t").strip() == ""
 
 
-def get_header_lines(file_path: Path, comment_chars: List[str] = COMMENT_CHARS):
+def get_header(file_path: Path, comment_chars: List[str] = COMMENT_CHARS):
     """Extracts the header from a file and normalizes it."""
     header_lines: List[str] = []
 
@@ -217,10 +217,7 @@ def get_header_lines(file_path: Path, comment_chars: List[str] = COMMENT_CHARS):
 
     # normalize the lines:
     header = "".join(header_lines)
-    norm_header = normalized_text(header, chars_to_trim=comment_chars)
-    norm_header_lines = norm_header.split("\n")
-
-    return norm_header_lines
+    return normalized_text(header, chars_to_trim=comment_chars)
 
 
 def validate_year_string(year_string: str, min_year: int = MIN_YEAR) -> bool:
@@ -249,56 +246,38 @@ def validate_year_string(year_string: str, min_year: int = MIN_YEAR) -> bool:
     return year_2 == current_year
 
 
-def check_file_header(  # pylint: disable=dangerous-default-value
-    file_path: Path,
-    license_header_template: str = LICENSE_HEADER,
+def check_copyright_notice(
+    copyright: str,
+    copyright_template: str = COPYRIGHT_TEMPLATE,
     author: str = AUTHOR,
-    exclude: List[str] = EXCLUDE,
-    exclude_endings: List[str] = EXCLUDE_ENDINGS,
-    exclude_pattern: List[str] = EXCLUDE_PATTERN,
     comment_chars: List[str] = COMMENT_CHARS,
     min_year: int = MIN_YEAR,
 ) -> bool:
-    """Check files for presence of a license header and verify that
-    the copyright notice is up to date (correct year).
+    """Checks the specified copyright text against a template.
 
-    Args:
-        file_path (pathlib.Path): The path to the target file.
-        license_header_template (str, optional):
-            A string containing a template for the expected license header.
-            You may include "{year}" which will be replace by the current year.
-            This defaults to the Apache 2.0 Copyright notice.
-        author (str, optional):
-            The author that shall be included in the license header.
-            It will replace any appearance of "{author}" in the license
-            header. This defaults to an auther info for GHGA.
-        exclude (List[str], optional):
-            Overwrite default list of file/dir paths relative to
-            the target dir that shall be excluded.
-        exclude_endings (List[str], optional):
-            Overwrite default list of file endings that shall
-            be excluded.
-        exclude_pattern (List[str], optional):
-            Overwrite default list of regex patterns match file path
-            for exclusion.
+    copyright_template (str):
+        A string containing the copyright text to check against the template.
+    copyright_template (str, optional):
+        A string containing a template for the expected license header.
+        You may include "{year}" which will be replace by the current year.
+        This defaults to the Apache 2.0 Copyright notice.
+    author (str, optional):
+        The author that shall be included in the license header.
+        It will replace any appearance of "{author}" in the license
+        header. This defaults to an auther info for GHGA.
 
-    Returns:
-        `True` - If file header valid.
-        `False` - If file header invalid
     """
-    formatted_template = format_license_header_template(
-        license_header_template, author=author
-    )
+    formatted_template = format_copyright_template(copyright_template, author=author)
     template_lines = formatted_template.split("\n")
 
-    header_lines = get_header_lines(file_path, comment_chars=comment_chars)
+    notice_lines = copyright.split("\n")
 
     # The header should be at least as long as the template:
-    if len(header_lines) < len(template_lines):
+    if len(notice_lines) < len(template_lines):
         return False
 
     for idx, template_line in enumerate(template_lines):
-        header_line = header_lines[idx]
+        header_line = notice_lines[idx]
 
         if "{year}" in template_line:
             pattern = template_line.replace("{year}", r"(.+?)")
@@ -317,9 +296,9 @@ def check_file_header(  # pylint: disable=dangerous-default-value
     return True
 
 
-def check_file_headers(  # pylint: disable=dangerous-default-value
+def check_file_headers(
     target_dir: Path,
-    license_header_template: str = LICENSE_HEADER,
+    copyright_template: str = COPYRIGHT_TEMPLATE,
     author: str = AUTHOR,
     exclude: List[str] = EXCLUDE,
     exclude_endings: List[str] = EXCLUDE_ENDINGS,
@@ -332,7 +311,7 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
 
     Args:
         target_dir (pathlib.Path): The target dir to search.
-        license_header_template (str, optional):
+        copyright_template (str, optional):
             A string containing a template for the expected license header.
             You may include "{year}" which will be replace by the current year.
             This defaults to the Apache 2.0 Copyright notice.
@@ -363,9 +342,10 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
 
     for target_file in target_files:
         try:
-            if check_file_header(
-                target_file,
-                license_header_template=license_header_template,
+            header = get_header(target_file, comment_chars=comment_chars)
+            if check_copyright_notice(
+                copyright=header,
+                copyright_template=copyright_template,
                 author=author,
                 comment_chars=comment_chars,
                 min_year=min_year,
@@ -382,15 +362,17 @@ def check_file_headers(  # pylint: disable=dangerous-default-value
 
 def check_license_file(
     license_file: Path,
-    copyright_notice: str = LICENSE_HEADER,
+    copyright_template: str = COPYRIGHT_TEMPLATE,
     author: str = AUTHOR,
+    comment_chars: List[str] = COMMENT_CHARS,
+    min_year: int = MIN_YEAR,
 ) -> bool:
     """Currently only checks if the copyright notice in the
     License file is up to data.
 
     Args:
         license_file (pathlib.Path, optional): Overwrite the default license file.
-        copyright_notice (str, optional):
+        copyright_template (str, optional):
             A string of the copyright notice (usually same as license header).
             You may include "{year}" which will be replace by the current year.
             This defaults to the Apache 2.0 Copyright notice.
@@ -407,9 +389,20 @@ def check_license_file(
     with open(license_file, "r") as file_:
         license_text = normalized_text(file_.read())
 
-    expected_copyright = format_license_header_template(copyright_notice, author)
+    # Extract the copyright notice:
+    # (is expected to be at the end of the file):
+    formatted_template = format_copyright_template(copyright_template, author=author)
+    template_lines = formatted_template.split("\n")
+    license_lines = license_text.split("\n")
+    copyright = "\n".join(license_lines[-len(template_lines) :])
 
-    return expected_copyright in license_text
+    return check_copyright_notice(
+        copyright=copyright,
+        copyright_template=copyright_template,
+        author=author,
+        comment_chars=comment_chars,
+        min_year=min_year,
+    )
 
 
 def run():
