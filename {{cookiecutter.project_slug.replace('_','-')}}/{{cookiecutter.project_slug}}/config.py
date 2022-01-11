@@ -24,12 +24,11 @@ from ghga_service_chassis_lib.s3 import S3ConfigBase
 from .models import SupportedLanguages
 
 
-# Please adapt config prefix and remove unnecessary config bases:
-@config_from_yaml(prefix="my_microservice")
-class Config(ApiConfigBase, PubSubConfigBase, PostgresqlConfigBase, S3ConfigBase):
+@config_from_yaml(prefix="{{ cookiecutter.project_slug }}")
+class Config({{ cookiecutter.config_bases }}):
     """Config parameters and their defaults."""
 
-    service_name: str = "my_microservice"  # Please adapt
+    service_name: str = "{{ cookiecutter.project_slug }}"
     language: SupportedLanguages = "Croatian"
 
 

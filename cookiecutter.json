@@ -1,0 +1,13 @@
+{
+  "project_name": "My Microservice",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_short_description": "A microservice for GHGA",
+  "ghga_chassis_lib_version": "0.9.0",
+  "ghga_chassis_lib_extras": "api,pubsub,mongo_connect,object_storage_dao,s3,postgresql",
+  "use_alembic": "y",
+  "config_bases" : "ApiConfigBase, PubSubConfigBase, PostgresqlConfigBase, S3ConfigBase",
+  "_copy_without_render": [
+	  ".github/workflows/*"
+  ]
+}
+

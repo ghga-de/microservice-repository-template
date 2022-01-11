@@ -13,19 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.9.6-buster
+"""Entrypoint of the package"""
 
-COPY . /service
-WORKDIR /service
+from ghga_service_chassis_lib.api import run_server
 
-RUN pip install .
+from .api.main import app  # noqa: F401 pylint: disable=unused-import
+from .config import CONFIG, Config
 
-# create new user and execute as that user
-RUN useradd --create-home appuser
-WORKDIR /home/appuser
-USER appuser
 
-ENV PYTHONUNBUFFERED=1
+def run(config: Config = CONFIG):
+    """Run the service"""
+    run_server(app="{{ cookiecutter.project_slug }}.__main__:app", config=config)
 
-# Please adapt to package name:
-ENTRYPOINT ["my-microservice"]
+
+if __name__ == "__main__":
+    run()
