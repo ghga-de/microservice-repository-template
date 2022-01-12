@@ -9,6 +9,7 @@
 # ./scripts/update_static_files.py
 
 .devcontainer/library-scripts/docker-in-docker-debian.sh
+.devcontainer/license_header.txt
 
 scripts/update_static_files.py
 scripts/license_checker.py
