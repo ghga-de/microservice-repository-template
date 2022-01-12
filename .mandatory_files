@@ -20,7 +20,6 @@ docs/README.md
 
 example_data
 
-scripts
 
 tests/fixtures/__init__.py
 tests/integration/fixtures/__init__.py
