@@ -21,7 +21,7 @@ docs/README.md
 example_data
 
 scripts
-scripts/get_config_shema_and_example.py
+scripts/get_config_schema_and_example.py
 
 tests/fixtures/__init__.py
 tests/integration/fixtures/__init__.py
