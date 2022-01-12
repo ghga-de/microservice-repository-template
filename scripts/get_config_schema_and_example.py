@@ -18,12 +18,21 @@
 """Generate a JSON schema from the service's Config class.
 """
 
+import importlib
 from pathlib import Path
+from typing import Any, Type
 
 import yaml
+from pydantic import BaseSettings
 from typer import Typer
 
-from my_microservice.config import Config
+from scripts.get_package_name import get_package_name
+
+# Dynamically import the Config class from the current service:
+# (This makes the script service repo agnostic.)
+package_name = get_package_name()
+config_module: Any = importlib.import_module(f"{package_name}.config")
+Config: Type[BaseSettings] = config_module.Config
 
 HERE = Path(__file__).parent.resolve()
 DEV_CONFIG_YAML = HERE.parent.resolve() / ".devcontainer" / ".dev_config.yaml"
