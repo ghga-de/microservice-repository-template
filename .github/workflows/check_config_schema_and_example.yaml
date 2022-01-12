@@ -16,7 +16,7 @@ jobs:
           export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
 
           # regenerate config schema:
-          ./scripts/get_config_shema_and_example.py print-schema > config_schema_regen.json
+          ./scripts/get_config_schema_and_example.py print-schema > config_schema_regen.json
 
           # compare with existing json:
           diff config_schema_regen.json config_schema.json
@@ -26,7 +26,7 @@ jobs:
           export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
 
           # regenerate config schema:
-          ./scripts/get_config_shema_and_example.py print-example > example_config_regen.yaml
+          ./scripts/get_config_schema_and_example.py print-example > example_config_regen.yaml
 
           # compare with existing yaml:
           diff example_config_regen.yaml example_config.yaml
