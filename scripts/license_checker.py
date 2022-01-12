@@ -31,6 +31,9 @@ from typing import List, Optional, Tuple, Union
 # root directory of the package:
 ROOT_DIR = Path(__file__).parent.parent.resolve()
 
+# file containing the default global copyright notice:
+GLOBAL_COPYRIGHT_FILE_PATH = ROOT_DIR / ".devcontainer" / "license_header.txt"
+
 # exlude files and dirs from license header check:
 EXCLUDE = [
     ".devcontainer",
@@ -501,6 +504,10 @@ def run():
     print(f'Working in "{target_dir}"\n')
 
     global_copyright = GlobalCopyrightNotice()
+
+    # get global copyright from .devcontainer/license_header.txt file:
+    with open(GLOBAL_COPYRIGHT_FILE_PATH, "r") as global_copyright_file:
+        global_copyright.text = normalized_text(global_copyright_file.read())
 
     if args.no_license_file_check:
         license_file_valid = True

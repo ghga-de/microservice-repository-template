@@ -10,6 +10,7 @@
 .devcontainer/devcontainer.json
 .devcontainer/docker-compose.yml
 .devcontainer/Dockerfile
+.devcontainer/license_header.txt
 
 .github/workflows/dev_cd.yaml
 .github/workflows/unit_and_int_tests.yaml
