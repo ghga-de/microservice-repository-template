@@ -19,6 +19,7 @@
 """
 
 import importlib
+import subprocess
 from pathlib import Path
 from typing import Any, Type
 
@@ -26,23 +27,40 @@ import yaml
 from pydantic import BaseSettings
 from typer import Typer
 
-from scripts.get_package_name import get_package_name
-
-# Dynamically import the Config class from the current service:
-# (This makes the script service repo agnostic.)
-package_name = get_package_name()
-config_module: Any = importlib.import_module(f"{package_name}.config")
-Config: Type[BaseSettings] = config_module.Config
-
 HERE = Path(__file__).parent.resolve()
 DEV_CONFIG_YAML = HERE.parent.resolve() / ".devcontainer" / ".dev_config.yaml"
+GET_PACKAGE_NAME_SCRIPT = HERE / "get_package_name.py"
 
 cli = Typer()
 
 
+def get_config_class() -> Type[BaseSettings]:
+    """
+    Dynamically imports and returns the Config class from the current service.
+    This makes the script service repo agnostic.
+    """
+    # get the name of the microservice package
+    with subprocess.Popen(
+        args=[GET_PACKAGE_NAME_SCRIPT],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+    ) as process:
+        assert (
+            process.wait() == 0 and process.stdout is not None
+        ), "Failed to get package name."
+        package_name = process.stdout.read().decode("utf-8").strip("\n")
+
+    # import the Config class from the microservice package:
+    config_module: Any = importlib.import_module(f"{package_name}.config")
+    config_class = config_module.Config
+
+    return config_class
+
+
 def get_dev_config():
     """Get dev config object."""
-    return Config(config_yaml=DEV_CONFIG_YAML)
+    config_class = get_config_class()
+    return config_class(config_yaml=DEV_CONFIG_YAML)
 
 
 @cli.command()
