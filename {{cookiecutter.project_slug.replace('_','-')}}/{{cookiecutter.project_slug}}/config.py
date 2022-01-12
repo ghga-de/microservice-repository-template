@@ -13,19 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.9.6-buster
+"""Config Parameter Modeling and Parsing"""
 
-COPY . /service
-WORKDIR /service
+from ghga_service_chassis_lib.api import ApiConfigBase
+from ghga_service_chassis_lib.config import config_from_yaml
+from ghga_service_chassis_lib.postgresql import PostgresqlConfigBase
+from ghga_service_chassis_lib.pubsub import PubSubConfigBase
+from ghga_service_chassis_lib.s3 import S3ConfigBase
 
-RUN pip install .
+from .models import SupportedLanguages
 
-# create new user and execute as that user
-RUN useradd --create-home appuser
-WORKDIR /home/appuser
-USER appuser
 
-ENV PYTHONUNBUFFERED=1
+@config_from_yaml(prefix="{{ cookiecutter.project_slug }}")
+class Config({{ cookiecutter.config_bases }}):
+    """Config parameters and their defaults."""
 
-# Please adapt to package name:
-ENTRYPOINT ["my-microservice"]
+    service_name: str = "{{ cookiecutter.project_slug }}"
+    language: SupportedLanguages = "Croatian"
+
+
+CONFIG = Config()
