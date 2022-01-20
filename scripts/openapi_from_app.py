@@ -26,7 +26,6 @@ import sys
 
 import yaml
 
-# Please adapt to package name:
 from my_microservice.api.main import app
 
 # get openapi spec as dict:
