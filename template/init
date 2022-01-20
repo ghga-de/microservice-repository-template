@@ -1,0 +1,79 @@
+#!/bin/bash
+# Copyright 2021 - 2022 Universität Tübingen, DKFZ and EMBL
+# for the German Human Genome-Phenome Archive (GHGA)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+################################################################################
+# Function Definitions
+################################################################################
+
+read_parameter() { # <desc> <override_value> <default>
+  # Reads and prints a parameter from the command line, displaying <desc> at
+  # the user prompt. <default> is displayed to the user as the default value
+  # and used if no value is provided. If <override_value> is not empty, no user
+  # interaction takes place and <override_value> is printed.
+  if [ "$2" == "" ]; then
+    read -p "$1 [$3]: " value
+    echo "${value:-"$3"}"
+  else
+    echo "$2"
+  fi
+}
+
+sed_all() { # <sed expression>
+  # Execute sed expression on all files except below .git and template
+  find . -not -path './.git*' -and -not -path './template/*' -type f -exec sed -i '' -e "$1" {} \;
+}
+
+################################################################################
+# Pre-User-Input
+################################################################################
+
+# Infer default chassis lib version and extras from setup.cfg
+if [ -e "setup.cfg" ]; then
+  chassis_lib_version_default="$(egrep --color -m1 'ghga-service-chassis-lib\[[^]]*\]==' setup.cfg | sed -e 's/^.*]==\([[:digit:].]*\).*$/\1/')"
+  chassis_lib_extras_default="$(egrep --color -m1 'ghga-service-chassis-lib\[[^]]*\]==' setup.cfg | sed -e 's/^.*ghga-service-chassis-lib\[\([^]]*\)\].*$/\1/')"
+else
+  echo "setup.cfg not found. Are you at the root of the template repository?" >&2
+  exit 1
+fi
+
+# Infer default chassis lib extras
+
+################################################################################
+# Read user input
+################################################################################
+
+# Read user input
+title="$(read_parameter "Title of the microservice" "$MS_TEMPLATE_TITLE" "My Microservice")"
+desc="$(read_parameter "Description of the microservice" "$MS_TEMPLATE_DESC" "A microservice that does great things")"
+name="$(read_parameter "Name of the microservice package" "$MS_TEMPLATE_NAME" "$(echo $title | tr '[:upper:]' '[:lower:]' | sed 's/[ _]/-/g')")"
+chassis_lib_version="$(read_parameter "GHGA chassis lib version" "$MS_TEMPLATE_CHASSIS_LIB_VERSION" "$chassis_lib_version_default")"
+chassis_lib_extras="$(read_parameter "GHGA chassis lib extras" "$MS_TEMPLATE_CHASSIS_LIB_EXTRAS" "$chassis_lib_extras_default")"
+
+# Generate additional parameters
+name_snake_lower="$(echo "$name" | sed 's/-/_/g')"
+name_snake_upper="$(echo "$name_snake_lower" | tr '[:lower:]' '[:upper:]')"
+
+################################################################################
+# Patch files
+################################################################################
+
+sed_all "s/My Microservice/$title/g"
+sed_all "s/my-microservice/$name/g"
+sed_all "s/my_microservice/$name_snake_lower/g"
+sed_all "s/MY_MICROSERVICE/$name_snake_upper/g"
+sed_all "s/My microservice description/$desc/g"
+sed -i '' -e 's/\(ghga-service-chassis-lib.*\)=='"$chassis_lib_version_default"'/\1=='"$chassis_lib_version"/g setup.cfg
+sed -i '' -e "s/ghga-service-chassis-lib\[$chassis_lib_extras_default\]/ghga-service-chassis-lib\[$chassis_lib_extras\]/g" setup.cfg
