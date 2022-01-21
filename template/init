@@ -77,3 +77,9 @@ sed_all "s/MY_MICROSERVICE/$name_snake_upper/g"
 sed_all "s/My microservice description/$desc/g"
 sed -i '' -e 's/\(ghga-service-chassis-lib.*\)=='"$chassis_lib_version_default"'/\1=='"$chassis_lib_version"/g setup.cfg
 sed -i '' -e "s/ghga-service-chassis-lib\[$chassis_lib_extras_default\]/ghga-service-chassis-lib\[$chassis_lib_extras\]/g" setup.cfg
+
+################################################################################
+# Rename module folder
+################################################################################
+
+mv my_microservice/ "$name_snake_lower"/
