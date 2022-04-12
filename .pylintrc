@@ -79,7 +79,7 @@ disable=
       super-init-not-called, # disabled because it falsly triggers when inheriting from
                               # a typing.Protocol (which should not come with an
                               # implementation for __init__)
-      
+
       unnecessary-pass # often thrown in non-suitable places
                        # (e.g. defining custom exception classes)
 
