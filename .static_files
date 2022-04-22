@@ -32,7 +32,6 @@ example_data/README.md
 .gitignore
 .pre-commit-config.yaml
 .pylintrc
-codecov.yml
 
 LICENSE
 requirements.txt
