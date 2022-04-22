@@ -32,7 +32,7 @@ please adapt it accordingly (e.g. replace all occurences of `my-microservice` or
 
 **\# please adapt the links of following badges:**
 ![tests](https://github.com/ghga-de/my-microservice/actions/workflows/unit_and_int_tests.yaml/badge.svg)
-[![codecov](https://codecov.io/gh/ghga-de/my-microservice/branch/main/graph/badge.svg?token=GYH99Y71CK)](https://codecov.io/gh/ghga-de/my-microservice)
+[![Coverage Status](https://coveralls.io/repos/github/ghga-de/my-microservice/badge.svg?branch=main)](https://coveralls.io/github/ghga-de/hexkit?branch=main)
 # My-Microservice
 
 A description explaining the use case of this service.
