@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2.4.2
 
       - id: common
-        uses: ghga-de/gh-action-common@v1.0.1
+        uses: ghga-de/gh-action-common@v1.0.2
 
       - name: Check if config schema is up to date
         run: |
