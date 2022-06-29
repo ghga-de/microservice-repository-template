@@ -25,6 +25,7 @@ scripts/README.md
 
 example_data/README.md
 
+pytest.ini
 .editorconfig
 .flake8
 .gitattributes
