@@ -3,12 +3,8 @@
 
 cd /workspace
 
-
-# install in edit mode
-# use-feature way of installing packages
-# install with testing dependencies
+# install in edit mode with testing dependencies
 pip install \
-    --use-feature=in-tree-build \
     -e \
     ".[all]"
 
