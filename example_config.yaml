@@ -19,4 +19,3 @@ s3_secret_access_key: test
 s3_session_token: null
 service_name: my_microservice
 workers: 1
-
