@@ -5,8 +5,6 @@ cors_allow_credentials: null
 cors_allowed_headers: null
 cors_allowed_methods: null
 cors_allowed_origins: null
-db_print_logs: false
-db_url: postgresql://postgres:postgres@postgres/postgres
 docs_url: /docs
 host: 127.0.0.1
 language: Greek

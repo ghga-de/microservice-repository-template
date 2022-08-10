@@ -49,24 +49,6 @@
       "type": "string",
       "format": "path"
     },
-    "db_url": {
-      "title": "Db Url",
-      "description": "A URL to a PostgreSQL database.",
-      "example": "postgresql://user:password@mydbserver/dbname",
-      "env_names": [
-        "my_microservice_db_url"
-      ],
-      "type": "string"
-    },
-    "db_print_logs": {
-      "title": "Db Print Logs",
-      "description": "Print DB/ORM logs.",
-      "default": false,
-      "env_names": [
-        "my_microservice_db_print_logs"
-      ],
-      "type": "boolean"
-    },
     "service_name": {
       "title": "Service Name",
       "default": "my_microservice",
@@ -245,7 +227,6 @@
     "s3_endpoint_url",
     "s3_access_key_id",
     "s3_secret_access_key",
-    "db_url",
     "rabbitmq_host"
   ],
   "additionalProperties": false
