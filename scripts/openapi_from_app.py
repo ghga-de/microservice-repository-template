@@ -18,7 +18,7 @@
 """Get OpenAPI spec from FastAPI app and write it as yaml to stdout
 
     Usage:
-        `.devcontainer/openapi_from_app.py > openapi.yaml`
+        `scripts/openapi_from_app.py > openapi.yaml`
 """
 
 
