@@ -25,7 +25,7 @@ import yaml
 from script_utils.cli import echo_failure, echo_success
 from script_utils.fastapi_app_location import app
 
-HERE = Path(__file__).parent.absolute().resolve()
+HERE = Path(__file__).parent.resolve()
 REPO_ROOT_DIR = HERE.parent
 OPENAPI_YAML = REPO_ROOT_DIR / "openapi.yaml"
 
