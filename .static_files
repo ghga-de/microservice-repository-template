@@ -21,10 +21,10 @@ scripts/update_config_docs.py
 scripts/check_mandatory_and_static_files.py
 scripts/README.md
 
-.github/workflows/static_code_analysis.yaml
+.github/workflows/check_config_docs.yaml
 .github/workflows/check_mandatory_and_static_files.yaml
+.github/workflows/static_code_analysis.yaml
 .github/workflows/unit_and_int_tests.yaml
-.github/workflows/check_config_schema_and_example.yaml
 
 example_data/README.md
 
