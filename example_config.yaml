@@ -10,7 +10,7 @@ host: 127.0.0.1
 language: Greek
 log_level: info
 openapi_url: /openapi.json
-port: 8080s
+port: 8080
 rabbitmq_host: rabbitmq
 rabbitmq_port: 5672
 s3_access_key_id: test

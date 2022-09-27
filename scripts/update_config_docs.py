@@ -37,9 +37,6 @@ GET_PACKAGE_NAME_SCRIPT = HERE / "get_package_name.py"
 EXAMPLE_CONFIG_YAML = REPO_ROOT_DIR / "example_config.yaml"
 CONFIG_SCHEMA_JSON = REPO_ROOT_DIR / "config_schema.json"
 
-ERROR_MESSAGE_STYLE = typer.style(fg=typer.colors.RED)
-SUCCESS_MESSAGE_STYLE = typer.style(fg=typer.colors.GREEN)
-
 
 class ValidationError(RuntimeError):
     """Raised when validation of config documentation failes."""
@@ -94,11 +91,11 @@ def update_docs():
     options."""
 
     example = get_example()
-    with open(EXAMPLE_CONFIG_YAML, "w") as example_file:
+    with open(EXAMPLE_CONFIG_YAML, "w", encoding="utf-8") as example_file:
         example_file.write(example)
 
     schema = get_schema()
-    with open(CONFIG_SCHEMA_JSON, "w") as schema_file:
+    with open(CONFIG_SCHEMA_JSON, "w", encoding="utf-8") as schema_file:
         schema_file.write(schema)
 
 
@@ -107,7 +104,7 @@ def check_docs():
     options are up to date."""
 
     example_expected = get_example()
-    with open(EXAMPLE_CONFIG_YAML, "r") as example_file:
+    with open(EXAMPLE_CONFIG_YAML, "r", encoding="utf-8") as example_file:
         example_observed = example_file.read()
     if example_expected != example_observed:
         raise ValidationError(
@@ -115,7 +112,7 @@ def check_docs():
         )
 
     schema_expected = get_schema()
-    with open(CONFIG_SCHEMA_JSON, "r") as schema_file:
+    with open(CONFIG_SCHEMA_JSON, "r", encoding="utf-8") as schema_file:
         schema_observed = schema_file.read()
     if schema_expected != schema_observed:
         raise ValidationError(
@@ -123,20 +120,41 @@ def check_docs():
         )
 
 
-def main(check: bool = False):
-    """Update or check config documentation files."""
+def echo_success(message: str):
+    """Print a success message."""
+
+    styled_message = typer.style(text=message, fg=typer.colors.GREEN)
+    typer.echo(styled_message)
+
+
+def echo_failure(message: str):
+    """Print a failure message."""
+
+    styled_message = typer.style(text=message, fg=typer.colors.RED)
+    typer.echo(styled_message)
+
+
+def cli_main(check: bool = False):
+    """Main function to be run by the typer CLI to update or check config documentation
+    files."""
 
     if check:
         try:
             check_docs()
         except ValidationError as error:
-            typer.echo(f"Validation failed: {error}" + )
+            echo_failure(f"Validation failed: {error}")
             sys.exit(1)
-        typer.echo("Config docs are up to date.")
-    else:
-        update_docs()
-        typer.echo("Successfully updated the following config docs.")
+        echo_success("Config docs are up to date.")
+        return
+
+    update_docs()
+    echo_success("Successfully updated the config docs.")
+
+
+def main():
+    """Main function that runs the CLI."""
+    typer.run(cli_main)
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    main()
