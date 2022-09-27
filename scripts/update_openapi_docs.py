@@ -22,9 +22,8 @@ from pathlib import Path
 
 import typer
 import yaml
+from script_utils.cli import echo_failure, echo_success
 from script_utils.fastapi_app_location import app
-
-from scripts.script_utils.cli import echo_failure, echo_success
 
 HERE = Path(__file__).parent.absolute().resolve()
 REPO_ROOT_DIR = HERE.parent
