@@ -14,4 +14,6 @@ jobs:
 
       - name: Check if openapi.yaml is up to date
         run: |
+          export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
+
           ./scripts/update_openapi_docs.py --check
