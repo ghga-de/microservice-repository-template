@@ -29,6 +29,7 @@ from typing import Any, Type
 import typer
 import yaml
 from pydantic import BaseSettings
+from script_utils.cli import echo_failure, echo_success
 
 HERE = Path(__file__).parent.absolute().resolve()
 REPO_ROOT_DIR = HERE.parent
@@ -101,7 +102,11 @@ def update_docs():
 
 def check_docs():
     """Check whether the example config and config schema files documenting the config
-    options are up to date."""
+    options are up to date.
+
+    Raises:
+        ValidationError: if not up to date.
+    """
 
     example_expected = get_example()
     with open(EXAMPLE_CONFIG_YAML, "r", encoding="utf-8") as example_file:
@@ -118,20 +123,6 @@ def check_docs():
         raise ValidationError(
             f"Config schema JSON at '{CONFIG_SCHEMA_JSON}' is not up to date."
         )
-
-
-def echo_success(message: str):
-    """Print a success message."""
-
-    styled_message = typer.style(text=message, fg=typer.colors.GREEN)
-    typer.echo(styled_message)
-
-
-def echo_failure(message: str):
-    """Print a failure message."""
-
-    styled_message = typer.style(text=message, fg=typer.colors.RED)
-    typer.echo(styled_message)
 
 
 def cli_main(check: bool = False):
