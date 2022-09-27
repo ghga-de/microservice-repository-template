@@ -31,7 +31,7 @@ import yaml
 from pydantic import BaseSettings
 from script_utils.cli import echo_failure, echo_success
 
-HERE = Path(__file__).parent.absolute().resolve()
+HERE = Path(__file__).parent.resolve()
 REPO_ROOT_DIR = HERE.parent
 DEV_CONFIG_YAML = REPO_ROOT_DIR / ".devcontainer" / ".dev_config.yaml"
 GET_PACKAGE_NAME_SCRIPT = HERE / "get_package_name.py"
