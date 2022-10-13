@@ -63,7 +63,7 @@ def run():
             local_parent_dir = local_file_path.parent
 
             if not local_parent_dir.exists():
-                os.mkdir(local_parent_dir)
+                local_parent_dir.mkdir(parents=True)
 
             with open(local_file_path, "w", encoding="utf8") as local_file:
                 local_file.write(remote_file_content)
