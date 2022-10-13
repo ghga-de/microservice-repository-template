@@ -19,7 +19,6 @@
 from the microservice template repository over to this repository
 """
 
-import os
 import urllib.parse
 from pathlib import Path
 
