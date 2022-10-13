@@ -19,6 +19,7 @@
 from the microservice template repository over to this repository
 """
 
+import os
 import urllib.parse
 from pathlib import Path
 
@@ -59,6 +60,10 @@ def run():
 
             remote_file_content = remote_file_request.text
             local_file_path = REPO_ROOT_DIR / Path(relative_file_path)
+            local_parent_dir = local_file_path.parent
+
+            if not local_parent_dir.exists():
+                os.mkdir(local_parent_dir)
 
             with open(local_file_path, "w", encoding="utf8") as local_file:
                 local_file.write(remote_file_content)
