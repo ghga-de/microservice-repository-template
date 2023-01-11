@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Udates OpenAPI-based documentation"""
+"""Updates OpenAPI-based documentation"""
 
 import sys
 from pathlib import Path
