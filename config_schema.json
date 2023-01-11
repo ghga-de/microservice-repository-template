@@ -3,78 +3,6 @@
   "description": "Modifies the orginal Settings class provided by the user",
   "type": "object",
   "properties": {
-    "s3_endpoint_url": {
-      "title": "S3 Endpoint Url",
-      "description": "URL to the S3 API.",
-      "example": "http://localhost:4566",
-      "env_names": [
-        "my_microservice_s3_endpoint_url"
-      ],
-      "type": "string"
-    },
-    "s3_access_key_id": {
-      "title": "S3 Access Key Id",
-      "description": "Part of credentials for login into the S3 service. See: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html",
-      "example": "my-access-key-id",
-      "env_names": [
-        "my_microservice_s3_access_key_id"
-      ],
-      "type": "string"
-    },
-    "s3_secret_access_key": {
-      "title": "S3 Secret Access Key",
-      "description": "Part of credentials for login into the S3 service. See: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html",
-      "example": "my-secret-access-key",
-      "env_names": [
-        "my_microservice_s3_secret_access_key"
-      ],
-      "type": "string"
-    },
-    "s3_session_token": {
-      "title": "S3 Session Token",
-      "description": "Part of credentials for login into the S3 service. See: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html",
-      "example": "my-session-token",
-      "env_names": [
-        "my_microservice_s3_session_token"
-      ],
-      "type": "string"
-    },
-    "aws_config_ini": {
-      "title": "Aws Config Ini",
-      "description": "Path to a config file for specifying more advanced S3 parameters. This should follow the format described here: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#using-a-configuration-file",
-      "example": "~/.aws/config",
-      "env_names": [
-        "my_microservice_aws_config_ini"
-      ],
-      "type": "string",
-      "format": "path"
-    },
-    "service_name": {
-      "title": "Service Name",
-      "default": "my_microservice",
-      "env_names": [
-        "my_microservice_service_name"
-      ],
-      "type": "string"
-    },
-    "rabbitmq_host": {
-      "title": "Rabbitmq Host",
-      "description": "Name or IP address of the host running the RabbitMQ broker.",
-      "example": "rabbitmq",
-      "env_names": [
-        "my_microservice_rabbitmq_host"
-      ],
-      "type": "string"
-    },
-    "rabbitmq_port": {
-      "title": "Rabbitmq Port",
-      "description": "Port of the RabbitMQ broker running on the specified host.",
-      "default": 5672,
-      "env_names": [
-        "my_microservice_rabbitmq_port"
-      ],
-      "type": "integer"
-    },
     "host": {
       "title": "Host",
       "description": "IP of the host.",
@@ -208,6 +136,14 @@
         "type": "string"
       }
     },
+    "service_name": {
+      "title": "Service Name",
+      "default": "my_microservice",
+      "env_names": [
+        "my_microservice_service_name"
+      ],
+      "type": "string"
+    },
     "language": {
       "title": "Language",
       "default": "Croatian",
@@ -223,11 +159,5 @@
       "type": "string"
     }
   },
-  "required": [
-    "s3_endpoint_url",
-    "s3_access_key_id",
-    "s3_secret_access_key",
-    "rabbitmq_host"
-  ],
   "additionalProperties": false
 }
