@@ -57,11 +57,11 @@ def get_file_list(list_name: str) -> list[str]:
             if line and line
         ]
     if not list_name.endswith(IGNORE_SUFFIX):
-        list_name += IGNORE_SUFFIX
+        ignore_list_name = list_name + IGNORE_SUFFIX
         try:
-            file_set_ignore = set(get_file_list(list_name))
+            file_set_ignore = set(get_file_list(ignore_list_name))
         except FileNotFoundError:
-            print(f"  - {list_name} is missing, no exceptions from the template")
+            print(f"  - {ignore_list_name} is missing, no exceptions from the template")
         else:
             file_list = [line for line in file_list if line not in file_set_ignore]
     return file_list
