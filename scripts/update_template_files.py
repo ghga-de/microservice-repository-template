@@ -50,12 +50,11 @@ def get_file_list(list_name: str) -> list[str]:
     list_path = REPO_ROOT_DIR / list_name
     with open(list_path, "r", encoding="utf8") as list_file:
         file_list = [
-            line
-            for line in (
+            clean_line
+            for clean_line in (
                 line.rstrip() for line in list_file if not line.startswith("#")
             )
-            if line and line
-        ]
+            if clean_line        ]
     if not list_name.endswith(IGNORE_SUFFIX):
         ignore_list_name = list_name + IGNORE_SUFFIX
         try:
