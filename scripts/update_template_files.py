@@ -131,6 +131,7 @@ def remove_files(files: list[str], check: bool = False) -> bool:
         local_file_path = REPO_ROOT_DIR / Path(relative_file_path)
 
         if local_file_path.exists():
+            ok = False
             if check:
                 print(f"  - {local_file_path}: deprecated, but exists")
             else:
