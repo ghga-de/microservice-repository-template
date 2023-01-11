@@ -16,7 +16,7 @@
 # limitations under the License.
 
 """This script evaluates the entries in .static_files, .mandatory_files and
-.deperecated_files and compares them with the microservice template repository,
+.deprecated_files and compares them with the microservice template repository,
 or verifies their existence or non-existence depending on the list they are in.
 """
 
@@ -54,7 +54,8 @@ def get_file_list(list_name: str) -> list[str]:
             for clean_line in (
                 line.rstrip() for line in list_file if not line.startswith("#")
             )
-            if clean_line        ]
+            if clean_line
+        ]
     if not list_name.endswith(IGNORE_SUFFIX):
         ignore_list_name = list_name + IGNORE_SUFFIX
         try:
