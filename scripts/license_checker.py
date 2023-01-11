@@ -66,6 +66,8 @@ EXCLUDE = [
     ".editorconfig",
     ".static_files",
     ".mandatory_files",
+    ".deprecated_files",
+    ".ignore_files",
 ]
 
 # exclude file by file ending from license header check:
