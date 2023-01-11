@@ -113,9 +113,11 @@ def update_files(files: list[str], diff: bool = False, check: bool = False) -> b
             if not local_parent_dir.exists():
                 local_parent_dir.mkdir(parents=True)
             if diff or not local_file_path.exists():
+                ok = False
                 template_file_content = get_template_file_content(relative_file_path)
                 if template_file_content is None:
                     print(f"  - {local_file_path}: cannot update, remote is missing")
+
                 else:
                     with open(local_file_path, "w", encoding="utf8") as local_file:
                         local_file.write(template_file_content)
@@ -153,6 +155,9 @@ def cli_main(check: bool = False):
 
     print("Static files...")
     files_to_update = get_file_list(STATIC_FILES, files_to_ignore)
+    if check:
+        files_to_update.append(STATIC_FILES)
+    files_to_update.extend((MANDATORY_FILES, DEPRECATED_FILES))
     if not update_files(files_to_update, diff=True, check=check):
         ok = False
 
