@@ -36,9 +36,9 @@ jobs:
           fi
           # set as output:
           echo "commit branch: ${BRANCH}"
-          echo "{branch}=${BRANCH}" >> $GITHUB_OUTPUT
+          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
           echo "commit version: ${VERSION}"
-          echo "{version}=${VERSION}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
   push_to_docker_hub:
     runs-on: ubuntu-latest
