@@ -35,7 +35,7 @@ REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 DEPRECATED_FILES = ".deprecated_files"
 MANDATORY_FILES = ".mandatory_files"
 STATIC_FILES = ".static_files"
-IGNORE_FILES = ".ignore_files"
+IGNORE_SUFFIX = "_ignore"
 RAW_TEMPLATE_URL = (
     "https://raw.githubusercontent.com/ghga-de/microservice-repository-template/main/"
 )
@@ -45,17 +45,26 @@ class ValidationError(RuntimeError):
     """Raised when files need to be updated."""
 
 
-def get_file_list(list_name: str, files_to_ignore: set[str]) -> list[str]:
+def get_file_list(list_name: str) -> list[str]:
     """Return a list of all file names specified in a given list file."""
     list_path = REPO_ROOT_DIR / list_name
     with open(list_path, "r", encoding="utf8") as list_file:
-        return [
+        file_list = [
             line
             for line in (
                 line.rstrip() for line in list_file if not line.startswith("#")
             )
-            if line and line not in files_to_ignore
+            if line and line
         ]
+    if not list_name.endswith(IGNORE_SUFFIX):
+        list_name += IGNORE_SUFFIX
+        try:
+            file_set_ignore = set(get_file_list(list_name))
+        except FileNotFoundError:
+            print(f"  - {list_name} is missing, no exceptions from the template")
+        else:
+            file_list = [line for line in file_list if line not in file_set_ignore]
+    return file_list
 
 
 def get_template_file_content(relative_file_path: str):
@@ -148,13 +157,8 @@ def cli_main(check: bool = False):
     if not check:
         update_files([STATIC_FILES], check=False)
 
-    try:
-        files_to_ignore = set(get_file_list(IGNORE_FILES, set()))
-    except FileNotFoundError:
-        files_to_ignore = set()
-
     print("Static files...")
-    files_to_update = get_file_list(STATIC_FILES, files_to_ignore)
+    files_to_update = get_file_list(STATIC_FILES)
     if check:
         files_to_update.append(STATIC_FILES)
     files_to_update.extend((MANDATORY_FILES, DEPRECATED_FILES))
@@ -162,12 +166,12 @@ def cli_main(check: bool = False):
         ok = False
 
     print("Mandatory files...")
-    files_to_guarantee = get_file_list(MANDATORY_FILES, files_to_ignore)
+    files_to_guarantee = get_file_list(MANDATORY_FILES)
     if not update_files(files_to_guarantee, check=check):
         ok = False
 
     print("Deprecated files...")
-    files_to_remove = get_file_list(DEPRECATED_FILES, files_to_ignore)
+    files_to_remove = get_file_list(DEPRECATED_FILES)
     if not remove_files(files_to_remove, check=check):
         ok = False
 
