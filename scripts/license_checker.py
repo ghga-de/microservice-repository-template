@@ -65,7 +65,7 @@ EXCLUDE = [
     ".pytest_cache",
     ".editorconfig",
     ".static_files",
-    ".static_files_igore",
+    ".static_files_ignore",
     ".mandatory_files",
     ".mandatory_files_ignore",
     ".deprecated_files",
