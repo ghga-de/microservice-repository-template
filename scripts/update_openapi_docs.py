@@ -20,9 +20,8 @@
 import sys
 from pathlib import Path
 
-import typer
 import yaml
-from script_utils.cli import echo_failure, echo_success
+from script_utils.cli import echo_failure, echo_success, run
 from script_utils.fastapi_app_location import app
 
 HERE = Path(__file__).parent.resolve()
@@ -69,9 +68,8 @@ def check_docs():
         )
 
 
-def cli_main(check: bool = False):
-    """Main function to be run by the typer CLI to update or check OpenAPI
-    documentation."""
+def main(check: bool = False):
+    """Update or check the OpenAPI documentation."""
 
     if check:
         try:
@@ -86,10 +84,5 @@ def cli_main(check: bool = False):
     echo_success("Successfully updated the OpenAPI docs.")
 
 
-def main():
-    """Main function that runs the CLI."""
-    typer.run(cli_main)
-
-
 if __name__ == "__main__":
-    main()
+    run(main)
