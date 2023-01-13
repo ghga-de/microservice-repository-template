@@ -13,11 +13,10 @@
 scripts/script_utils/__init__.py
 scripts/script_utils/cli.py
 
-scripts/update_static_files.py
 scripts/license_checker.py
 scripts/get_package_name.py
 scripts/update_config_docs.py
-scripts/check_template_files.py
+scripts/update_template_files.py
 scripts/README.md
 
 .github/workflows/check_config_docs.yaml
