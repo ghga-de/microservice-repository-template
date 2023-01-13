@@ -25,3 +25,5 @@ RUN apt update \
 # Copy install and launcher script to bin:
 COPY ./dev_install /bin
 COPY ./dev_launcher /bin
+
+CMD ["sleep", "infinity"]

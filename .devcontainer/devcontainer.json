@@ -73,7 +73,9 @@
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"version": "latest",
-			"moby": true
+			"enableNonRootDocker": "true",
+			"moby": true,
+			"azureDnsAutoDetection": false
 		}
 	}
 }
