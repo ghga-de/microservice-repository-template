@@ -239,7 +239,7 @@ def main(check: bool = False):
         echo_success("Successfully validated files from template.")
     else:
         echo_success(
-            "The files from the template have been updated."
+            "Successfully updated files from template."
             if updated
             else "No updates from the template were necessary."
         )
