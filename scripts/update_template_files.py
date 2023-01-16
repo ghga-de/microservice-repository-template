@@ -232,15 +232,17 @@ def main(check: bool = False):
     if remove_files(files_to_remove, check=check):
         updated = True
 
-    if updated and check:
-        echo_failure("Validating the template files failed.")
-        sys.exit(1)
-
-    echo_success(
-        "Successfully validated the template files."
-        if check
-        else "Successfully updated the template files."
-    )
+    if check:
+        if updated:
+            echo_failure("Validating the files from the template failed.")
+            sys.exit(1)
+        echo_success("Successfully validated the files from the template.")
+    else:
+        echo_success(
+            "The files from the template have been updated."
+            if updated
+            else "No updates from the template were necessary."
+        )
 
 
 if __name__ == "__main__":
