@@ -236,7 +236,7 @@ def main(check: bool = False):
         if updated:
             echo_failure("Validating files from template failed.")
             sys.exit(1)
-        echo_success("Successfully validated the files from the template.")
+        echo_success("Successfully validated files from template.")
     else:
         echo_success(
             "The files from the template have been updated."
