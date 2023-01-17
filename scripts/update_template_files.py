@@ -152,9 +152,10 @@ def update_file(relative_file_path: str, diff: bool = False) -> bool:
             print(f"  - {local_file_path}: cannot update, remote is missing")
             return True
 
-        with open(local_file_path, "r", encoding="utf8") as file:
-            if file.read() == template_file_content:
-                return False
+        if diff and local_file_path.exists():
+            with open(local_file_path, "r", encoding="utf8") as file:
+                if file.read() == template_file_content:
+                    return False
 
         executable = template_file_content.startswith("#!")
         executable_flags = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
