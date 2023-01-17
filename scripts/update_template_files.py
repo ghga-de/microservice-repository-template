@@ -213,7 +213,7 @@ def main(check: bool = False):
     """Update the static files in the service template."""
     updated = False
     if not check:
-        update_files([STATIC_FILES], check=False)
+        update_files([STATIC_FILES], diff=True, check=False)
 
     print("Static files...")
     files_to_update = get_file_list(STATIC_FILES)
