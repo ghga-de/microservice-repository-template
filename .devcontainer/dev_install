@@ -3,6 +3,8 @@
 
 cd /workspace
 
+git config --global --add safe.directory /workspace
+
 # install in edit mode with testing dependencies
 pip install \
     -e \
