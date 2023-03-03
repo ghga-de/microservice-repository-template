@@ -84,6 +84,7 @@ EXCLUDE_ENDINGS = [
     "xml",
     "yaml",
     "yml",
+    "jinja",
 ]
 
 # exclude any files with names that match any of the following regex:
