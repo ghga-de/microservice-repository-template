@@ -15,6 +15,7 @@ jobs:
 
       - name: Run pytest
         run: |
+          pip install -r requirements-dev.txt
           export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
           pytest \
             --cov="${{ steps.common.outputs.MAIN_SRC_DIR }}" \
@@ -25,5 +26,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip3 install --upgrade coveralls
+          pip install --upgrade coveralls
           coveralls --service=github
