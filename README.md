@@ -26,7 +26,8 @@ that need modification. Once the adaptions are in place, please remove these #
 comments.
 
 The following should serve as a template for the final repo's README,
-please adapt it accordingly (e.g. replace all occurences of `my-microservice` or `my_microservice` with the final package name and don't forget to adapt the links):
+please adapt it accordingly (e.g. replace all occurrences of `my-microservice` or `my_microservice`
+with the final package name and don't forget to adapt the links):
 
 ---
 
@@ -62,7 +63,7 @@ For production-ready deployment, we recommend using Kubernetes, however,
 for simple use cases, you could execute the service using docker
 on a single server:
 ```bash
-# The entrypoint is preconfigured:
+# The entrypoint is pre-configured:
 docker run -p 8080:8080 ghga/my-microservice:<version>
 ```
 
@@ -112,7 +113,7 @@ Then open this repository in vscode and run the command
 This will give you a full-fledged, pre-configured development environment including:
 - infrastructural dependencies of the service (databases, etc.)
 - all relevant vscode extensions pre-installed
-- pre-configured linting and auto-formating
+- pre-configured linting and auto-formatting
 - a pre-configured debugger
 - automatic license-header insertion
 
