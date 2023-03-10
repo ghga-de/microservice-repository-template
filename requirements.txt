@@ -1,4 +1,4 @@
 # requirements for complete installation
 
-# the "." states that requirements are taken from setup.cfg
+# the ".[all]" states that requirements including the "all" extra are taken from setup.cfg
 .[all]
