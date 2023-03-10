@@ -9,7 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ghga-de/gh-action-common@v2
+      - id: common
+        uses: ghga-de/gh-action-common@v2
 
       - uses: pre-commit/action@v3.0.0
         env:
@@ -25,13 +26,13 @@ jobs:
           mypy .
       - name: pylint
         run: |
-          pylint "${{ steps.main_src_dir.outputs.MAIN_SRC_DIR }}"
+          pylint "${{ steps.common.outputs.MAIN_SRC_DIR }}"
       - name: flake8
         run: |
           flake8 --config .flake8
       - name: bandit
         run: |
-          bandit -r "${{ steps.main_src_dir.outputs.MAIN_SRC_DIR }}"
+          bandit -r "${{ steps.common.outputs.MAIN_SRC_DIR }}"
       - name: Check license header and file
         run: |
           ./scripts/license_checker.py
