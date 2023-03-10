@@ -11,11 +11,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - id: common
-        uses: ghga-de/gh-action-common@v1.0.3
+        uses: ghga-de/gh-action-common@v2
 
       - name: Run pytest
         run: |
-          pip install -r requirements-dev.txt
           export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
           pytest \
             --cov="${{ steps.common.outputs.MAIN_SRC_DIR }}" \

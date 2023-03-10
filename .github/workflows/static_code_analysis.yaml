@@ -8,18 +8,9 @@ jobs:
     name: Static Code Analysis
     steps:
       - uses: actions/checkout@v3
-      - name: Retrieve main src dir
-        id: main_src_dir
-        run: |
-          echo "MAIN_SRC_DIR=${PWD}/$(./scripts/get_package_name.py)" >> $GITHUB_OUTPUT
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-      - name: Install Dependencies
-        run: |
-          pip install .
-          pip install -r requirements-dev.txt
+
+      - uses: ghga-de/gh-action-common@v2
+
       - uses: pre-commit/action@v3.0.0
         env:
           SKIP: no-commit-to-branch

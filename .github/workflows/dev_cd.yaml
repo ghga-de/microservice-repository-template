@@ -15,7 +15,7 @@ jobs:
       version: ${{ steps.get_commit_version.outputs.version }}
       branch: ${{ steps.get_commit_version.outputs.branch }}
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3
         name: Check out code
         with:
           # fetch the entire history
