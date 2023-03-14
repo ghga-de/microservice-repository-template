@@ -38,5 +38,5 @@ pytest.ini
 
 LICENSE
 requirements.txt
-requirements-dev.txt
+requirements-dev-common.txt
 setup.py
