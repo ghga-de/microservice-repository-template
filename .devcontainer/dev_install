@@ -8,11 +8,11 @@ git config --global --add safe.directory /workspace
 # upgrade pip
 python -m pip install --upgrade pip
 
-# install in edit mode with testing dependencies
-pip install -e .
+# install with all extras in editable mode
+pip install -r requirements.txt
 
-# install dev dependencies
+# install dependencies for development and testing
 pip install -r requirements-dev.txt
 
-# install pre-commit hooks to git:
+# install pre-commit hooks to git
 pre-commit install
