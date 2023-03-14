@@ -28,6 +28,4 @@ LICENSE
 README.md
 setup.py
 setup.cfg
-requirements.txt
 requirements-dev.txt
-requirements-dev-common.txt
