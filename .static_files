@@ -8,6 +8,7 @@
 # your repo by running the script at:
 # ./scripts/update_static_files.py
 
+.devcontainer/dev_install
 .devcontainer/license_header.txt
 .devcontainer/Dockerfile
 
