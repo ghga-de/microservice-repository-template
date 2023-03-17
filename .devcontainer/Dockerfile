@@ -1,19 +1,44 @@
-FROM mcr.microsoft.com/vscode/devcontainers/python:3.9-bullseye
+# Copyright 2021 - 2023 Universität Tübingen, DKFZ, EMBL, and Universität zu Köln
+# for the German Human Genome-Phenome Archive (GHGA)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-ENV PYTHONUNBUFFERED 1
+## creating building container
+FROM python:3.10-slim AS builder
+# update and install dependencies
+RUN apt update
+RUN apt upgrade -y
+RUN pip install build
+# copy code
+COPY . /service
+WORKDIR /service
+# build wheel
+RUN python -m build
 
-# Update args in docker-compose.yaml to set the UID/GID of the "vscode" user.
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-RUN if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then groupmod --gid $USER_GID vscode && usermod --uid $USER_UID --gid $USER_GID vscode; fi
-
-# [Option] Install Node.js
-ARG INSTALL_NODE="true"
-ARG NODE_VERSION="lts/*"
-RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
-
-# Copy install and launcher script to bin:
-COPY ./dev_install /bin
-COPY ./dev_launcher /bin
-
-CMD ["sleep", "infinity"]
+# creating running container
+FROM python:3.10-slim
+# update and install dependencies
+RUN apt update
+RUN apt upgrade -y
+# copy and install wheel
+WORKDIR /service
+COPY --from=builder /service/dist/ /service
+RUN pip install *.whl
+# create new user and execute as that user
+RUN useradd --create-home appuser
+WORKDIR /home/appuser
+USER appuser
+# set environment
+ENV PYTHONUNBUFFERED=1
+# Please adapt to package name:
+ENTRYPOINT ["my-microservice"]
