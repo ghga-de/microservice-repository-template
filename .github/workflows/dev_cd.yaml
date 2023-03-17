@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "main"
-      - "fix/dev_cd"
+      - "fix_dev_cd"
       # you may add other branches to
       # activate deployment for them, too.
 
