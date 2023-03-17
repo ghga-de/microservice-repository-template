@@ -26,7 +26,7 @@ WORKDIR /service
 RUN python -m build
 
 # creating running container
-FROM python:3.10.9-slim-bullseye AS builder
+FROM python:3.10.9-slim-bullseye
 # update and install dependencies
 RUN apt update
 RUN apt upgrade -y
