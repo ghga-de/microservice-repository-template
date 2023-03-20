@@ -14,7 +14,6 @@
 
 scripts/script_utils/__init__.py
 scripts/script_utils/cli.py
-scripts/script_utils/fastapi_app_location.py
 
 scripts/license_checker.py
 scripts/get_package_name.py

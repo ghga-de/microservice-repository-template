@@ -19,6 +19,8 @@ example_data
 tests/__init__.py
 tests/fixtures/__init__.py
 
+scripts/script_utils/fastapi_app_location.py
+
 Dockerfile
 config_schema.json
 example_config.yaml

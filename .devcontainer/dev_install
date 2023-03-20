@@ -3,8 +3,6 @@
 
 cd /workspace
 
-git config --global --add safe.directory /workspace
-
 # upgrade pip
 python -m pip install --upgrade pip
 
