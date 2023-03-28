@@ -20,7 +20,7 @@ Additional endpoints might be structured in dedicated modules
 """
 
 from fastapi import Depends, FastAPI
-from ghga_service_chassis_lib.api import configure_app
+from ghga_service_commons.api import configure_app
 
 from ..config import CONFIG
 from ..core.greeting import generate_greeting
