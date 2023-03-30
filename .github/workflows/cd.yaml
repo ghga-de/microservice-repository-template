@@ -16,9 +16,9 @@ jobs:
         name: Check out code
 
       - uses: actions/setup-python@v4
-        name: Set up Python 3.x
+        name: Set up Python 3.9
         with:
-          python-version: "3.x"
+          python-version: "3.9"
 
       - id: get_version_tag
         name: Get version tag
@@ -32,7 +32,7 @@ jobs:
         name: Verify tag format
         # format must be compatible with semantic versioning
         run: |
-          SEMVER_REGEX="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(\-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$"
+          SEMVER_REGEX="^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
           if echo "${{ steps.get_version_tag.outputs.version }}" | grep -Eq "$SEMVER_REGEX"; then
             echo "Tag format is valid"
           else
@@ -92,29 +92,29 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-  ## Please uncomment and adapt the DEPLOYMENT_CONFIG_REPO to trigger automatic
-  ## updates of helm charts:
-  # update_deployment_repo:
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - verify_version
-  #     - push_to_docker_hub
-  #   env:
-  #     DEPLOYMENT_CONFIG_REPO: ghga-de/helm
-  #   steps:
-  #     - name: trigger update in deployment repo
-  #       run: |
-  #         # access token needs to be of format: <username>:<personal_access_token>
-  #         curl -X POST \
-  #           "https://api.github.com/repos/${DEPLOYMENT_CONFIG_REPO}/dispatches" \
-  #           -H 'Accept: application/vnd.github.everest-preview+json' \
-  #           -u '${{ secrets.DEPLOYMENT_UPDATE_TOKEN }}' \
-  #           --data '{
-  #             "event_type": "new_app_version",
-  #             "client_payload": {
-  #               "deploy_filename": "${{ github.event.repository.name }}",
-  #               "app_name": "${{ github.event.repository.name }}",
-  #               "context": "${{ needs.verify_version.outputs.version }}",
-  #               "new_image_tag": "${{ needs.verify_version.outputs.version }}"
-  #             }
-  #           }'
+  # Please uncomment and adapt the DEPLOYMENT_CONFIG_REPO to trigger automatic
+  # updates of helm charts:
+  update_deployment_repo:
+    runs-on: ubuntu-latest
+    needs:
+      - verify_version
+      - push_to_docker_hub
+    env:
+      DEPLOYMENT_CONFIG_REPO: ghga-de/helm
+    steps:
+      - name: trigger update in deployment repo
+        run: |
+          # access token needs to be of format: <username>:<personal_access_token>
+          curl -X POST \
+            "https://api.github.com/repos/${DEPLOYMENT_CONFIG_REPO}/dispatches" \
+            -H 'Accept: application/vnd.github.everest-preview+json' \
+            -u '${{ secrets.DEPLOYMENT_UPDATE_TOKEN }}' \
+            --data '{
+              "event_type": "new_app_version",
+              "client_payload": {
+                "deploy_filename": "${{ github.event.repository.name }}",
+                "app_name": "${{ github.event.repository.name }}",
+                "context": "${{ needs.verify_version.outputs.version }}",
+                "new_image_tag": "${{ needs.verify_version.outputs.version }}"
+              }
+            }'
