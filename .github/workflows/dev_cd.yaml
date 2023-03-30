@@ -1,49 +1,60 @@
 name: Dev CD
 
 on:
-  push:
-    branches:
-      - "main"
-      # you may add other branches to
-      # activate deployment for them, too.
-  workflow_dispatch: {}
+  release:
+    types: [published]
+      # trigger only on new release
 
 jobs:
-  get_commit_version:
+  verify_version:
     runs-on: ubuntu-latest
     outputs:
       # export to be used in other jobs
-      version: ${{ steps.get_commit_version.outputs.version }}
-      branch: ${{ steps.get_commit_version.outputs.branch }}
+      version: ${{ steps.get_version_tag.outputs.version }}
     steps:
       - uses: actions/checkout@v3
         name: Check out code
-        with:
-          # fetch the entire history
-          fetch-depth: 0
 
-      - id: get_commit_version
-        name: get commit version
+      - uses: actions/setup-python@v4
+        name: Set up Python 3.x
+        with:
+          python-version: "3.x"
+
+      - id: get_version_tag
+        name: Get version tag
         run: |
-          BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-          if git describe --tags
-          then
-            VERSION="$(git describe --tags)-${BRANCH}"
-          else
-            # fallback if no tag set yet:
-            COMMIT_HASH="$(git rev-parse --short HEAD)"
-            COMMIT_NUMBER="$(git rev-list --count HEAD)"
-            VERSION="0.0.0-${COMMIT_NUMBER}-${COMMIT_HASH}-${BRANCH}"
-          fi
+          TAG_VER="${GITHUB_REF##*/}"
           # set as output:
-          echo "commit branch: ${BRANCH}"
-          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
-          echo "commit version: ${VERSION}"
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "version: ${TAG_VER}"
+          echo "version=${TAG_VER}" >> $GITHUB_OUTPUT
+
+      - id: verify_semantic_tag_format
+        name: Verify tag format
+        # format must be compatible with semantic versioning
+        run: |
+          SEMVER_REGEX="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(\-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$"
+          if echo "${{ steps.get_version_tag.outputs.version }}" | grep -Eq "$SEMVER_REGEX"; then
+            echo "Tag format is valid"
+          else
+            echo "Invalid tag format: ${{ steps.get_version_tag.outputs.version }}"
+            exit 1
+          fi
+
+      - id: verify_package_version
+        name: Verify package version vs tag version
+        # package version must be same with tag version
+        run: |
+          PKG_VER="$(python setup.py --version)"
+          echo "Package version is $PKG_VER" >&2
+          echo "Tag version is ${{ steps.get_version_tag.outputs.version }}" >&2
+          if [ "$PKG_VER" != "${{ steps.get_version_tag.outputs.version }}" ]; then
+            echo "Package version and tag name mismatch." >&2
+            exit 1
+          fi
 
   push_to_docker_hub:
     runs-on: ubuntu-latest
-    needs: get_commit_version
+    needs: verify_version
     steps:
       - uses: actions/checkout@v3
         name: Check out code
@@ -66,12 +77,12 @@ jobs:
         with:
           push: true
           #       platforms: linux/amd64,linux/arm64/v8
-          tags: "ghga/${{ github.event.repository.name }}:${{ needs.get_commit_version.outputs.version }},ghga/${{ github.event.repository.name }}:${{ needs.get_commit_version.outputs.branch }}"
+          tags: "ghga/${{ github.event.repository.name }}:${{ needs.verify_version.outputs.version }}"
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "docker.io/ghga/${{ github.event.repository.name }}:${{ needs.get_commit_version.outputs.version }}"
+          image-ref: "docker.io/ghga/${{ github.event.repository.name }}:${{ needs.verify_version.outputs.version }}"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
@@ -86,7 +97,7 @@ jobs:
   # update_deployment_repo:
   #   runs-on: ubuntu-latest
   #   needs:
-  #     - get_commit_version
+  #     - verify_version
   #     - push_to_docker_hub
   #   env:
   #     DEPLOYMENT_CONFIG_REPO: ghga-de/helm
@@ -103,7 +114,7 @@ jobs:
   #             "client_payload": {
   #               "deploy_filename": "${{ github.event.repository.name }}",
   #               "app_name": "${{ github.event.repository.name }}",
-  #               "context": "${{ needs.get_commit_version.outputs.branch }}",
-  #               "new_image_tag": "${{ needs.get_commit_version.outputs.version }}"
+  #               "context": "${{ needs.verify_version.outputs.version }}",
+  #               "new_image_tag": "${{ needs.verify_version.outputs.version }}"
   #             }
   #           }'
