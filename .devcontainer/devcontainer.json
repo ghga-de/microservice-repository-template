@@ -42,6 +42,9 @@
 				"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
 				"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
 				"python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
+				"python.testing.pytestArgs": [
+					"--profile"
+				],
 				"python.testing.unittestEnabled": false,
 				"python.testing.pytestEnabled": true,
 				"editor.formatOnSave": true,
