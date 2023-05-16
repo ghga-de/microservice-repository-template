@@ -15,7 +15,7 @@ This repo is a template for creating a new microservice.
 The directories, files, and their structure herein are recommendations
 from the GHGA Dev Team.
 
-## Naming Conventions
+### Naming Conventions
 The github repository contains only lowercase letters, numbers, and hyphens "-",
 e.g.: `my-microservice`
 
@@ -23,7 +23,7 @@ The python package (and thus the source repository) contains underscores "_"
 instead of hyphens, e.g.: `my_microservice`
 However, an abbreviated version is prefered as package name.
 
-## Adapt to your service
+### Adapt to your service
 This is just a template and needs some adaption to your specific use case.
 
 Please search for **"please adapt"** comments. They will indicate all locations
