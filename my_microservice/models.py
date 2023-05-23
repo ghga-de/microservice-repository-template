@@ -16,9 +16,13 @@
 """Defines dataclasses for holding business-logic data"""
 
 from datetime import datetime
-from typing import Literal
 
 from pydantic import BaseModel, Field
+
+try:  # workaround for https://github.com/pydantic/pydantic/issues/5821
+    from typing_extensions import Literal
+except ImportError:
+    from typing import Literal  # type: ignore
 
 SupportedLanguages = Literal["Greek", "Croatian", "French", "German"]
 
