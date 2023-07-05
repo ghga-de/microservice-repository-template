@@ -20,32 +20,32 @@
 
 try:
     from scripts.update_template_files import main as update_template
-
-    print("Pulling in updates from template repository")
-    update_template()
 except ImportError:
     pass
+else:
+    print("Pulling in updates from template repository")
+    update_template()
 
 try:
     from scripts.update_config_docs import main as update_config
-
-    print("Updating config docs")
-    update_config()
 except ImportError:
     pass
+else:
+    print("Updating config docs")
+    update_config()
 
 try:
     from scripts.update_openapi_docs import main as update_openapi
-
-    print("Updating OpenAPI docs")
-    update_openapi()
 except ImportError:
     pass
+else:
+    print("Updating OpenAPI docs")
+    update_openapi()
 
 try:
     from scripts.update_readme import main as update_readme
-
-    print("Updating README")
-    update_readme()
 except ImportError:
     pass
+else:
+    print("Updating README")
+    update_readme()
