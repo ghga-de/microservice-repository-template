@@ -23,7 +23,7 @@ try:
 
     print("Pulling in updates from template repository")
     update_template()
-except ModuleNotFoundError:
+except ImportError:
     pass
 
 try:
@@ -31,7 +31,7 @@ try:
 
     print("Updating config docs")
     update_config()
-except ModuleNotFoundError:
+except ImportError:
     pass
 
 try:
@@ -39,7 +39,7 @@ try:
 
     print("Updating OpenAPI docs")
     update_openapi()
-except ModuleNotFoundError:
+except ImportError:
     pass
 
 try:
@@ -47,7 +47,7 @@ try:
 
     print("Updating README")
     update_readme()
-except ModuleNotFoundError:
+except ImportError:
     pass
 
 try:
@@ -55,5 +55,5 @@ try:
 
     print("Checking license headers")
     check_license_headers()
-except ModuleNotFoundError:
+except ImportError:
     pass
