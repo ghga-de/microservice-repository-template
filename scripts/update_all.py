@@ -49,3 +49,11 @@ try:
     update_readme()
 except ModuleNotFoundError:
     pass
+
+try:
+    from scripts.license_checker import run as check_license_headers
+
+    print("Checking license headers")
+    check_license_headers()
+except ModuleNotFoundError:
+    pass
