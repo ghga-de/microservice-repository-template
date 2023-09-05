@@ -1,0 +1,10 @@
+name: Continuous Integration Workflow Dispatch 
+
+on: workflow_dispatch
+
+jobs:   
+  push_to_docker_hub:
+    uses: ghga/helmfile-templates/.github/workflows/ci-reusable-workflow.yml@add-ci-reusable-workflow
+    with:
+      tag: ${{ github.ref_name }}-${{ github.sha }}
+    secrets: inherit
