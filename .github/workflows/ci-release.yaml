@@ -1,4 +1,4 @@
-name: Continuous Integration Release 
+name: Continuous Integration Release
 
 on:
   release:
