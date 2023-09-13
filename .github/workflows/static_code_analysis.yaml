@@ -24,12 +24,7 @@ jobs:
       - name: mypy
         run: |
           mypy .
-      - name: pylint
-        run: |
-          pylint "${{ steps.common.outputs.MAIN_SRC_DIR }}"
-      - name: flake8
-        run: |
-          flake8 --config .flake8
+      - uses: chartboost/ruff-action@v1
       - name: bandit
         run: |
           bandit -r "${{ steps.common.outputs.MAIN_SRC_DIR }}"
