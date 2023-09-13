@@ -51,6 +51,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 prof/
+.ruff_cache/
 
 # Translations
 *.mo
