@@ -1,0 +1,23 @@
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+ignore = [
+    "E",
+    "W",
+]
+
+line-length = 100
+
+select = [
+    "C9",
+    "E",
+    "F",
+    "W",
+]
+
+[mccabe]
+max-complexity = 10
