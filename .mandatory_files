@@ -19,9 +19,8 @@ Dockerfile
 config_schema.json
 example_config.yaml
 LICENSE
+pyproject.toml
 README.md
-setup.py
-setup.cfg
 requirements-dev.txt
 
 .description.md
