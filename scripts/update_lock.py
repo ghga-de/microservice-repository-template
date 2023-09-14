@@ -65,12 +65,12 @@ def remove_self_dependencies(pyproject: dict) -> dict:
     if not package_name:
         raise ValueError("The provided project metadata does not contain a name.")
 
-    if project_metadata["dependencies"]:
+    if "dependencies" in project_metadata:
         project_metadata["dependencies"] = exclude_from_dependency_list(
             package_name=package_name, dependencies=project_metadata["dependencies"]
         )
 
-    if project_metadata["optional-dependencies"]:
+    if "optional-dependencies" in project_metadata:
         for group in project_metadata["optional-dependencies"]:
             project_metadata["optional-dependencies"][
                 group
@@ -82,17 +82,24 @@ def remove_self_dependencies(pyproject: dict) -> dict:
     return modified_pyproject
 
 
-def compile_lock_file(sources: list[Path], output: Path) -> None:
+def compile_lock_file(sources: list[Path], output: Path, extras: bool = False) -> None:
     """From the specified sources compile a lock file using pip-compile from pip-tools
     and write it to the specified output location.
     """
+
+    print(f"Updating file at '{output}'...")
 
     command = [
         "pip-compile",
         "--rebuild",
         "--generate-hashes",
         "--annotate",
-        "--all-extras",
+    ]
+
+    if extras:
+        command.append("--all-extras")
+
+    command += [
         "--output-file",
         str(output.absolute()),
     ] + [str(source.absolute()) for source in sources]
@@ -105,7 +112,7 @@ def compile_lock_file(sources: list[Path], output: Path) -> None:
         process.communicate()
         if process.wait() != 0:
             stdout = process.stdout
-            log = stdout.read().decode("utf-8") if stdout else "no log awailable."
+            log = stdout.read().decode("utf-8") if stdout else "no log available."
             raise RuntimeError(f"Failed to compile lock file:\n{log}")
 
 
@@ -126,6 +133,8 @@ def main():
 
     modified_pyproject = remove_self_dependencies(pyproject)
 
+    extras = "optional-dependencies" in modified_pyproject["project"]
+
     with TemporaryDirectory() as temp_dir:
         os.chdir(temp_dir)
 
@@ -133,10 +142,13 @@ def main():
         with open(modified_pyproject_path, "wb") as modified_pyproject_toml:
             tomli_w.dump(modified_pyproject, modified_pyproject_toml)
 
-        compile_lock_file(sources=[modified_pyproject_path], output=OUTPUT_LOCK_PATH)
+        compile_lock_file(
+            sources=[modified_pyproject_path], output=OUTPUT_LOCK_PATH, extras=extras
+        )
         compile_lock_file(
             sources=[modified_pyproject_path, DEV_COMMON_DEPS_PATH],
             output=OUTPUT_DEV_LOCK_PATH,
+            extras=extras,
         )
 
     cli.echo_success(
