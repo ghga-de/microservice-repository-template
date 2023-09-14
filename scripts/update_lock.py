@@ -133,7 +133,10 @@ def main():
 
     modified_pyproject = remove_self_dependencies(pyproject)
 
-    extras = "optional-dependencies" in modified_pyproject["project"]
+    extras = (
+        "optional-dependencies" in modified_pyproject["project"]
+        and modified_pyproject["project"]["optional-dependencies"]
+    )
 
     with TemporaryDirectory() as temp_dir:
         os.chdir(temp_dir)
