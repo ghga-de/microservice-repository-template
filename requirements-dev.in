@@ -4,3 +4,8 @@
 
 # additional requirements can be listed here
 testcontainers[kafka,mongo]==3.4.1
+
+# requirements for development and testing this service
+
+# common requirements for development and testing
+-r requirements-dev-common.in
