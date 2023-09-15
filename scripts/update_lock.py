@@ -51,7 +51,7 @@ def exclude_from_dependency_list(*, package_name: str, dependencies: list) -> li
 
 def remove_self_dependencies(pyproject: dict) -> dict:
     """Filter out self dependencies (dependencies of the package on it self) from the
-    dependencies and optional-depenendencies in the provided pyproject metadata."""
+    dependencies and optional-dependencies in the provided pyproject metadata."""
 
     if not "project" in pyproject:
         return pyproject
@@ -82,7 +82,12 @@ def remove_self_dependencies(pyproject: dict) -> dict:
     return modified_pyproject
 
 
-def compile_lock_file(sources: list[Path], output: Path, extras: bool = False) -> None:
+def compile_lock_file(
+    sources: list[Path],
+    output: Path,
+    upgrade: bool,
+    extras: bool,
+) -> None:
     """From the specified sources compile a lock file using pip-compile from pip-tools
     and write it to the specified output location.
     """
@@ -95,6 +100,9 @@ def compile_lock_file(sources: list[Path], output: Path, extras: bool = False) -
         "--generate-hashes",
         "--annotate",
     ]
+
+    if upgrade:
+        command.append("--upgrade")
 
     if extras:
         command.append("--all-extras")
@@ -109,14 +117,13 @@ def compile_lock_file(sources: list[Path], output: Path, extras: bool = False) -
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     ) as process:
-        process.communicate()
+        stdout_data, _ = process.communicate()
         if process.wait() != 0:
-            stdout = process.stdout
-            log = stdout.read().decode("utf-8") if stdout else "no log available."
+            log = stdout_data.decode("utf-8") if stdout_data else "no log available."
             raise RuntimeError(f"Failed to compile lock file:\n{log}")
 
 
-def main():
+def main(upgrade: bool = False):
     """Update the dependency lock files located at 'requirements.txt' and
     'requirements-dev.txt'.
 
@@ -126,6 +133,9 @@ def main():
 
     For the 'requirements-dev.txt', in addition to the filtered 'pyproject.toml' the
     'requirements-dev.in' is considered.
+
+    The `upgrade` parameter can be used to indicate that dependencies found in existing
+    lock files should be upgraded. Default pip-compile behavior is to leave them as is.
     """
 
     with open(PYPROJECT_TOML_PATH, "rb") as pyproject_toml:
@@ -146,11 +156,15 @@ def main():
             tomli_w.dump(modified_pyproject, modified_pyproject_toml)
 
         compile_lock_file(
-            sources=[modified_pyproject_path], output=OUTPUT_LOCK_PATH, extras=extras
+            sources=[modified_pyproject_path],
+            output=OUTPUT_LOCK_PATH,
+            upgrade=upgrade,
+            extras=extras,
         )
         compile_lock_file(
-            sources=[modified_pyproject_path, DEV_COMMON_DEPS_PATH],
+            sources=[modified_pyproject_path, DEV_DEPS_PATH],
             output=OUTPUT_DEV_LOCK_PATH,
+            upgrade=upgrade,
             extras=extras,
         )
 
