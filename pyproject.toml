@@ -33,3 +33,7 @@ dependencies = [
 
 [project.urls]
 Repository = "https://github.com/ghga-de/my-microservice"
+
+
+[tool.setuptools.packages.find]
+where = ["src"]

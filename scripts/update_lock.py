@@ -155,6 +155,9 @@ def main(upgrade: bool = False):
         with open(modified_pyproject_path, "wb") as modified_pyproject_toml:
             tomli_w.dump(modified_pyproject, modified_pyproject_toml)
 
+        # make src dir next to TOML to satisfy build system
+        os.makedirs(Path(temp_dir) / "src")
+
         compile_lock_file(
             sources=[modified_pyproject_path],
             output=OUTPUT_LOCK_PATH,
