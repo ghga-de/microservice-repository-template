@@ -21,6 +21,7 @@
 """
 
 import os
+import re
 import subprocess
 from copy import deepcopy
 from pathlib import Path
@@ -82,6 +83,27 @@ def remove_self_dependencies(pyproject: dict) -> dict:
     return modified_pyproject
 
 
+def fix_temp_dir_comments(file_path: Path):
+    """Fix the temp_dir comments so they don't cause a noisy diff
+
+    This will leave the top compile message intact as a point of sanity to verify that
+    the requirements are indeed being generated if nothing else changes.
+    """
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+
+    with open(file_path, "w", encoding="utf-8") as file:
+        for line in lines:
+            # Remove random temp directory name
+            line = re.sub(
+                r"via ([\w-]+).*?pyproject\.toml\)",
+                lambda match: f"via {match.group(1)} (pyproject.toml)",
+                line,
+            )
+            file.write(line)
+
+
 def compile_lock_file(
     sources: list[Path],
     output: Path,
@@ -121,6 +143,8 @@ def compile_lock_file(
         if process.wait() != 0:
             log = stdout_data.decode("utf-8") if stdout_data else "no log available."
             raise RuntimeError(f"Failed to compile lock file:\n{log}")
+
+    fix_temp_dir_comments(output.absolute())
 
 
 def main(upgrade: bool = False):
