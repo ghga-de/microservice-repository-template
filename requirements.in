@@ -1,0 +1,2 @@
+# constrain production-only dependency builds
+-c requirements-dev.txt

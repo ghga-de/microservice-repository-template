@@ -34,8 +34,8 @@ from script_utils import cli
 REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 
 PYPROJECT_TOML_PATH = REPO_ROOT_DIR / "pyproject.toml"
-DEV_COMMON_DEPS_PATH = REPO_ROOT_DIR / "requirements-dev-common.in"
 DEV_DEPS_PATH = REPO_ROOT_DIR / "requirements-dev.in"
+PROD_DEPS_PATH = REPO_ROOT_DIR / "requirements.in"
 OUTPUT_LOCK_PATH = REPO_ROOT_DIR / "requirements.txt"
 OUTPUT_DEV_LOCK_PATH = REPO_ROOT_DIR / "requirements-dev.txt"
 
@@ -182,15 +182,18 @@ def main(upgrade: bool = False):
         # make src dir next to TOML to satisfy build system
         os.makedirs(Path(temp_dir) / "src")
 
-        compile_lock_file(
-            sources=[modified_pyproject_path],
-            output=OUTPUT_LOCK_PATH,
-            upgrade=upgrade,
-            extras=extras,
-        )
+        # compile requirements-dev.txt (includes all dependencies)
         compile_lock_file(
             sources=[modified_pyproject_path, DEV_DEPS_PATH],
             output=OUTPUT_DEV_LOCK_PATH,
+            upgrade=upgrade,
+            extras=extras,
+        )
+
+        # compile requirements.txt (only includes production-related subset of above)
+        compile_lock_file(
+            sources=[modified_pyproject_path, PROD_DEPS_PATH],
+            output=OUTPUT_LOCK_PATH,
             upgrade=upgrade,
             extras=extras,
         )
