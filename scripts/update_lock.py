@@ -173,8 +173,6 @@ def main(upgrade: bool = False):
     )
 
     with TemporaryDirectory() as temp_dir:
-        os.chdir(temp_dir)
-
         modified_pyproject_path = Path(temp_dir) / "pyproject.toml"
         with open(modified_pyproject_path, "wb") as modified_pyproject_toml:
             tomli_w.dump(modified_pyproject, modified_pyproject_toml)
