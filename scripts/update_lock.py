@@ -97,8 +97,8 @@ def fix_temp_dir_comments(file_path: Path):
         for line in lines:
             # Remove random temp directory name
             line = re.sub(
-                r"via ([\w-]+).*?pyproject\.toml\)",
-                lambda match: f"via {match.group(1)} (pyproject.toml)",
+                r"\([^\)\(]*?pyproject\.toml\)",
+                "(pyproject.toml)",
                 line,
             )
             file.write(line)
