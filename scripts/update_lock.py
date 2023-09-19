@@ -54,7 +54,7 @@ def remove_self_dependencies(pyproject: dict) -> dict:
     """Filter out self dependencies (dependencies of the package on it self) from the
     dependencies and optional-dependencies in the provided pyproject metadata."""
 
-    if not "project" in pyproject:
+    if "project" not in pyproject:
         return pyproject
 
     modified_pyproject = deepcopy(pyproject)
@@ -134,15 +134,16 @@ def compile_lock_file(
         str(output.absolute()),
     ] + [str(source.absolute()) for source in sources]
 
-    with subprocess.Popen(
+    completed_process = subprocess.run(
         args=command,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
-    ) as process:
-        stdout_data, _ = process.communicate()
-        if process.wait() != 0:
-            log = stdout_data.decode("utf-8") if stdout_data else "no log available."
-            raise RuntimeError(f"Failed to compile lock file:\n{log}")
+        check=False,
+    )
+    if completed_process.returncode != 0:
+        std_out = completed_process.stdout
+        log = std_out.decode("utf-8") if std_out else "no log available."
+        raise RuntimeError(f"Failed to compile lock file:\n{log}")
 
     fix_temp_dir_comments(output.absolute())
 
