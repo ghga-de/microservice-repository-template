@@ -19,21 +19,21 @@
 
 from pathlib import Path
 
+import tomli
+
 REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 PYPROJECT_TOML_PATH = REPO_ROOT_DIR / "pyproject.toml"
-NAME_PREFIX = "name = "
 
 
 def get_package_name() -> str:
     """Extracts the package name"""
 
-    with open(PYPROJECT_TOML_PATH, "r", encoding="utf8") as pyproject_toml:
-        for line in pyproject_toml.readlines():
-            line_stripped = line.strip()
-            if line_stripped.startswith(NAME_PREFIX):
-                package_name = line_stripped[len(NAME_PREFIX) :]
-                return package_name.strip('"')
-        raise RuntimeError("Could not find package name.")
+    with open(PYPROJECT_TOML_PATH, "rb") as pyproject_toml:
+        pyproject = tomli.load(pyproject_toml)
+        try:
+            return pyproject["project"]["name"].strip('"')
+        except KeyError as err:
+            raise RuntimeError("Could not find package name.") from err
 
 
 def run():
