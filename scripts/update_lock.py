@@ -104,6 +104,30 @@ def fix_temp_dir_comments(file_path: Path):
             file.write(line)
 
 
+def is_file_outdated(old_file: Path, new_file: Path) -> bool:
+    """Compares two lock files and returns True if there is a difference, else False"""
+
+    header_comment = "#    pip-compile"
+    outdated = False
+
+    with open(old_file, "r", encoding="utf-8") as old:
+        with open(new_file, "r", encoding="utf-8") as new:
+            old_lines = old.readlines()
+            new_lines = new.readlines()
+            if len(old_lines) != len(new_lines):
+                outdated = True
+            if not outdated:
+                for old_line, new_line in zip(old_lines, new_lines):
+                    if old_line.startswith(header_comment):
+                        continue
+                    if old_line != new_line:
+                        outdated = True
+                        break
+    if outdated:
+        cli.echo_failure(f"{str(old_file)} is out of date!")
+    return outdated
+
+
 def compile_lock_file(
     sources: list[Path],
     output: Path,
@@ -114,7 +138,7 @@ def compile_lock_file(
     and write it to the specified output location.
     """
 
-    print(f"Updating file at '{output}'...")
+    print(f"Updating '{output}'...")
 
     command = [
         "pip-compile",
@@ -129,10 +153,9 @@ def compile_lock_file(
     if extras:
         command.append("--all-extras")
 
-    command += [
-        "--output-file",
-        str(output.absolute()),
-    ] + [str(source.absolute()) for source in sources]
+    command.extend(["--output-file", str(output.absolute())])
+
+    command.extend([str(source.absolute()) for source in sources])
 
     completed_process = subprocess.run(
         args=command,
@@ -148,7 +171,15 @@ def compile_lock_file(
     fix_temp_dir_comments(output.absolute())
 
 
-def main(upgrade: bool = False):
+def ensure_lock_files_exist():
+    """Make sure that the lock files exist if in check mode"""
+    for output in [OUTPUT_DEV_LOCK_PATH, OUTPUT_LOCK_PATH]:
+        if not os.path.exists(output):
+            cli.echo_failure(f"{output} is missing")
+            return
+
+
+def main(upgrade: bool = False, check: bool = False):
     """Update the dependency lock files located at 'requirements.txt' and
     'requirements-dev.txt'.
 
@@ -163,6 +194,10 @@ def main(upgrade: bool = False):
     lock files should be upgraded. Default pip-compile behavior is to leave them as is.
     """
 
+    # if --check is used, quickly ensure that there is something to compare against
+    if check:
+        ensure_lock_files_exist()
+
     with open(PYPROJECT_TOML_PATH, "rb") as pyproject_toml:
         pyproject = tomli.load(pyproject_toml)
 
@@ -172,7 +207,6 @@ def main(upgrade: bool = False):
         "optional-dependencies" in modified_pyproject["project"]
         and modified_pyproject["project"]["optional-dependencies"]
     )
-
     with TemporaryDirectory() as temp_dir:
         modified_pyproject_path = Path(temp_dir) / "pyproject.toml"
         with open(modified_pyproject_path, "wb") as modified_pyproject_toml:
@@ -181,26 +215,41 @@ def main(upgrade: bool = False):
         # make src dir next to TOML to satisfy build system
         os.makedirs(Path(temp_dir) / "src")
 
+        # temporary test files
+        check_dev_path = Path(temp_dir) / "requirements-dev.txt"
+        # check_dev_path = REPO_ROOT_DIR / "check-requirements-dev.txt"
+        check_prod_path = Path(temp_dir) / "requirements.txt"
+        # check_prod_path = REPO_ROOT_DIR / "check-requirements.txt"
+
         # compile requirements-dev.txt (includes all dependencies)
         compile_lock_file(
             sources=[modified_pyproject_path, DEV_DEPS_PATH],
-            output=OUTPUT_DEV_LOCK_PATH,
+            output=check_dev_path if check else OUTPUT_DEV_LOCK_PATH,
             upgrade=upgrade,
             extras=extras,
         )
+
+        if check and is_file_outdated(OUTPUT_DEV_LOCK_PATH, check_dev_path):
+            return
 
         # compile requirements.txt (only includes production-related subset of above)
         compile_lock_file(
             sources=[modified_pyproject_path, PROD_DEPS_PATH],
-            output=OUTPUT_LOCK_PATH,
+            output=check_prod_path if check else OUTPUT_DEV_LOCK_PATH,
             upgrade=upgrade,
             extras=extras,
         )
 
-    cli.echo_success(
-        f"Successfully updated lock files at '{OUTPUT_LOCK_PATH}' and"
-        + f" '{OUTPUT_DEV_LOCK_PATH}'."
-    )
+        if check and is_file_outdated(OUTPUT_LOCK_PATH, check_prod_path):
+            return
+
+    if check:
+        cli.echo_success("Lock files are up to date.")
+    else:
+        cli.echo_success(
+            f"Successfully updated lock files at '{OUTPUT_LOCK_PATH}' and"
+            + f" '{OUTPUT_DEV_LOCK_PATH}'."
+        )
 
 
 if __name__ == "__main__":
