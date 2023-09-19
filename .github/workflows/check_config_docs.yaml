@@ -14,5 +14,5 @@ jobs:
       - name: Check config docs
         run: |
           export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
-
+          pip install .
           ./scripts/update_config_docs.py --check
