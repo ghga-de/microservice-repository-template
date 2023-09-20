@@ -21,7 +21,9 @@ example_config.yaml
 LICENSE
 pyproject.toml
 README.md
+requirements-dev.in
 requirements-dev.txt
+requirements.txt
 
 .description.md
 .design.md

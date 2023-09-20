@@ -35,7 +35,6 @@ REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 
 PYPROJECT_TOML_PATH = REPO_ROOT_DIR / "pyproject.toml"
 DEV_DEPS_PATH = REPO_ROOT_DIR / "requirements-dev.in"
-PROD_DEPS_PATH = REPO_ROOT_DIR / "requirements.in"
 OUTPUT_LOCK_PATH = REPO_ROOT_DIR / "requirements.txt"
 OUTPUT_DEV_LOCK_PATH = REPO_ROOT_DIR / "requirements-dev.txt"
 
@@ -138,7 +137,7 @@ def compile_lock_file(
     and write it to the specified output location.
     """
 
-    print(f"Updating '{output}'...")
+    print(f"Updating '{output.name}'...")
 
     command = [
         "pip-compile",
@@ -156,6 +155,10 @@ def compile_lock_file(
     command.extend(["--output-file", str(output.absolute())])
 
     command.extend([str(source.absolute()) for source in sources])
+
+    # constrain the production deps by what's pinned in requirements-dev.txt
+    if output.name == OUTPUT_LOCK_PATH.name:
+        command.extend(["-c", str(OUTPUT_DEV_LOCK_PATH)])
 
     completed_process = subprocess.run(
         args=command,
@@ -216,10 +219,8 @@ def main(upgrade: bool = False, check: bool = False):
         os.makedirs(Path(temp_dir) / "src")
 
         # temporary test files
-        check_dev_path = Path(temp_dir) / "requirements-dev.txt"
-        # check_dev_path = REPO_ROOT_DIR / "check-requirements-dev.txt"
-        check_prod_path = Path(temp_dir) / "requirements.txt"
-        # check_prod_path = REPO_ROOT_DIR / "check-requirements.txt"
+        check_dev_path = Path(temp_dir) / OUTPUT_DEV_LOCK_PATH.name
+        check_prod_path = Path(temp_dir) / OUTPUT_LOCK_PATH.name
 
         # compile requirements-dev.txt (includes all dependencies)
         compile_lock_file(
@@ -234,8 +235,8 @@ def main(upgrade: bool = False, check: bool = False):
 
         # compile requirements.txt (only includes production-related subset of above)
         compile_lock_file(
-            sources=[modified_pyproject_path, PROD_DEPS_PATH],
-            output=check_prod_path if check else OUTPUT_DEV_LOCK_PATH,
+            sources=[modified_pyproject_path],
+            output=check_prod_path if check else OUTPUT_LOCK_PATH,
             upgrade=upgrade,
             extras=extras,
         )
