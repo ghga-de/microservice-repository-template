@@ -75,6 +75,7 @@ EXCLUDE = [
 # exclude file by file ending from license header check:
 EXCLUDE_ENDINGS = [
     "html",
+    "in",
     "ini",
     "jinja",
     "json",
@@ -82,6 +83,7 @@ EXCLUDE_ENDINGS = [
     "pub",
     "pyc",
     "sec",
+    "toml",
     "txt",
     "xml",
     "yaml",

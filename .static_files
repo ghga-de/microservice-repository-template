@@ -23,6 +23,7 @@ scripts/update_config_docs.py
 scripts/update_template_files.py
 scripts/update_openapi_docs.py
 scripts/update_readme.py
+scripts/update_lock.py
 scripts/README.md
 
 .github/workflows/check_config_docs.yaml
@@ -45,8 +46,7 @@ example_data/README.md
 pytest.ini
 
 LICENSE
-requirements.txt
-requirements-dev-common.txt
+requirements-dev-common.in
 setup.py
 
 .readme_template.md
