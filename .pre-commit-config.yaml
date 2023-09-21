@@ -7,6 +7,16 @@ default_language_version:
 minimum_pre_commit_version: 3.0.0
 
 repos:
+  - repo: local
+    hooks:
+      - id: update-hook-revs
+        name: "ensure hooks are up to date"
+        language: python
+        fail_fast: true
+        always_run: true
+        entry: ./scripts/update_hook_revs.py
+        files: '\.pre-commit-config.yaml'
+        args: [--check]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -42,11 +52,11 @@ repos:
       - id: ruff
         args: [--fix]
   - repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 23.9.1
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.0.0
+    rev: v1.5.1
     hooks:
       - id: mypy
         args: [--no-warn-unused-ignores]
