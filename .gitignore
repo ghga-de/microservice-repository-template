@@ -50,8 +50,8 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
-prof/
 .ruff_cache/
+prof/
 
 # Translations
 *.mo
