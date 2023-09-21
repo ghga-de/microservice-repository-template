@@ -27,3 +27,4 @@ requirements.txt
 
 .description.md
 .design.md
+.pre-commit-config.yaml
