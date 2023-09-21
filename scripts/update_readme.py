@@ -142,7 +142,7 @@ def generate_config_docs() -> str:
         examples_as_yaml=False,
         show_examples="all",
     )
-    with open(CONFIG_SCHEMA_PATH, "r", encoding="utf-8") as json_file:
+    with open(CONFIG_SCHEMA_PATH, encoding="utf-8") as json_file:
         config_schema = json.load(json_file)
 
     md_lines = parser.parse_schema(config_schema)

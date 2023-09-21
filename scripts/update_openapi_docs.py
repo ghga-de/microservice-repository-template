@@ -72,7 +72,7 @@ def check_docs():
     """
 
     openapi_expected = get_openapi_spec()
-    with open(OPENAPI_YAML, "r", encoding="utf-8") as openapi_file:
+    with open(OPENAPI_YAML, encoding="utf-8") as openapi_file:
         openapi_observed = openapi_file.read()
 
     if openapi_expected != openapi_observed:

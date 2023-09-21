@@ -27,7 +27,7 @@ NAME_PREFIX = "name = "
 def get_package_name() -> str:
     """Extracts the package name"""
 
-    with open(PYPROJECT_TOML_PATH, "r", encoding="utf8") as pyproject_toml:
+    with open(PYPROJECT_TOML_PATH, encoding="utf8") as pyproject_toml:
         for line in pyproject_toml.readlines():
             line_stripped = line.strip()
             if line_stripped.startswith(NAME_PREFIX):
