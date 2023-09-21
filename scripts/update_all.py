@@ -49,3 +49,19 @@ except ImportError:
 else:
     print("Updating README")
     update_readme()
+
+try:
+    from scripts.update_lock import main as update_lock
+except ImportError:
+    pass
+else:
+    print("Updating lock files")
+    update_lock(upgrade=True)
+
+try:
+    from scripts.update_hook_revs import main as update_hook_revs
+except ImportError:
+    pass
+else:
+    print("Updating pre-commit hook versions")
+    update_hook_revs()
