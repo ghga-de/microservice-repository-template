@@ -52,7 +52,7 @@ def generate_greeting(name: str, language: str, isinformal: bool):
         )
 
     # pick a random expression from the list of hits:
-    expression = random.choice(expression_hits)  # nosec
+    expression = random.choice(expression_hits)  # nosec # noqa: S311
 
     # assemble the greeting phrase:
     greeting_phrase = f"{expression.expression} {name}!"
