@@ -53,6 +53,8 @@ EXCLUDE = [
     ".flake8",
     ".gitignore",
     ".pylintrc",
+    ".ruff.toml",
+    ".ruff_cache",
     "example_config.yaml",
     "config_schema.json",
     "LICENSE",  # is checked but not for the license header
