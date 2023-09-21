@@ -17,3 +17,6 @@ docs
 
 setup.py
 setup.cfg
+
+.pylintrc
+.flake8
