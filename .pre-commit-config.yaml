@@ -12,7 +12,7 @@ repos:
       - id: update-hook-revs
         name: "ensure hooks are up to date"
         language: python
-        entry: /workspace/scripts/update_hook_revs.py
+        entry: ./scripts/update_hook_revs.py
         files: '\.pre-commit-config.yaml'
         args: [--check]
   - repo: https://github.com/pre-commit/pre-commit-hooks
