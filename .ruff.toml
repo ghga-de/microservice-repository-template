@@ -7,10 +7,10 @@ exclude = [
 ]
 
 ignore = [
-    "E",
-    "W",
-    "PLW",
-    "RUF001",
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings - pycodestyle covered by black
+    "PLW", # pylint warnings
+    "RUF001", # ambiguous unicode character strings
     "RUF010", # explicit conversion to string or repr: !s or !r
     "B008", # function call in arg defaults
 ]
