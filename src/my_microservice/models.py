@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Defines dataclasses for holding business-logic data"""
+"""Defines dataclasses for holding business-logic data."""
 
 from datetime import datetime
 
@@ -28,7 +28,7 @@ SupportedLanguages = Literal["Greek", "Croatian", "French", "German"]
 
 
 class MessageBase(BaseModel):
-    """A message base container"""
+    """A message base container."""
 
     message: str = Field(..., description="The message content.")
     created_at: datetime = Field(
@@ -37,7 +37,7 @@ class MessageBase(BaseModel):
 
 
 class GreetingBase(BaseModel):
-    """A container for basic metadata on a greeting phrase/expression"""
+    """A container for basic metadata on a greeting phrase/expression."""
 
     language: SupportedLanguages = Field(..., description="The language.")
     isinformal: bool = Field(
@@ -46,12 +46,12 @@ class GreetingBase(BaseModel):
 
 
 class GreetingExpression(GreetingBase):
-    """A container for describing a greeting expression"""
+    """A container for describing a greeting expression."""
 
     expression: str = Field(..., description="The actual greeting expression")
 
 
 class Greeting(GreetingBase, MessageBase):
-    """A container storing a greeting for a specfic person incl. metadata"""
+    """A container storing a greeting for a specfic person incl. metadata."""
 
     pass  # pylint: disable=unnecessary-pass

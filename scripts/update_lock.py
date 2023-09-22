@@ -27,6 +27,7 @@ from copy import deepcopy
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import stringcase
 import tomli
 import tomli_w
 from script_utils import cli
@@ -60,7 +61,7 @@ def remove_self_dependencies(pyproject: dict) -> dict:
 
     project_metadata = modified_pyproject["project"]
 
-    package_name = project_metadata.get("name")
+    package_name = stringcase.spinalcase(project_metadata.get("name"))
 
     if not package_name:
         raise ValueError("The provided project metadata does not contain a name.")
@@ -89,7 +90,7 @@ def fix_temp_dir_comments(file_path: Path):
     the requirements are indeed being generated if nothing else changes.
     """
 
-    with open(file_path, "r", encoding="utf-8") as file:
+    with open(file_path, encoding="utf-8") as file:
         lines = file.readlines()
 
     with open(file_path, "w", encoding="utf-8") as file:
@@ -109,8 +110,8 @@ def is_file_outdated(old_file: Path, new_file: Path) -> bool:
     header_comment = "#    pip-compile"
     outdated = False
 
-    with open(old_file, "r", encoding="utf-8") as old:
-        with open(new_file, "r", encoding="utf-8") as new:
+    with open(old_file, encoding="utf-8") as old:
+        with open(new_file, encoding="utf-8") as new:
             old_lines = old.readlines()
             new_lines = new.readlines()
             if len(old_lines) != len(new_lines):

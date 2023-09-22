@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Config Parameter Modeling and Parsing"""
+"""Config Parameter Modeling and Parsing."""
 
 from ghga_service_commons.api import ApiConfigBase
 from hexkit.config import config_from_yaml

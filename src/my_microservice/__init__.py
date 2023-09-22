@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Short description of package"""  # Please adapt to package
+"""Short description of package."""  # Please adapt to package
 
 from importlib.metadata import version
 
