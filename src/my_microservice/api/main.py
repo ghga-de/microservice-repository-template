@@ -15,6 +15,7 @@
 
 """
 Module containing the main FastAPI router and (optionally) top-level API enpoints.
+
 Additional endpoints might be structured in dedicated modules
 (each of them having a sub-router).
 """
@@ -33,7 +34,7 @@ configure_app(app, config=CONFIG)
 
 @app.get("/", summary="Greet the world")
 async def index():
-    """Greet the World"""
+    """Greet the World."""
     return "Hello World."
 
 
@@ -47,5 +48,5 @@ async def index():
     response_model=Greeting,
 )
 async def greet(name: str, isinformal: bool = True, config=Depends(get_config)):
-    """Greet a person"""
+    """Greet a person."""
     return generate_greeting(name=name, language=config.language, isinformal=isinformal)

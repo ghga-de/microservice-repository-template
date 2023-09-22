@@ -36,7 +36,6 @@ GREETINGS_EXPRESSIONS = [
 
 def generate_greeting(name: str, language: str, isinformal: bool):
     """Generate a greeting for a specific person."""
-
     # search for suitable expressions (might be multiple):
     expression_hits = [
         expr

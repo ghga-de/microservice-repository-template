@@ -48,7 +48,7 @@ def inspect_lock() -> dict[str, str]:
 
 def get_repl_value(match, dependencies: dict[str, str], outdated_hooks: list[str]):
     """Look up pre-commit hook id in list of dependencies. If there's a match, update
-    return the version stored in the dictionary"""
+    `outdated_hooks` and return the hook version stored in the dictionary"""
     ver, name = match.groups()
     if name in dependencies:
         new_ver = dependencies[name].strip()

@@ -15,5 +15,6 @@
 
 """
 This sub-package contains the main business functionality of this service.
+
 It should not contain any service API-related code.
 """

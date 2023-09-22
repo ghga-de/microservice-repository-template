@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Entrypoint of the package"""
+"""Entrypoint of the package."""
 
 import asyncio
 
@@ -24,7 +24,7 @@ from .config import CONFIG, Config
 
 
 def run(config: Config = CONFIG):
-    """Run the service"""
+    """Run the service."""
     # Please adapt to package name
     asyncio.run(run_server(app="my_microservice.__main__:app", config=config))
 

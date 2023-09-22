@@ -28,11 +28,13 @@ select = [
     "PL", # pylint
     "RUF", # ruff
     "SIM", # flake8-simplify
+    "D", # pydocstyle
 ]
 
 fixable = [
     "UP", # e.g. List -> list
     "I", # sort imports
+    "D", # pydocstyle
 ]
 
 target-version = "py39"
@@ -41,6 +43,9 @@ target-version = "py39"
 max-complexity = 10
 
 [per-file-ignores]
-"scripts/*" = ["PL", "S", "SIM"]
+"scripts/*" = ["PL", "S", "SIM", "D"]
 "tests/*" = ["S", "SIM"]
-".devcontainer/*" = ["S", "SIM"]
+".devcontainer/*" = ["S", "SIM", "D"]
+
+[pydocstyle]
+convention = "pep257"
