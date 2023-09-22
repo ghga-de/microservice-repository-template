@@ -27,6 +27,7 @@ from copy import deepcopy
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import stringcase
 import tomli
 import tomli_w
 from script_utils import cli
@@ -60,7 +61,7 @@ def remove_self_dependencies(pyproject: dict) -> dict:
 
     project_metadata = modified_pyproject["project"]
 
-    package_name = project_metadata.get("name")
+    package_name = stringcase.spinalcase(project_metadata.get("name"))
 
     if not package_name:
         raise ValueError("The provided project metadata does not contain a name.")
