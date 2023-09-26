@@ -26,8 +26,9 @@ from string import Template
 import jsonschema2md
 import tomli
 from pydantic import BaseModel, Field
-from script_utils.cli import echo_failure, echo_success, run
 from stringcase import spinalcase, titlecase
+
+from script_utils.cli import echo_failure, echo_success, run
 
 ROOT_DIR = Path(__file__).parent.parent.resolve()
 PYPROJECT_TOML_PATH = ROOT_DIR / "pyproject.toml"

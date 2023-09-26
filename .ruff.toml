@@ -16,6 +16,10 @@ ignore = [
     "N818", # Errors need to have Error suffix
     "B008", # function call in arg defaults,
     "PLR2004", # magic numbers should be constants
+    "D205", # blank-line-after-summary
+    "D400", # first doc line ends in period
+    "D401", # non-imperative-mood
+    "D107", # missing docstring in __init__
 ]
 
 line-length = 88
@@ -40,7 +44,7 @@ fixable = [
     "D", # pydocstyle
 ]
 
-src = ["src", "tests", "examples"]
+src = ["src", "tests", "examples", "scripts"]
 
 target-version = "py39"
 

@@ -22,6 +22,7 @@ from difflib import unified_diff
 from pathlib import Path
 
 import yaml
+
 from script_utils.cli import echo_failure, echo_success, run
 from script_utils.fastapi_app_location import app
 

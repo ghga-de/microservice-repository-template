@@ -30,6 +30,7 @@ from tempfile import TemporaryDirectory
 import stringcase
 import tomli
 import tomli_w
+
 from script_utils import cli
 
 REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
