@@ -12,7 +12,10 @@ ignore = [
     "PLW", # pylint warnings
     "RUF001", # ambiguous unicode character strings
     "RUF010", # explicit conversion to string or repr: !s or !r
-    "B008", # function call in arg defaults
+    "RUF012", # mutable class variables need typing.ClassVar annotation
+    "N818", # Errors need to have Error suffix
+    "B008", # function call in arg defaults,
+    "PLR2004", # magic numbers should be constants
 ]
 
 line-length = 88
@@ -37,6 +40,8 @@ fixable = [
     "D", # pydocstyle
 ]
 
+src = ["src", "tests", "examples"]
+
 target-version = "py39"
 
 [mccabe]
@@ -44,8 +49,10 @@ max-complexity = 10
 
 [per-file-ignores]
 "scripts/*" = ["PL", "S", "SIM", "D"]
-"tests/*" = ["S", "SIM"]
+"tests/*" = ["S", "SIM", "PLR"]
 ".devcontainer/*" = ["S", "SIM", "D"]
+"examples/*" = ["S", "D"]
+"__init__.py" = ["D"]
 
 [pydocstyle]
 convention = "pep257"
