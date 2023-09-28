@@ -152,13 +152,12 @@ def get_deps_dev() -> list[str]:
     return dependencies
 
 
-def get_version_from_pypi(package_name: str) -> str:
+def get_version_from_pypi(package_name: str, client: httpx.Client) -> str:
     """Make a call to PyPI to get the version information about `package_name`."""
     try:
-        with httpx.Client(timeout=10) as client:
-            response = client.get(f"https://pypi.org/pypi/{package_name}/json")
-            body = response.json()
-            version = body["info"]["version"]
+        response = client.get(f"https://pypi.org/pypi/{package_name}/json")
+        body = response.json()
+        version = body["info"]["version"]
     except (httpx.RequestError, KeyError):
         cli.echo_failure(f"Unable to retrieve information for package '{package_name}'")
         sys.exit(1)
@@ -169,21 +168,22 @@ def get_version_from_pypi(package_name: str) -> str:
 def get_outdated_deps(dependencies: list[str], strip: bool = False) -> list[list[str]]:
     """Determine which packages have updates available outside of pinned ranges."""
     outdated: list[list[str]] = []
-    for dependency in dependencies:
-        # Convert string into Requirement object so we can reference its parts
-        requirement = Requirement(dependency)
+    with httpx.Client(timeout=10) as client:
+        for dependency in dependencies:
+            # Convert string into Requirement object so we can reference its parts
+            requirement = Requirement(dependency)
 
-        pypi_version = get_version_from_pypi(requirement.name)
+            pypi_version = get_version_from_pypi(requirement.name, client)
 
-        specified = str(requirement.specifier)
+            specified = str(requirement.specifier)
 
-        # Strip the specifier symbols from the front of the string if desired
-        if strip:
-            specified = specified.lstrip("<=>!~")
+            # Strip the specifier symbols from the front of the string if desired
+            if strip:
+                specified = specified.lstrip("<=>!~")
 
-        # append package name, specified version, and latest available version
-        if not requirement.specifier.contains(pypi_version):
-            outdated.append([requirement.name, specified, pypi_version])
+            # append package name, specified version, and latest available version
+            if not requirement.specifier.contains(pypi_version):
+                outdated.append([requirement.name, specified, pypi_version])
     outdated.sort()
     return outdated
 
