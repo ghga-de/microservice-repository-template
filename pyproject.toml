@@ -3,6 +3,7 @@ requires = ["setuptools>=67.7.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
+# please adapt to package name
 name = "my_microservice"
 version = "0.1.0"
 description = "My-Microservice - a short description"
@@ -31,7 +32,12 @@ dependencies = [
 ]
 
 [project.urls]
+# please adapt to package name
 Repository = "https://github.com/ghga-de/my-microservice"
+
+[project.scripts]
+# please adapt to package name
+my_microservice = "my_microservice.__main__:run"
 
 [tool.setuptools.packages.find]
 where = ["src"]
