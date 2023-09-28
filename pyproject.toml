@@ -37,7 +37,7 @@ Repository = "https://github.com/ghga-de/my-microservice"
 
 [project.scripts]
 # please adapt to package name
-my_microservice = "my_microservice.__main__:run"
+my-microservice = "my_microservice.__main__:run"
 
 [tool.setuptools.packages.find]
 where = ["src"]
