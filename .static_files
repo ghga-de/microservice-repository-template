@@ -40,7 +40,6 @@ example_data/README.md
 .editorconfig
 .gitattributes
 .gitignore
-.pre-commit-config.yaml
 .mypy.ini
 .ruff.toml
 pytest.ini
