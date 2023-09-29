@@ -135,19 +135,14 @@ def get_modified_pyproject() -> dict[str, Any]:
 
 def get_deps_dev() -> list[str]:
     """Get a list of raw dependency strings from requirements-dev.in"""
-    dependencies = []
     with open(DEV_DEPS_PATH, encoding="utf-8") as dev_deps:
-        lines = dev_deps.readlines()
-
-    for line in lines:
-        if (
-            line.strip().startswith("#")  # skip comments
-            or len(line.strip()) == 0  # skip empty lines
-            or "requirements-dev-common.in" in line  # skip the inclusion line
-        ):
-            continue
-
-        dependencies.append(line)
+        dependencies = [
+            line
+            for line in (line.strip() for line in dev_deps)
+            if line  # skip empty lines
+            and not line.startswith("#")  # skip comments
+            and "requirements-dev-common.in" not in line  # skip inclusion line
+        ]
 
     return dependencies
 
