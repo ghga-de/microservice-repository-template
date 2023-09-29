@@ -165,9 +165,11 @@ def get_version_from_pypi(package_name: str, client: httpx.Client) -> str:
     return version
 
 
-def get_outdated_deps(dependencies: list[str], strip: bool = False) -> list[list[str]]:
+def get_outdated_deps(
+    dependencies: list[str], strip: bool = False
+) -> list[tuple[str, ...]]:
     """Determine which packages have updates available outside of pinned ranges."""
-    outdated: list[list[str]] = []
+    outdated: list[tuple[str, ...]] = []
     with httpx.Client(timeout=10) as client:
         for dependency in dependencies:
             # Convert string into Requirement object so we can reference its parts
@@ -183,13 +185,13 @@ def get_outdated_deps(dependencies: list[str], strip: bool = False) -> list[list
 
             # append package name, specified version, and latest available version
             if not requirement.specifier.contains(pypi_version):
-                outdated.append([requirement.name, specified, pypi_version])
+                outdated.append((requirement.name, specified, pypi_version))
     outdated.sort()
     return outdated
 
 
 def print_table(
-    rows: list[list[str]],
+    rows: list[tuple[str, ...]],
     headers: list[str],
     delimiter: str = " | ",
 ):
@@ -251,9 +253,9 @@ def main(transitive: bool = False):
         cli.echo_success("All top-level dependencies up to date.")
 
     if transitive:
-        top_level: set[str] = set(
-            [item[0] for item in outdated_main + outdated_optional + outdated_dev]
-        )
+        top_level: set[str] = {
+            item[0] for item in outdated_main + outdated_optional + outdated_dev
+        }
 
         print("\nRetrieving transitive dependency information...")
         transitive_dependencies = get_transitive_deps(exclude=top_level)
