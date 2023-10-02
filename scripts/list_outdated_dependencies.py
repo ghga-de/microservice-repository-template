@@ -18,16 +18,13 @@
 """Check capped dependencies for newer versions."""
 import re
 import sys
-from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
 import httpx
-import stringcase
-import tomli
 from packaging.requirements import Requirement
 
-from script_utils import cli
+from script_utils import cli, deps
 
 REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 PYPROJECT_TOML_PATH = REPO_ROOT_DIR / "pyproject.toml"
@@ -51,49 +48,6 @@ def get_transitive_deps(exclude: set[str]) -> list[str]:
             if requirement not in exclude:
                 dependencies.append(dependency)
     return dependencies
-
-
-def exclude_from_dependency_list(*, package_name: str, dependencies: list) -> list:
-    """Exclude the specified package from the provided dependency list."""
-
-    return [
-        dependency
-        for dependency in dependencies
-        if not dependency.startswith(package_name)
-    ]
-
-
-def remove_self_dependencies(pyproject: dict) -> dict:
-    """Filter out self dependencies (dependencies of the package on it self) from the
-    dependencies and optional-dependencies in the provided pyproject metadata."""
-
-    if "project" not in pyproject:
-        return pyproject
-
-    modified_pyproject = deepcopy(pyproject)
-
-    project_metadata = modified_pyproject["project"]
-
-    package_name = stringcase.spinalcase(project_metadata.get("name"))
-
-    if not package_name:
-        raise ValueError("The provided project metadata does not contain a name.")
-
-    if "dependencies" in project_metadata:
-        project_metadata["dependencies"] = exclude_from_dependency_list(
-            package_name=package_name, dependencies=project_metadata["dependencies"]
-        )
-
-    if "optional-dependencies" in project_metadata:
-        for group in project_metadata["optional-dependencies"]:
-            project_metadata["optional-dependencies"][
-                group
-            ] = exclude_from_dependency_list(
-                package_name=package_name,
-                dependencies=project_metadata["optional-dependencies"][group],
-            )
-
-    return modified_pyproject
 
 
 def get_main_deps_pyproject(modified_pyproject: dict[str, Any]) -> list[str]:
@@ -122,15 +76,6 @@ def get_optional_deps_pyproject(modified_pyproject: dict[str, Any]) -> list[str]
             )
 
     return dependencies
-
-
-def get_modified_pyproject() -> dict[str, Any]:
-    """Get a copy of pyproject.toml with any self-referencing dependencies removed."""
-    with open(PYPROJECT_TOML_PATH, "rb") as pyproject_toml:
-        pyproject = tomli.load(pyproject_toml)
-
-    modified_pyproject = remove_self_dependencies(pyproject)
-    return modified_pyproject
 
 
 def get_deps_dev() -> list[str]:
@@ -221,7 +166,9 @@ def main(transitive: bool = False):
 
     Use `transitive` to show outdated transitive dependencies.
     """
-    modified_pyproject: dict[str, Any] = get_modified_pyproject()
+    modified_pyproject: dict[str, Any] = deps.get_modified_pyproject(
+        PYPROJECT_TOML_PATH
+    )
     main_dependencies = get_main_deps_pyproject(modified_pyproject)
     optional_dependencies = get_optional_deps_pyproject(modified_pyproject)
     dev_dependencies = get_deps_dev()
