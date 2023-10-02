@@ -17,8 +17,9 @@
 #
 """Check capped dependencies for newer versions."""
 import sys
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Any
+from typing import Any, NamedTuple
 
 import httpx
 from packaging.requirements import Requirement
@@ -29,6 +30,14 @@ REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 PYPROJECT_TOML_PATH = REPO_ROOT_DIR / "pyproject.toml"
 DEV_DEPS_PATH = REPO_ROOT_DIR / "requirements-dev.in"
 LOCK_FILE_PATH = REPO_ROOT_DIR / "requirements-dev.txt"
+
+
+class OutdatedDep(NamedTuple):
+    """Encapsulates data of an outdated dependency"""
+
+    name: str
+    specified_version: str
+    pypi_version: str
 
 
 def get_main_deps_pyproject(modified_pyproject: dict[str, Any]) -> list[Requirement]:
@@ -90,9 +99,9 @@ def get_version_from_pypi(package_name: str, client: httpx.Client) -> str:
 
 def get_outdated_deps(
     requirements: list[Requirement], strip: bool = False
-) -> list[tuple[str, ...]]:
+) -> list[OutdatedDep]:
     """Determine which packages have updates available outside of pinned ranges."""
-    outdated: list[tuple[str, ...]] = []
+    outdated: list[OutdatedDep] = []
     with httpx.Client(timeout=10) as client:
         for requirement in requirements:
             pypi_version = get_version_from_pypi(requirement.name, client)
@@ -105,23 +114,26 @@ def get_outdated_deps(
 
             # append package name, specified version, and latest available version
             if not requirement.specifier.contains(pypi_version):
-                outdated.append((requirement.name, specified, pypi_version))
+                outdated.append(OutdatedDep(requirement.name, specified, pypi_version))
     outdated.sort()
     return outdated
 
 
 def print_table(
-    rows: list[tuple[str, ...]],
-    headers: list[str],
+    rows: Sequence[tuple[str, ...]],
+    headers: tuple[str, ...],
     delimiter: str = " | ",
 ):
     """
     List outdated dependencies in a formatted table.
 
     Args:
-        `outdated`: A list of lists containing strings.
-        `headers`: A list containing the header strings for the table columns.
+        `outdated`: A sequence of tuples containing strings.
+        `headers`: A tuple containing the header strings for the table columns.
     """
+    if rows and len(rows[0]) != len(headers):
+        raise RuntimeError("Number of headers doesn't match number of columns")
+
     header_lengths = [len(header) for header in headers]
 
     # Find the maximum length of each column
@@ -158,18 +170,18 @@ def main(transitive: bool = False):
     outdated_dev = get_outdated_deps(dev_dependencies)
 
     found_outdated = any([outdated_main, outdated_optional, outdated_dev])
-    headers = ["PACKAGE", "SPECIFIED", "AVAILABLE"]
+    transitive_headers = ("PACKAGE", "SPECIFIED", "AVAILABLE")
     if outdated_main:
         location = PYPROJECT_TOML_PATH.name + " - dependencies"
         cli.echo_failure(f"Outdated dependencies from {location}:")
-        print_table(outdated_main, headers)
+        print_table(outdated_main, transitive_headers)
     if outdated_optional:
         location = PYPROJECT_TOML_PATH.name + " - optional-dependencies"
         cli.echo_failure(f"Outdated dependencies from {location}:")
-        print_table(outdated_optional, headers)
+        print_table(outdated_optional, transitive_headers)
     if outdated_dev:
         cli.echo_failure(f"Outdated dependencies from {DEV_DEPS_PATH.name}:")
-        print_table(outdated_dev, headers)
+        print_table(outdated_dev, transitive_headers)
 
     if not found_outdated:
         cli.echo_success("All top-level dependencies up to date.")
@@ -186,10 +198,10 @@ def main(transitive: bool = False):
         outdated_transitive = get_outdated_deps(transitive_dependencies, strip=True)
 
         if outdated_transitive:
-            headers[1] = "PINNED"
+            transitive_headers = ("PACKAGE", "PINNED", "AVAILABLE")
 
             cli.echo_failure("Outdated transitive dependencies:")
-            print_table(outdated_transitive, headers)
+            print_table(outdated_transitive, transitive_headers)
         else:
             cli.echo_success("All transitive dependencies up to date.")
 
