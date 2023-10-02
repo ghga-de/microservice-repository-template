@@ -188,7 +188,7 @@ def main(transitive: bool = False):
 
     if transitive:
         top_level: set[str] = {
-            item[0] for item in outdated_main + outdated_optional + outdated_dev
+            item.name for item in outdated_main + outdated_optional + outdated_dev
         }
 
         print("\nRetrieving transitive dependency information...")
