@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 """Contains utils for working with dependencies, lock files, etc."""
-
 from copy import deepcopy
 from pathlib import Path
 from typing import Any

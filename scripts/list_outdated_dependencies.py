@@ -16,7 +16,6 @@
 # limitations under the License.
 #
 """Check capped dependencies for newer versions."""
-import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -24,7 +23,7 @@ from typing import Any
 import httpx
 from packaging.requirements import Requirement
 
-from script_utils import cli, deps
+from script_utils import cli, deps, lock_deps
 
 REPO_ROOT_DIR = Path(__file__).parent.parent.resolve()
 PYPROJECT_TOML_PATH = REPO_ROOT_DIR / "pyproject.toml"
@@ -32,35 +31,19 @@ DEV_DEPS_PATH = REPO_ROOT_DIR / "requirements-dev.in"
 LOCK_FILE_PATH = REPO_ROOT_DIR / "requirements-dev.txt"
 
 
-def get_transitive_deps(exclude: set[str]) -> list[str]:
-    """Inspect the lock file to get the transitive dependencies"""
-    dependency_pattern = re.compile(r"([^=\s]+==[^\s]*?)\s")
-
-    # Get the set of dependencies from the requirements-dev.txt lock file
-    with open(LOCK_FILE_PATH, encoding="utf-8") as lock_file:
-        lines = lock_file.readlines()
-
-    dependencies = []
-    for line in lines:
-        if match := re.match(dependency_pattern, line):
-            dependency = match.group(1)
-            requirement = Requirement(dependency)
-            if requirement not in exclude:
-                dependencies.append(dependency)
-    return dependencies
-
-
-def get_main_deps_pyproject(modified_pyproject: dict[str, Any]) -> list[str]:
+def get_main_deps_pyproject(modified_pyproject: dict[str, Any]) -> list[Requirement]:
     """Get a list of the dependencies from pyproject.toml"""
 
     dependencies: list[str] = []
     if "dependencies" in modified_pyproject["project"]:
         dependencies = modified_pyproject["project"]["dependencies"]
 
-    return dependencies
+    return [Requirement(dependency) for dependency in dependencies]
 
 
-def get_optional_deps_pyproject(modified_pyproject: dict[str, Any]) -> list[str]:
+def get_optional_deps_pyproject(
+    modified_pyproject: dict[str, Any]
+) -> list[Requirement]:
     """Get a list of the optional dependencies from pyproject.toml"""
 
     dependencies: list[str] = []
@@ -75,10 +58,10 @@ def get_optional_deps_pyproject(modified_pyproject: dict[str, Any]) -> list[str]
                 ]
             )
 
-    return dependencies
+    return [Requirement(dependency) for dependency in dependencies]
 
 
-def get_deps_dev() -> list[str]:
+def get_deps_dev() -> list[Requirement]:
     """Get a list of raw dependency strings from requirements-dev.in"""
     with open(DEV_DEPS_PATH, encoding="utf-8") as dev_deps:
         dependencies = [
@@ -89,7 +72,7 @@ def get_deps_dev() -> list[str]:
             and "requirements-dev-common.in" not in line  # skip inclusion line
         ]
 
-    return dependencies
+    return [Requirement(dependency) for dependency in dependencies]
 
 
 def get_version_from_pypi(package_name: str, client: httpx.Client) -> str:
@@ -106,15 +89,12 @@ def get_version_from_pypi(package_name: str, client: httpx.Client) -> str:
 
 
 def get_outdated_deps(
-    dependencies: list[str], strip: bool = False
+    requirements: list[Requirement], strip: bool = False
 ) -> list[tuple[str, ...]]:
     """Determine which packages have updates available outside of pinned ranges."""
     outdated: list[tuple[str, ...]] = []
     with httpx.Client(timeout=10) as client:
-        for dependency in dependencies:
-            # Convert string into Requirement object so we can reference its parts
-            requirement = Requirement(dependency)
-
+        for requirement in requirements:
             pypi_version = get_version_from_pypi(requirement.name, client)
 
             specified = str(requirement.specifier)
@@ -200,7 +180,9 @@ def main(transitive: bool = False):
         }
 
         print("\nRetrieving transitive dependency information...")
-        transitive_dependencies = get_transitive_deps(exclude=top_level)
+        transitive_dependencies = lock_deps.get_lock_file_deps(
+            LOCK_FILE_PATH, exclude=top_level
+        )
         outdated_transitive = get_outdated_deps(transitive_dependencies, strip=True)
 
         if outdated_transitive:
