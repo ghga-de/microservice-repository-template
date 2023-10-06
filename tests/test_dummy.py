@@ -15,7 +15,10 @@
 
 """Test dummy."""
 
+from my_microservice.core.greeting import generate_greeting
+
 
 def test_dummy():
-    """Just makes the CI pass."""
-    assert True
+    """A very simple example test."""
+    greeting = generate_greeting("monde", "French", True)
+    assert greeting.message == "Salut monde!"
