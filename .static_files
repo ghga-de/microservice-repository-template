@@ -38,6 +38,7 @@ scripts/README.md
 
 example_data/README.md
 
+.coveragerc
 .editorconfig
 .gitattributes
 .gitignore
