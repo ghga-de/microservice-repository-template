@@ -83,12 +83,13 @@
 	"postCreateCommand": "dev_install",
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
+	"containerEnv": {
+		// for testcontainers to connect to the docker host:
+		"TC_HOST": "host.docker.internal",
+		"DOCKER_HOST": "unix:///var/run/docker.sock"
+	},
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {
-			"version": "latest",
-			"enableNonRootDocker": "true",
-			"moby": true,
-			"azureDnsAutoDetection": false
-		}
+		// details can be found here: https://github.com/devcontainers/features/tree/main/src/docker-outside-of-docker
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	}
 }
