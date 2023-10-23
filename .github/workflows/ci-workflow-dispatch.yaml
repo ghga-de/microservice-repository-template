@@ -3,8 +3,12 @@ name: Continuous Integration Workflow Dispatch
 on: workflow_dispatch
 
 jobs:
+  fetch-tag:
+    uses: ghga-de/helmfile-templates/.github/workflows/fetch-tag.yml@main
+
   push_to_docker_hub:
-    uses: ghga/helmfile-templates/.github/workflows/ci-reusable-workflow.yml@add-ci-reusable-workflow
+    needs: fetch-tag
+    uses: ghga-de/helmfile-templates/.github/workflows/ci-reusable-workflow.yml@main
     with:
-      tag: ${{ github.ref_name }}-${{ github.sha }}
+      tag: ${{ needs.fetch-tag.outputs.latest_tag }}-${{ github.sha }}
     secrets: inherit

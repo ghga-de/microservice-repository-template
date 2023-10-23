@@ -6,7 +6,7 @@ on:
 
 jobs:
   push_to_docker_hub:
-    uses: ghga/helmfile-templates/.github/workflows/ci-reusable-workflow.yml@add-ci-reusable-workflow
+    uses: ghga-de/helmfile-templates/.github/workflows/ci-reusable-workflow.yml@main
     with:
         tag: ${{ github.event.release.tag_name }}
     secrets: inherit
