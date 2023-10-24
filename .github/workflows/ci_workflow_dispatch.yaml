@@ -1,9 +1,17 @@
-name: Continuous Integration Workflow Dispatch
+name: Build on PR or dispatch 
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
 
 jobs:
   fetch-tag:
+    if: ( github.event.action != 'labeled' && contains(github.event.pull_request.labels.*.name, 'build') ) || ( github.event.action == 'labeled' && github.event.label.name == 'build' )
     uses: ghga-de/helmfile-templates/.github/workflows/fetch-tag.yml@main
 
   push_to_docker_hub:
@@ -11,4 +19,5 @@ jobs:
     uses: ghga-de/helmfile-templates/.github/workflows/ci-reusable-workflow.yml@main
     with:
       tag: ${{ needs.fetch-tag.outputs.latest_tag }}-${{ github.sha }}
+      package_version: ${{ needs.fetch-tag.outputs.latest_tag }}
     secrets: inherit
