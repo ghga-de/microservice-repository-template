@@ -31,10 +31,7 @@
 				],
 				"editor.defaultFormatter": "ms-python.black-formatter",
 				"licenser.license": "Custom",
-				"licenser.customHeaderFile": "/workspace/.devcontainer/license_header.txt",
-				"ruff.enable": true,
-				"ruff.organizeImports": true,
-				"ruff.fixAll": true
+				"licenser.customHeaderFile": "/workspace/.devcontainer/license_header.txt"
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
