@@ -30,8 +30,10 @@ FROM python:3.10.9-slim-bullseye
 # update and install dependencies
 RUN apt update
 RUN apt upgrade -y
-# copy and install wheel
+# copy and install requirements and wheel
 WORKDIR /service
+COPY --from=builder /service/requirements.txt /service
+RUN pip install --no-deps -r requirements.txt
 COPY --from=builder /service/dist/ /service
 RUN pip install *.whl
 # create new user and execute as that user
