@@ -28,7 +28,11 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseSettings
+
+try:
+    from pydantic_settings import BaseSettings
+except ImportError:  # fallback for pydantic v1
+    from pydantic import BaseSettings  # type: ignore [no-redef]
 
 from script_utils.cli import echo_failure, echo_success, run
 
@@ -77,14 +81,16 @@ def get_schema() -> str:
     """Returns a JSON schema generated from a Config class."""
 
     config = get_dev_config()
-    return config.schema_json(indent=2)
+    return config.schema_json(indent=2)  # change eventually to .model_json_schema(...)
 
 
 def get_example() -> str:
     """Returns an example config YAML."""
 
     config = get_dev_config()
-    normalized_config_dict = json.loads(config.json())
+    normalized_config_dict = json.loads(
+        config.json()  # change eventually to .model_dump_json()
+    )
     return yaml.dump(normalized_config_dict)  # pyright: ignore
 
 
