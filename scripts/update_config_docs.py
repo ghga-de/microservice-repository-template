@@ -28,7 +28,11 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseSettings
+
+try:
+    from pydantic_settings import BaseSettings
+except ImportError:
+    from pydantic import BaseSettings
 
 from script_utils.cli import echo_failure, echo_success, run
 
