@@ -32,7 +32,7 @@ import yaml
 try:
     from pydantic_settings import BaseSettings
 except ImportError:
-    from pydantic import BaseSettings
+    from pydantic import BaseSettings  # type: ignore [no-redef]
 
 from script_utils.cli import echo_failure, echo_success, run
 
