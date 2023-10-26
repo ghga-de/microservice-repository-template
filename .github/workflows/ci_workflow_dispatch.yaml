@@ -16,7 +16,7 @@ jobs:
 
   push_to_docker_hub:
     needs: fetch-tag
-    uses: ghga-de/helmfile-templates/.github/workflows/ci-reusable-workflow.yml@main
+    uses: ghga-de/gh-action-common/.github/workflows/ci-workflow-call.yml@add-ci-reusable-workflow
     with:
       tag: ${{ needs.fetch-tag.outputs.latest_tag }}-${{ github.sha }}
       package_version: ${{ needs.fetch-tag.outputs.latest_tag }}
