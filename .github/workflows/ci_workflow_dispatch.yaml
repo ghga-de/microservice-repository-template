@@ -1,6 +1,6 @@
-name: Build on PR or dispatch 
+name: Build on PR or dispatch
 
-on: 
+on:
   workflow_dispatch:
   pull_request:
     types:
