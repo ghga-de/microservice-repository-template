@@ -10,6 +10,7 @@
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
 			"settings": {
+				"files.eol": "\n",
 				"terminal.integrated.profiles.linux": {
 					"bash": {
 						"path": "/bin/bash"
@@ -50,7 +51,6 @@
 				"yzhang.markdown-all-in-one",
 				"visualstudioexptteam.vscodeintellicode",
 				"ymotongpoo.licenser",
-				"editorconfig.editorconfig",
 				"charliermarsh.ruff",
 				"ms-python.black-formatter",
 				"ms-python.mypy-type-checker"
