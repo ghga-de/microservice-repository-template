@@ -29,11 +29,6 @@ from typing import Any
 
 import yaml
 
-try:
-    from pydantic_settings import BaseSettings
-except ImportError:  # fallback for pydantic v1
-    from pydantic import BaseSettings  # type: ignore [no-redef]
-
 from script_utils.cli import echo_failure, echo_success, run
 
 HERE = Path(__file__).parent.resolve()
@@ -48,7 +43,7 @@ class ValidationError(RuntimeError):
     """Raised when validation of config documentation fails."""
 
 
-def get_config_class() -> type[BaseSettings]:
+def get_config_class():
     """
     Dynamically imports and returns the Config class from the current service.
     This makes the script service repo agnostic.
