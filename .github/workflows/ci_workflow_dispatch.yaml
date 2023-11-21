@@ -11,13 +11,18 @@ on:
 
 jobs:
   fetch-tag:
-    if: ( github.event.action != 'labeled' && contains(github.event.pull_request.labels.*.name, 'build') ) || ( github.event.action == 'labeled' && github.event.label.name == 'build' )
-    uses: ghga-de/gh-action-common/.github/workflows/fetch-tag.yml@add-ci-reusable-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - if: ( github.event.action != 'labeled' && contains(github.event.pull_request.labels.*.name, 'build') ) || ( github.event.action == 'labeled' && github.event.label.name == 'build' )
+        uses: ghga-de/gh-action-fetch-tag@v1
 
   push_to_docker_hub:
     needs: fetch-tag
-    uses: ghga-de/gh-action-common/.github/workflows/ci-workflow-call.yml@add-ci-reusable-workflow
-    with:
-      tag: ${{ needs.fetch-tag.outputs.latest_tag }}-${{ github.sha }}
-      package_version: ${{ needs.fetch-tag.outputs.latest_tag }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ghga-de/gh-action-ci@v1
+        with:
+          tag: ${{ needs.fetch-tag.outputs.latest_tag }}-${{ github.sha }}
+          package_version: ${{ needs.fetch-tag.outputs.latest_tag }}
+          dockerhub_username: $${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: $${{ secrets.DOCKERHUB_TOKEN }}

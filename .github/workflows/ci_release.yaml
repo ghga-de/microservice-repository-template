@@ -6,7 +6,10 @@ on:
 
 jobs:
   push_to_docker_hub:
-    uses: ghga-de/gh-action-common/.github/workflows/ci-workflow-call.yml@add-ci-reusable-workflow
-    with:
-        tag: ${{ github.event.release.tag_name }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ghga-de/gh-action-ci@v1
+        with:
+          tag: ${{ github.event.release.tag_name }}
+          dockerhub_username: $${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: $${{ secrets.DOCKERHUB_TOKEN }}
