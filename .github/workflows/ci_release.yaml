@@ -11,5 +11,5 @@ jobs:
       - uses: ghga-de/gh-action-ci@v1
         with:
           tag: ${{ github.event.release.tag_name }}
-          dockerhub_username: $${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: $${{ secrets.DOCKERHUB_TOKEN }}
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
