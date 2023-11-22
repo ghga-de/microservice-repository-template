@@ -23,6 +23,5 @@ jobs:
       - uses: ghga-de/gh-action-ci@v1
         with:
           tag: ${{ needs.fetch-tag.outputs.latest_tag }}-${{ github.sha }}
-          package_version: ${{ needs.fetch-tag.outputs.latest_tag }}
-          dockerhub_username: $${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: $${{ secrets.DOCKERHUB_TOKEN }}
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
