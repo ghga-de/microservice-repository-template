@@ -16,6 +16,8 @@ scripts/script_utils/fastapi_app_location.py
 .readme_generation/description.md
 .readme_generation/design.md
 
+.pyproject_generation/pyproject_custom.toml
+
 lock/requirements-dev.in
 lock/requirements-dev.txt
 lock/requirements.txt
