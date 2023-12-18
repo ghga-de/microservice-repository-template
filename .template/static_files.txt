@@ -42,8 +42,11 @@ example_data/README.md
 
 .template/README.md
 
-readme_generation/.readme_template.md
-readme_generation/README.md
+.readme_generation/.readme_template.md
+.readme_generation/README.md
+
+lock/requirements-dev-template.in
+lock/README.md
 
 .coveragerc
 .gitattributes
@@ -53,4 +56,3 @@ readme_generation/README.md
 pytest.ini
 
 LICENSE
-requirements-dev-common.in

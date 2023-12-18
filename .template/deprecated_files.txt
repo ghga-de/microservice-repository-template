@@ -19,6 +19,10 @@ docs
 
 setup.py
 setup.cfg
+requirements-dev-common.in
+requirements-dev.in
+requirements-dev.txt
+requirements.txt
 
 .pylintrc
 .flake8
