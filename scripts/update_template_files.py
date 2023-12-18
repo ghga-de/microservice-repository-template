@@ -43,14 +43,14 @@ except ImportError:
 REPO_ROOT_DIR = Path(__file__).parent.parent.absolute()
 
 FILE_LIST_DIR_NAME = ".template"
-DEPRECATED_FILES = ".deprecated_files"
-MANDATORY_FILES = ".mandatory_files"
-STATIC_FILES = ".static_files"
+DEPRECATED_FILES = "deprecated_files"
+MANDATORY_FILES = "mandatory_files"
+STATIC_FILES = "static_files"
 
 IGNORE_SUFFIX = "_ignore"
 
 TEMPLATE_LIST_REL_PATHS = [
-    f"{FILE_LIST_DIR_NAME}/{list_name}"
+    f"{FILE_LIST_DIR_NAME}/{list_name}.txt"
     for list_name in [STATIC_FILES, MANDATORY_FILES, DEPRECATED_FILES]
 ]
 
@@ -65,7 +65,7 @@ class ValidationError(RuntimeError):
 
 def get_file_list_path(list_name: str, relative: bool = False) -> Path:
     """Get the path to the file list of the given name."""
-    return Path(REPO_ROOT_DIR / FILE_LIST_DIR_NAME / list_name)
+    return Path(REPO_ROOT_DIR / FILE_LIST_DIR_NAME / f"{list_name}")
 
 
 def get_file_list(list_name: str) -> list[str]:
