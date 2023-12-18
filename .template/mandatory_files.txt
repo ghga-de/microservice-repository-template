@@ -13,6 +13,9 @@ tests/fixtures/__init__.py
 
 scripts/script_utils/fastapi_app_location.py
 
+.readme_generation/description.md
+.readme_generation/design.md
+
 Dockerfile
 config_schema.json
 example_config.yaml
@@ -23,6 +26,4 @@ requirements-dev.in
 requirements-dev.txt
 requirements.txt
 
-.description.md
-.design.md
 .pre-commit-config.yaml

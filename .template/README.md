@@ -22,26 +22,26 @@ This directory contains multiple text files that are listing paths to other file
 of this repository. The listed files are affected in different ways by template updates
 as explained in the following.
 
-## `.static_files`
+## `static_files.txt`
 The files listed here are synced with their counterparts in the template. They should
 never be modified manually.
 
-## `.static_files_ignore`
+## `static_files_ignore.txt`
 To opt out of template updates just for individual files declared as static
 (e.g. because you would like manually modify them), you may add them to this list.
 
-## `.mandatory_files`
+## `mandatory_files.txt`
 The contents of the files listed here are not synced with the template, however, upon
 every template update it is checked that the files exist. You should modify them
 manually to the needs of your repository.
 
-## `.mandatory_files_ignore`
+## `mandatory_files_ignore.txt`
 To opt out of existence checks for individual files declared as mandatory, you may add
 them to this list.
 
-## `deprecated_files`
+## `deprecated_files.txt`
 Files listed here must not exist in your repository and are automatically deleted upon
 a template update.
 
-## `.deprecated_files_ignore`
+## `deprecated_files_ignore.txt`
 If you would like to keep files declared as deprecated, you may add them to this list.
