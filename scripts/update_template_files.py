@@ -65,7 +65,7 @@ class ValidationError(RuntimeError):
 
 def get_file_list_path(list_name: str, relative: bool = False) -> Path:
     """Get the path to the file list of the given name."""
-    return Path(REPO_ROOT_DIR / FILE_LIST_DIR_NAME / f"{list_name}")
+    return Path(REPO_ROOT_DIR / FILE_LIST_DIR_NAME / f"{list_name}.txt")
 
 
 def get_file_list(list_name: str) -> list[str]:
