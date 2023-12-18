@@ -23,3 +23,9 @@ setup.cfg
 .pylintrc
 .flake8
 .editorconfig
+.deprecated_files
+.deprecated_files_ignore
+.mandatory_files
+.mandatory_files_ignore
+.static_files
+.static_files_ignore
