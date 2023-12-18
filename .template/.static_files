@@ -40,6 +40,11 @@ scripts/README.md
 
 example_data/README.md
 
+.template/README.md
+
+readme_generation/.readme_template.md
+readme_generation/README.md
+
 .coveragerc
 .gitattributes
 .gitignore
@@ -49,6 +54,3 @@ pytest.ini
 
 LICENSE
 requirements-dev-common.in
-
-.readme_template.md
-readme_generation.md

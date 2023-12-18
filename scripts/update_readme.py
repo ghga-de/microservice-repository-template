@@ -32,9 +32,10 @@ from script_utils.cli import echo_failure, echo_success, run
 
 ROOT_DIR = Path(__file__).parent.parent.resolve()
 PYPROJECT_TOML_PATH = ROOT_DIR / "pyproject.toml"
-DESCRIPTION_PATH = ROOT_DIR / ".description.md"
-DESIGN_PATH = ROOT_DIR / ".design.md"
-README_TEMPLATE_PATH = ROOT_DIR / ".readme_template.md"
+README_GENERATION_DIR = ROOT_DIR / ".readme_generation"
+DESCRIPTION_PATH = README_GENERATION_DIR / "description.md"
+DESIGN_PATH = README_GENERATION_DIR / "design.md"
+README_TEMPLATE_PATH = README_GENERATION_DIR / "readme_template.md"
 CONFIG_SCHEMA_PATH = ROOT_DIR / "config_schema.json"
 OPENAPI_YAML_REL_PATH = "./openapi.yaml"
 README_PATH = ROOT_DIR / "README.md"
