@@ -64,12 +64,12 @@ EXCLUDE = [
     ".mypy.ini",
     ".pytest_cache",
     ".editorconfig",
-    ".static_files",
-    ".static_files_ignore",
-    ".mandatory_files",
-    ".mandatory_files_ignore",
-    ".deprecated_files",
-    ".deprecated_files_ignore",
+    ".template/.static_files",
+    ".template/.static_files_ignore",
+    ".template/.mandatory_files",
+    ".template/.mandatory_files_ignore",
+    ".template/.deprecated_files",
+    ".template/.deprecated_files_ignore",
 ]
 
 # exclude file by file ending from license header check:
