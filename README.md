@@ -1,8 +1,34 @@
+# Microservice Repository Template
 
+This is a template for GitHub repositories containing one Python-based microservice (optimal for a multirepository setup).
+
+It features:
+
+- *Continuous Templation* - A continuous update-delivery mechanism for templated repositories
+- A [devcontainer](https://containers.dev/)-based fully-configured development environment for vscode
+- Tight linting and formatting using [Ruff](https://docs.astral.sh/ruff/)
+- Static type checking using [mypy](https://www.mypy-lang.org/)
+- Security scanning using [bandit](https://bandit.readthedocs.io/en/latest/)
+- A structure for automated tests using [pytest](https://docs.pytest.org/en/7.4.x/)
+- Dependency locking using [pip-tools](https://github.com/jazzband/pip-tools)
+- Git hooks checking linting and formatting before committing using [pre-commit](https://pre-commit.com/)
+- Automatic container-building and publishing to [Docker Hub](https://hub.docker.com/)
+- GitHub Actions for automating or checking all of the above
+
+It is worth emphasizing the first point, this template is not just a one-time kickstart for your project
+but repositories created using this template will continue receiving updates as the template evolves.
+For further details, please look at the explanation in [.template/README.md](/.template/README.md).
+
+Please also refer to [.readme_generation/README.md](/.readme_generation/README.md) for details on how
+to adapt this readme.
+
+Here the intro to the template stops and the actual template for the readme of the microservice starts:
+
+---
 [![tests](https://github.com/ghga-de/microservice-repository-template/actions/workflows/tests.yaml/badge.svg)](https://github.com/ghga-de/microservice-repository-template/actions/workflows/tests.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/ghga-de/microservice-repository-template/badge.svg?branch=main)](https://coveralls.io/github/ghga-de/microservice-repository-template?branch=main)
 
-# Microservice Repository Template
+# My Microservice
 
 My-Microservice - a short description
 
@@ -10,45 +36,22 @@ My-Microservice - a short description
 
 <!-- Please provide a short overview of the features of this service. -->
 
-This repo is a template for creating a new microservice.
-
-The directories, files, and their structure herein are recommendations
-from the GHGA Dev Team.
-
-### Naming Conventions
-
-The GitHub repository contains only lowercase letters, numbers, and hyphens "-",
-e.g.: `my-microservice`
-
-The Python package (and thus the source repository) contains underscores "_"
-instead of hyphens, e.g.: `my_microservice`
-However, an abbreviated version is prefered as package name.
-
-### Adapt to your service
-
-This is just a template and needs some adaptation to your specific use case.
-
-Please search for **"please adapt"** comments. They will indicate all locations that
-need modification. Once the adaptations are in place, please remove these comments.
-
-Finally, follow the instructions to generate the README.md described in
-[`./readme_generation.md`](./readme_generation.md). Please also adapt this markdown file
-by providing an overview of the feature of the package.
+Here you should provide a short summary of the purpose of this microservice.
 
 
 ## Installation
 
 We recommend using the provided Docker container.
 
-A pre-build version is available at [docker hub](https://hub.docker.com/repository/docker/ghga/microservice-repository-template):
+A pre-build version is available at [docker hub](https://hub.docker.com/repository/docker/ghga/my-microservice):
 ```bash
-docker pull ghga/microservice-repository-template:0.1.0
+docker pull ghga/my-microservice:0.1.0
 ```
 
 Or you can build the container yourself from the [`./Dockerfile`](./Dockerfile):
 ```bash
 # Execute in the repo's root dir:
-docker build -t ghga/microservice-repository-template:0.1.0 .
+docker build -t ghga/my-microservice:0.1.0 .
 ```
 
 For production-ready deployment, we recommend using Kubernetes, however,
@@ -56,7 +59,7 @@ for simple use cases, you could execute the service using docker
 on a single server:
 ```bash
 # The entrypoint is preconfigured:
-docker run -p 8080:8080 ghga/microservice-repository-template:0.1.0 --help
+docker run -p 8080:8080 ghga/my-microservice:0.1.0 --help
 ```
 
 If you prefer not to use containers, you may install the service from source:
