@@ -33,7 +33,7 @@ scripts/README.md
 .github/workflows/check_config_docs.yaml
 .github/workflows/check_openapi_spec.yaml
 .github/workflows/check_readme.yaml
-./github/workflows/check_pyproject.yaml
+.github/workflows/check_pyproject.yaml
 .github/workflows/check_template_files.yaml
 .github/workflows/ci_release.yaml
 .github/workflows/ci_workflow_dispatch.yaml
@@ -44,7 +44,7 @@ example_data/README.md
 
 .template/README.md
 
-.readme_generation/.readme_template.md
+.readme_generation/readme_template.md
 .readme_generation/README.md
 
 .pyproject_generation/pyproject_template.toml
@@ -53,11 +53,7 @@ example_data/README.md
 lock/requirements-dev-template.in
 lock/README.md
 
-.coveragerc
 .gitattributes
 .gitignore
-.mypy.ini
-.ruff.toml
-pytest.ini
 
 LICENSE
