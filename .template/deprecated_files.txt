@@ -23,9 +23,14 @@ requirements-dev-common.in
 requirements-dev.in
 requirements-dev.txt
 requirements.txt
+pytest.ini
+readme_generation.md
 
 .pylintrc
 .flake8
+.mypy.ini
+.ruff.toml
+.coveragerc
 .editorconfig
 .deprecated_files
 .deprecated_files_ignore
