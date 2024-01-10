@@ -76,11 +76,44 @@ my_microservice --help
 ### Parameters
 
 The service requires the following configuration parameters:
+- **`log_level`** *(string)*: The minimum log level to capture. Must be one of: `["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"]`. Default: `"INFO"`.
+
+- **`service_name`** *(string)*: Short name of this service. Default: `"my_microservice"`.
+
+- **`service_instance_id`** *(string)*: A string that uniquely identifies this instance across all instances of this service. This is included in log messages.
+
+
+  Examples:
+
+  ```json
+  "germany-bw-instance-001"
+  ```
+
+
+- **`log_format`**: If set, will replace JSON formatting with the specified string format. If not set, has no effect. In addition to the standard attributes, the following can also be specified: timestamp, service, instance, level, correlation_id, and details. Default: `null`.
+
+  - **Any of**
+
+    - *string*
+
+    - *null*
+
+
+  Examples:
+
+  ```json
+  "%(timestamp)s - %(service)s - %(level)s - %(message)s"
+  ```
+
+
+  ```json
+  "%(asctime)s - Severity: %(levelno)s - %(msg)s"
+  ```
+
+
 - **`host`** *(string)*: IP of the host. Default: `"127.0.0.1"`.
 
 - **`port`** *(integer)*: Port to expose the server on the specified host. Default: `8080`.
-
-- **`log_level`** *(string)*: Controls the verbosity of the log. Must be one of: `["critical", "error", "warning", "info", "debug", "trace"]`. Default: `"info"`.
 
 - **`auto_reload`** *(boolean)*: A development feature. Set to `True` to automatically reload the server upon code changes. Default: `false`.
 
@@ -170,9 +203,22 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`service_name`** *(string)*: Default: `"my_microservice"`.
+- **`generate_correlation_id`** *(boolean)*: A flag, which, if False, will result in an error when inbound requests don't possess a correlation ID. If True, requests without a correlation ID will be assigned a newly generated ID in the correlation ID middleware function. Default: `true`.
 
-- **`language`** *(string)*: Must be one of: `["Greek", "Croatian", "French", "German"]`. Default: `"Croatian"`.
+
+  Examples:
+
+  ```json
+  true
+  ```
+
+
+  ```json
+  false
+  ```
+
+
+- **`language`** *(string)*: The language. Must be one of: `["Greek", "Croatian", "French", "German"]`. Default: `"Croatian"`.
 
 
 ### Usage:

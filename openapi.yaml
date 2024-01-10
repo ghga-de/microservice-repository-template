@@ -1,7 +1,7 @@
 components:
   schemas:
     Greeting:
-      description: A container storing a greeting for a specfic person incl. metadata.
+      description: A container storing a greeting for a specific person incl. metadata.
       properties:
         created_at:
           description: The date/time when the message was created
