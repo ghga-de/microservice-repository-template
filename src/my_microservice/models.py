@@ -16,13 +16,9 @@
 """Defines dataclasses for holding business-logic data."""
 
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
-
-try:  # workaround for https://github.com/pydantic/pydantic/issues/5821
-    from typing_extensions import Literal
-except ImportError:
-    from typing import Literal  # type: ignore
 
 SupportedLanguages = Literal["Greek", "Croatian", "French", "German"]
 
@@ -52,6 +48,6 @@ class GreetingExpression(GreetingBase):
 
 
 class Greeting(GreetingBase, MessageBase):
-    """A container storing a greeting for a specfic person incl. metadata."""
+    """A container storing a greeting for a specific person incl. metadata."""
 
     pass  # pylint: disable=unnecessary-pass
