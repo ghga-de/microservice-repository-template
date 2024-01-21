@@ -1,6 +1,5 @@
 <!--
- Copyright 2021 - 2023 Universität Tübingen, DKFZ, EMBL, and Universität zu Köln
- for the German Human Genome-Phenome Archive (GHGA)
+ Copyright 2014 Kersten Henrik Breuer
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,7 +17,7 @@
 
 # Lock Files
 
-This directory contains two lock files locking the dependencies of this microservice:
+This directory contains two lock files locking the dependencies of this package:
 
 The [`./requirements.txt`](./requirements.txt) contains production dependencies.
 
@@ -28,11 +27,7 @@ dependencies.
 ## Sources
 
 For generating the production lock file, only the dependencies specified in the
-[`../pyproject.toml`](../pyproject.toml) are considered as input.
-
-For generating the development lock file, additionally, the
-[`./requirements-dev-template.in`](./requirements-dev-template.in) as well as
-the [`./requirements-dev.in`](./requirements-dev.in) are considered.
+[`../pyproject.toml`](../pyproject.toml) are considered as input.ered.
 
 The `./requirements-dev-template.in` is automatically updated from the template
 repository and should not be manually modified.

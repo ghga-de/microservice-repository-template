@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 [project]
 readme = "README.md"
 authors = [
-    { name = "German Human Genome Phenome Archive (GHGA)", email = "contact@ghga.de" },
+    { name = "KerstenBreuer", email = "kersten-breuer@outlook.com" },
 ]
 requires-python = ">=3.9"
 classifiers = [
@@ -21,24 +21,31 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Intended Audience :: Developers",
 ]
-name = "my_microservice"
+name = "my_custom_app"
 version = "0.1.0"
-description = "My-Microservice - a short description"
+description = "my_custom_app - a short description"
 dependencies = [
     "typer >= 0.9.0",
-    "ghga-service-commons[api] >= 1.2.0",
-    "ghga-event-schemas >= 1.0.0",
-    "hexkit[akafka,s3,mongodb] >= 1.1.0",
+    "pydantic >= 2.5.3",
+    "fastapi >= 0.109.0",
+    "PyYaml >= 6.0.1",
+    "boto3 >= 1.34.23",
+    "kafka-python >= 2.0.2",
+    "aiokafka >= 0.10.0",
+    "pymongo >= 4.6.1",
+    "motor >= 3.3.2",
+    "sqlalchemy >= 2.0.25",
+    "psycopg2 >= 2.9.9",
 ]
 
 [project.license]
 text = "Apache 2.0"
 
 [project.urls]
-Repository = "https://github.com/ghga-de/my-microservice"
+Repository = "https://github.com/kerstenbreuer/app"
 
 [project.scripts]
-my-microservice = "my_microservice.__main__:run"
+my_custom_app = "my_custom_app.__main__:run"
 
 [tool.setuptools.packages.find]
 where = [

@@ -1,5 +1,4 @@
-# Copyright 2021 - 2023 Universität Tübingen, DKFZ, EMBL, and Universität zu Köln
-# for the German Human Genome-Phenome Archive (GHGA)
+# Copyright 2024 Kersten Henrik Breuer
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-"""Used to define the location of the main FastAPI app object."""
+"""Short description of package."""  # Please adapt to package
 
-# flake8: noqa
-# pylint: skip-file
+from importlib.metadata import version
 
-# Please adapt to package structure:
-from my_microservice.api.main import app
+__version__ = version(__package__)

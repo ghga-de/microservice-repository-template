@@ -10,15 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - id: common
-        uses: ghga-de/gh-action-common@v4
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          pip install --no-deps -r ./lock/requirements-dev.txt
+          pip install --no-deps .
 
       - id: pytest
         run: |
-          export ${{ steps.common.outputs.CONFIG_YAML_ENV_VAR_NAME }}="${{ steps.common.outputs.CONFIG_YAML }}"
-
           pytest \
-            --cov="${{ steps.common.outputs.PACKAGE_NAME }}" \
+            --cov=src \
             --cov-report=xml \
             tests
 

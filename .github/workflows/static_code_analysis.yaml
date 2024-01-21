@@ -9,19 +9,26 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - id: common
-        uses: ghga-de/gh-action-common@v4
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          pip install --no-deps -r ./lock/requirements-dev.txt
+          pip install --no-deps .
 
       - uses: pre-commit/action@v3.0.0
         env:
           SKIP: no-commit-to-branch
+
       - name: ruff
         run: |
           ruff check --output-format=github .
           ruff format --check .
+
       - name: mypy
         run: |
           mypy .
-      - name: Check license header and file
-        run: |
-          ./scripts/license_checker.py

@@ -56,7 +56,8 @@
 				"visualstudioexptteam.vscodeintellicode",
 				"ymotongpoo.licenser",
 				"charliermarsh.ruff",
-				"ms-python.mypy-type-checker"
+				"ms-python.mypy-type-checker",
+				"github.copilot"
 			]
 		}
 	},
