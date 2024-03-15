@@ -63,19 +63,16 @@ def fix_temp_dir_comments(file_path: Path):
 def is_file_outdated(old_file: Path, new_file: Path) -> bool:
     """Compares two lock files and returns True if there is a difference, else False"""
 
-    header_comment = "#    pip-compile"
     outdated = False
 
     with open(old_file, encoding="utf-8") as old:
         with open(new_file, encoding="utf-8") as new:
-            old_lines = old.readlines()
-            new_lines = new.readlines()
+            old_lines = old.readlines()[2:]  # skip header lines
+            new_lines = new.readlines()[2:]
             if len(old_lines) != len(new_lines):
                 outdated = True
             if not outdated:
                 for old_line, new_line in zip(old_lines, new_lines):
-                    if old_line.startswith(header_comment):
-                        continue
                     if old_line != new_line:
                         outdated = True
                         break
@@ -97,10 +94,11 @@ def compile_lock_file(
     print(f"Updating '{output.name}'...")
 
     command = [
-        "pip-compile",
-        "--rebuild",
+        "uv",
+        "pip",
+        "compile",
+        "--refresh",
         "--generate-hashes",
-        "--annotate",
     ]
 
     if upgrade:
