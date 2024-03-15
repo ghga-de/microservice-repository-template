@@ -23,6 +23,7 @@
 import os
 import re
 import subprocess
+from itertools import zip_longest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -67,15 +68,21 @@ def is_file_outdated(old_file: Path, new_file: Path) -> bool:
 
     with open(old_file, encoding="utf-8") as old:
         with open(new_file, encoding="utf-8") as new:
-            old_lines = old.readlines()[2:]  # skip header lines
-            new_lines = new.readlines()[2:]
-            if len(old_lines) != len(new_lines):
-                outdated = True
-            if not outdated:
-                for old_line, new_line in zip(old_lines, new_lines):
-                    if old_line != new_line:
-                        outdated = True
-                        break
+            outdated = any(
+                old_line != new_line
+                for old_line, new_line in zip_longest(
+                    (
+                        line
+                        for line in (line.strip() for line in old)
+                        if line and not line.startswith("#")
+                    ),
+                    (
+                        line
+                        for line in (line.strip() for line in new)
+                        if line and not line.startswith("#")
+                    ),
+                )
+            )
     if outdated:
         cli.echo_failure(f"{str(old_file)} is out of date!")
     return outdated
