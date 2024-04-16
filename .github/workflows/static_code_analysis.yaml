@@ -13,7 +13,6 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-
       - name: Common steps
         id: common
         uses: ghga-de/gh-action-common@v5

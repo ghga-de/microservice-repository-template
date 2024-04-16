@@ -20,6 +20,7 @@ jobs:
           python-version: '3.12'
 
       - name: Check template files
+        id: check-template-files
         run: |
           if [ "${{ github.event.repository.name }}" == "microservice-repository-template" ]
           then
