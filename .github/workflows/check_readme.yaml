@@ -4,9 +4,9 @@ on: push
 
 jobs:
   static-code-analysis:
-    runs-on: ubuntu-latest
-
     name: Check README file
+
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository

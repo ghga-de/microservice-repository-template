@@ -4,9 +4,9 @@ on: push
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
-
     name: Run test suite
+
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository

@@ -5,9 +5,9 @@ on: push
 
 jobs:
   static-code-analysis:
-    runs-on: ubuntu-latest
-
     name: Check OpenAPI spec
+
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
