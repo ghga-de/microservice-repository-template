@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
       args:
-        # [Choice] Python version: 3, 3.8, 3.7, 3.6
+        # [Choice] Python version: 3, 3.12, 3.11, 3.10, 3.9
         VARIANT: 3.9
         # [Choice] Install Node.js
         INSTALL_NODE: "true"
