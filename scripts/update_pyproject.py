@@ -62,8 +62,8 @@ def merge_fields(*, source: dict[str, object], dest: dict[str, object]):
     """Merge fields existing in both custom and template pyproject definitions.
 
     If a given field is a dictionary, merge or assign depending on if it's found in dest.
-    If the field is anything else either assign the value or exit with a message if a
-    conflict exists.
+    If the field is anything else either assign the value or exit with an error message
+    if the values have different types.
     """
     for field, value in source.items():
         if isinstance(value, dict):
@@ -72,11 +72,13 @@ def merge_fields(*, source: dict[str, object], dest: dict[str, object]):
             else:
                 dest[field] = value
         else:
-            if field in dest and value != dest[field]:
-                cli.echo_failure(f"Conflicting values for '{field}'")
-                exit(1)
-            elif field not in dest:
-                dest[field] = value
+            if field in dest:
+                if type(value) == type(dest[field]):
+                    cli.echo_warning(f"Overriding value for '{field}'...")
+                else:
+                    cli.echo_failure(f"Conflicting types for '{field}'...")
+                    sys.exit(1)
+            dest[field] = value
 
 
 def merge_pyprojects(inputs: list[dict[str, object]]) -> dict[str, object]:
@@ -85,10 +87,10 @@ def merge_pyprojects(inputs: list[dict[str, object]]) -> dict[str, object]:
 
     for input in inputs[1:]:
         for field, value in input.items():
-            if field not in pyproject:
-                pyproject[field] = value
-            else:
+            if field in pyproject:
                 merge_fields(source=value, dest=pyproject[field])  # type: ignore
+            else:
+                pyproject[field] = value
 
     return pyproject
 
