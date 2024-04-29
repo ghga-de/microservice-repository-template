@@ -21,8 +21,8 @@
 import sys
 from pathlib import Path
 
-import tomli
 import tomli_w
+import tomllib
 
 from script_utils import cli
 
@@ -37,19 +37,19 @@ PYPROJECT_TOML = REPO_ROOT_DIR / "pyproject.toml"
 def read_template_pyproject() -> dict[str, object]:
     """Read the pyproject_template.toml."""
     with open(PYPROJECT_TEMPLATE_PATH, "rb") as file:
-        return tomli.load(file)
+        return tomllib.load(file)
 
 
 def read_custom_pyproject() -> dict[str, object]:
     """Read the pyproject_custom.toml."""
     with open(PYPROJECT_CUSTOM_PATH, "rb") as file:
-        return tomli.load(file)
+        return tomllib.load(file)
 
 
 def read_current_pyproject() -> dict[str, object]:
     """Read the current pyproject.toml."""
     with open(PYPROJECT_TOML, "rb") as file:
-        return tomli.load(file)
+        return tomllib.load(file)
 
 
 def write_pyproject(pyproject: dict[str, object]) -> None:
