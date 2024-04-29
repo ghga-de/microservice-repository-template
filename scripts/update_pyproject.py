@@ -55,7 +55,7 @@ def read_current_pyproject() -> dict[str, object]:
 def write_pyproject(pyproject: dict[str, object]) -> None:
     """Write the given pyproject dict into the pyproject.toml."""
     with open(PYPROJECT_TOML, "wb") as file:
-        tomli_w.dump(pyproject, file)
+        tomli_w.dump(pyproject, file, multiline_strings=True)
 
 
 def merge_fields(*, source: dict[str, object], dest: dict[str, object]):
