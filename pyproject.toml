@@ -145,7 +145,7 @@ check_untyped_defs = true
 no_site_packages = false
 
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "8.2"
 asyncio_mode = "strict"
 
 [tool.coverage.paths]
