@@ -59,7 +59,7 @@ src = [
     "examples",
     "scripts",
 ]
-target-version = "py39"
+target-version = "py312"
 
 [tool.ruff.lint]
 fixable = [
