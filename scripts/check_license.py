@@ -24,7 +24,6 @@ import re
 import sys
 from datetime import date
 from pathlib import Path
-from typing import Optional, Union
 
 # root directory of the package:
 ROOT_DIR = Path(__file__).parent.parent.resolve()
@@ -140,11 +139,11 @@ class GlobalCopyrightNotice:
     """
 
     def __init__(self):
-        self._text: Optional[str] = None
-        self._n_lines: Optional[int] = None
+        self._text: str | None = None
+        self._n_lines: int | None = None
 
     @property
-    def text(self) -> Optional[str]:
+    def text(self) -> str | None:
         return self._text
 
     @text.setter
@@ -167,7 +166,7 @@ class GlobalCopyrightNotice:
 class UnexpectedBinaryFileError(RuntimeError):
     """Thrown when trying to read a binary file."""
 
-    def __init__(self, file_path: Union[str, Path]):
+    def __init__(self, file_path: str | Path):
         message = f"The file could not be read because it is binary: {str(file_path)}"
         super().__init__(message)
 
@@ -181,13 +180,13 @@ def get_target_files(
     """Get target files that are not match the exclude conditions.
     Args:
         target_dir (pathlib.Path): The target dir to search.
-        exclude (List[str], optional):
+        exclude (list[str], optional):
             Overwrite default list of file/dir paths relative to
             the target dir that shall be excluded.
-        exclude_endings (List[str], optional):
+        exclude_endings (list[str], optional):
             Overwrite default list of file endings that shall
             be excluded.
-        exclude_pattern (List[str], optional):
+        exclude_pattern (list[str], optional):
             Overwrite default list of regex patterns match file path
             for exclusion.
     """
@@ -407,13 +406,13 @@ def check_file_headers(
             The author that shall be included in the license header.
             It will replace any appearance of "{author}" in the license
             header. This defaults to an author info for GHGA.
-        exclude (List[str], optional):
+        exclude (list[str], optional):
             Overwrite default list of file/dir paths relative to
             the target dir that shall be excluded.
-        exclude_endings (List[str], optional):
+        exclude_endings (list[str], optional):
             Overwrite default list of file endings that shall
             be excluded.
-        exclude_pattern (List[str], optional):
+        exclude_pattern (list[str], optional):
             Overwrite default list of regex patterns match file path
             for exclusion.
     """
