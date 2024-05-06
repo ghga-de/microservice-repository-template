@@ -40,7 +40,7 @@ EXCLUDE = [
     ".git",
     ".github",
     ".flake8",
-    ".gitignore" ".pre-commit-config.yaml",
+    ".gitignore",
     ".mypy_cache",
     ".mypy.ini",
     ".pylintrc",
