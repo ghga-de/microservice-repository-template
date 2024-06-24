@@ -5,7 +5,7 @@ services:
       dockerfile: ./Dockerfile
       args:
         # [Choice] Install Node.js
-        INSTALL_NODE: "true"
+        INSTALL_NODE: "false"
         NODE_VERSION: "lts/*"
         # Please adapt to package name:
         PACKAGE_NAME: "my_microservice"
