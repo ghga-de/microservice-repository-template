@@ -19,7 +19,7 @@ RUN apk update
 RUN apk upgrade --available
 
 # BUILDER: a container to build the service wheel
-FROM base as builder
+FROM base AS builder
 RUN pip install build
 COPY . /service
 WORKDIR /service
