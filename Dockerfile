@@ -15,8 +15,7 @@
 
 # BASE: a base image with updated packages
 FROM python:3.12-alpine AS base
-RUN apk update
-RUN apk upgrade --available
+RUN apk upgrade --no-cache --available
 
 # BUILDER: a container to build the service wheel
 FROM base AS builder
