@@ -37,7 +37,7 @@ RUN pip install --no-deps -r requirements.txt
 # RUNNER: a container to run the service
 FROM base AS runner
 WORKDIR /service
-RUN rm -rf /usr/local/lib/python3.12 && mkdir /usr/local/lib/python3.12
+RUN rm -rf /usr/local/lib/python3.12
 COPY --from=dep-builder /usr/local/lib/python3.12 /usr/local/lib/python3.12
 COPY --from=builder /service/dist/ /service
 RUN pip install --no-deps *.whl
