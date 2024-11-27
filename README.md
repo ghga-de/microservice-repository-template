@@ -80,7 +80,7 @@ The service requires the following configuration parameters:
 
 - **`service_name`** *(string)*: Short name of this service. Default: `"my_microservice"`.
 
-- **`service_instance_id`** *(string)*: A string that uniquely identifies this instance across all instances of this service. This is included in log messages.
+- **`service_instance_id`** *(string, required)*: A string that uniquely identifies this instance across all instances of this service. This is included in log messages.
 
 
   Examples:
@@ -110,6 +110,8 @@ The service requires the following configuration parameters:
   "%(asctime)s - Severity: %(levelno)s - %(msg)s"
   ```
 
+
+- **`log_traceback`** *(boolean)*: Whether to include exception tracebacks in log messages. Default: `true`.
 
 - **`host`** *(string)*: IP of the host. Default: `"127.0.0.1"`.
 
