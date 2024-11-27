@@ -1,6 +1,6 @@
 {
   "additionalProperties": false,
-  "description": "Modifies the orginal Settings class provided by the user",
+  "description": "Modifies the original Settings class provided by the user",
   "properties": {
     "log_level": {
       "default": "INFO",
@@ -46,6 +46,12 @@
         "%(asctime)s - Severity: %(levelno)s - %(msg)s"
       ],
       "title": "Log Format"
+    },
+    "log_traceback": {
+      "default": true,
+      "description": "Whether to include exception tracebacks in log messages.",
+      "title": "Log Traceback",
+      "type": "boolean"
     },
     "host": {
       "default": "127.0.0.1",
