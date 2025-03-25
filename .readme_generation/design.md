@@ -1,5 +1,5 @@
 <!-- Please provide an overview of the architecture and design of the code base.
-Mention anything that deviates from the standard triple hexagonal architecture and
+Mention anything that deviates from the standard Triple Hexagonal Architecture and
 the corresponding structure. -->
 
 This is a Python-based service following the Triple Hexagonal Architecture pattern.
