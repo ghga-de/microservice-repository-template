@@ -24,7 +24,7 @@ requests>=2.31
 
 casefy>=1.1
 jsonschema2md>=1.4
-setuptools>=78
+setuptools>=78.0.2
 
 # required since switch to pyproject.toml and pip-tools
 tomli_w>=1.2
