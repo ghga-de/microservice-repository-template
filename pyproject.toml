@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "setuptools>=69",
+    "setuptools>=78",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -24,7 +24,7 @@ name = "my_microservice"
 version = "0.1.0"
 description = "My-Microservice - a short description"
 dependencies = [
-    "typer >= 0.12",
+    "typer >= 0.15",
     "ghga-service-commons[api] >= 4.0",
     "ghga-event-schemas >= 4.0",
     "hexkit[akafka,s3,mongodb] >= 4.0",
@@ -146,7 +146,7 @@ check_untyped_defs = true
 no_site_packages = false
 
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "8.3"
 asyncio_mode = "strict"
 asyncio_default_fixture_loop_scope = "function"
 
