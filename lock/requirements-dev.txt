@@ -52,13 +52,13 @@ attrs==25.3.0 \
     # via
     #   jsonschema
     #   referencing
-boto3==1.37.18 \
-    --hash=sha256:1545c943f36db41853cdfdb6ff09c4eda9220dd95bd2fae76fc73091603525d1 \
-    --hash=sha256:9b272268794172b0b8bb9fb1f3c470c3b6c0ffb92fbd4882465cc740e40fbdcd
+boto3==1.37.19 \
+    --hash=sha256:c69c90500f18fd72d782d1612170b7d3db9a98ed51a4da3bebe38e693497ebf8 \
+    --hash=sha256:fbfc2c43ad686b63c8aa02aee634c269f856eed68941d8e570cc45950be52130
     # via hexkit
-botocore==1.37.18 \
-    --hash=sha256:99e8eefd5df6347ead15df07ce55f4e62a51ea7b54de1127522a08597923b726 \
-    --hash=sha256:a8b97d217d82b3c4f6bcc906e264df7ebb51e2c6a62b3548a97cd173fb8759a1
+botocore==1.37.19 \
+    --hash=sha256:6e1337e73a6b8146c1ec20a6a72d67e2809bd4c0af076431fe6e1561e0c89415 \
+    --hash=sha256:eadcdc37de09df25cf1e62e8106660c61f60a68e984acfc1a8d43fb6267e53b8
     # via
     #   boto3
     #   hexkit
@@ -284,9 +284,9 @@ h11==0.14.0 \
     # via
     #   httpcore
     #   uvicorn
-hexkit==4.1.1 \
-    --hash=sha256:b451dd398050069fccfa0108d86ef5c85b8c81b8f4e545a9a64a64995e6e2bc1 \
-    --hash=sha256:eee526a5f24fe1aa8e21bd0a37757e924bad307a8e9d8948f9a5f852cea8cc28
+hexkit==4.2.0 \
+    --hash=sha256:3f6c4e644b517d235d7ae1ea682543d0c604d3a0fbf2801b8957f95b644ad7ad \
+    --hash=sha256:7aeb3e66bd33715bd8cf0a053fb5056dee45b70abd828ce4f6b63f0242ba0d49
     # via
     #   my-microservice (pyproject.toml)
     #   ghga-service-commons
@@ -648,9 +648,9 @@ pytest==8.3.5 \
     #   pytest-asyncio
     #   pytest-cov
     #   pytest-httpx
-pytest-asyncio==0.25.3 \
-    --hash=sha256:9e89518e0f9bd08928f97a3482fdc4e244df17529460bc038291ccaf8f85c7c3 \
-    --hash=sha256:fc1da2cf9f125ada7e710b4ddad05518d4cee187ae9412e9ac9271003497f07a
+pytest-asyncio==0.26.0 \
+    --hash=sha256:7b51ed894f4fbea1340262bdae5135797ebbe21d8638978e35d31c6d19f72fb0 \
+    --hash=sha256:c4df2a697648241ff39e7f0e4a73050b03f123f760673956cf0d72a4990e312f
     # via -r lock/requirements-dev-template.in
 pytest-cov==6.0.0 \
     --hash=sha256:eee6f1b9e61008bd34975a4d5bab25801eb31898b032dd55addc93e96fcaaa35 \
@@ -664,9 +664,9 @@ python-dateutil==2.9.0.post0 \
     --hash=sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3 \
     --hash=sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427
     # via botocore
-python-dotenv==1.0.1 \
-    --hash=sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca \
-    --hash=sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a
+python-dotenv==1.1.0 \
+    --hash=sha256:41f90bc6f5f177fb41f53e87666db362025010eb28f60a01c9143bfa33a2b2d5 \
+    --hash=sha256:d7c01d9e2293916c18baf562d95698754b0dbbb5e74d457c45d4f6561fb9d55d
     # via
     #   pydantic-settings
     #   testcontainers
@@ -877,9 +877,9 @@ s3transfer==0.11.4 \
     --hash=sha256:559f161658e1cf0a911f45940552c696735f5c74e64362e515f333ebed87d679 \
     --hash=sha256:ac265fa68318763a03bf2dc4f39d5cbd6a9e178d81cc9483ad27da33637e320d
     # via boto3
-setuptools==78.0.1 \
-    --hash=sha256:1cc9b32ee94f93224d6c80193cbb768004667aa2f2732a473d6949b0236c1d4e \
-    --hash=sha256:4321d2dc2157b976dee03e1037c9f2bc5fea503c0c47d3c9458e0e8e49e659ce
+setuptools==78.0.2 \
+    --hash=sha256:137525e6afb9022f019d6e884a319017f9bf879a0d8783985d32cbc8683cab93 \
+    --hash=sha256:4a612c80e1f1d71b80e4906ce730152e8dec23df439f82731d9d0b608d7b700d
     # via -r lock/requirements-dev-template.in
 shellingham==1.5.4 \
     --hash=sha256:7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686 \
