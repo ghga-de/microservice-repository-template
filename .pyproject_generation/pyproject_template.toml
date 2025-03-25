@@ -103,6 +103,7 @@ no_site_packages = false
 [tool.pytest.ini_options]
 minversion = "8.0"
 asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
 
 [tool.coverage.paths]
 source = [

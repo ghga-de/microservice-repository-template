@@ -25,8 +25,8 @@ version = "0.1.0"
 description = "My-Microservice - a short description"
 dependencies = [
     "typer >= 0.12",
-    "ghga-service-commons[api] >= 3.3",
-    "ghga-event-schemas >= 3.3",
+    "ghga-service-commons[api] >= 4.0",
+    "ghga-event-schemas >= 4.0",
     "hexkit[akafka,s3,mongodb] >= 4.0",
 ]
 
@@ -148,6 +148,7 @@ no_site_packages = false
 [tool.pytest.ini_options]
 minversion = "8.0"
 asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
 
 [tool.coverage.paths]
 source = [

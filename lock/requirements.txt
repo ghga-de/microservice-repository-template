@@ -60,15 +60,15 @@ attrs==25.3.0 \
     #   -c lock/requirements-dev.txt
     #   jsonschema
     #   referencing
-boto3==1.37.18 \
-    --hash=sha256:1545c943f36db41853cdfdb6ff09c4eda9220dd95bd2fae76fc73091603525d1 \
-    --hash=sha256:9b272268794172b0b8bb9fb1f3c470c3b6c0ffb92fbd4882465cc740e40fbdcd
+boto3==1.37.19 \
+    --hash=sha256:c69c90500f18fd72d782d1612170b7d3db9a98ed51a4da3bebe38e693497ebf8 \
+    --hash=sha256:fbfc2c43ad686b63c8aa02aee634c269f856eed68941d8e570cc45950be52130
     # via
     #   -c lock/requirements-dev.txt
     #   hexkit
-botocore==1.37.18 \
-    --hash=sha256:99e8eefd5df6347ead15df07ce55f4e62a51ea7b54de1127522a08597923b726 \
-    --hash=sha256:a8b97d217d82b3c4f6bcc906e264df7ebb51e2c6a62b3548a97cd173fb8759a1
+botocore==1.37.19 \
+    --hash=sha256:6e1337e73a6b8146c1ec20a6a72d67e2809bd4c0af076431fe6e1561e0c89415 \
+    --hash=sha256:eadcdc37de09df25cf1e62e8106660c61f60a68e984acfc1a8d43fb6267e53b8
     # via
     #   -c lock/requirements-dev.txt
     #   boto3
@@ -126,9 +126,9 @@ h11==0.14.0 \
     #   -c lock/requirements-dev.txt
     #   httpcore
     #   uvicorn
-hexkit==4.1.1 \
-    --hash=sha256:b451dd398050069fccfa0108d86ef5c85b8c81b8f4e545a9a64a64995e6e2bc1 \
-    --hash=sha256:eee526a5f24fe1aa8e21bd0a37757e924bad307a8e9d8948f9a5f852cea8cc28
+hexkit==4.2.0 \
+    --hash=sha256:3f6c4e644b517d235d7ae1ea682543d0c604d3a0fbf2801b8957f95b644ad7ad \
+    --hash=sha256:7aeb3e66bd33715bd8cf0a053fb5056dee45b70abd828ce4f6b63f0242ba0d49
     # via
     #   -c lock/requirements-dev.txt
     #   my-microservice (pyproject.toml)
@@ -438,9 +438,9 @@ python-dateutil==2.9.0.post0 \
     # via
     #   -c lock/requirements-dev.txt
     #   botocore
-python-dotenv==1.0.1 \
-    --hash=sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca \
-    --hash=sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a
+python-dotenv==1.1.0 \
+    --hash=sha256:41f90bc6f5f177fb41f53e87666db362025010eb28f60a01c9143bfa33a2b2d5 \
+    --hash=sha256:d7c01d9e2293916c18baf562d95698754b0dbbb5e74d457c45d4f6561fb9d55d
     # via
     #   -c lock/requirements-dev.txt
     #   pydantic-settings
