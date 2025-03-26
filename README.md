@@ -76,11 +76,11 @@ my_microservice --help
 ### Parameters
 
 The service requires the following configuration parameters:
-- **`log_level`** *(string)*: The minimum log level to capture. Must be one of: `["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"]`. Default: `"INFO"`.
+- <a id="properties/log_level"></a>**`log_level`** *(string)*: The minimum log level to capture. Must be one of: `["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"]`. Default: `"INFO"`.
 
-- **`service_name`** *(string)*: Short name of this service. Default: `"my_microservice"`.
+- <a id="properties/service_name"></a>**`service_name`** *(string)*: Short name of this service. Default: `"my_microservice"`.
 
-- **`service_instance_id`** *(string, required)*: A string that uniquely identifies this instance across all instances of this service. This is included in log messages.
+- <a id="properties/service_instance_id"></a>**`service_instance_id`** *(string, required)*: A string that uniquely identifies this instance across all instances of this service. This is included in log messages.
 
 
   Examples:
@@ -90,13 +90,13 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`log_format`**: If set, will replace JSON formatting with the specified string format. If not set, has no effect. In addition to the standard attributes, the following can also be specified: timestamp, service, instance, level, correlation_id, and details. Default: `null`.
+- <a id="properties/log_format"></a>**`log_format`**: If set, will replace JSON formatting with the specified string format. If not set, has no effect. In addition to the standard attributes, the following can also be specified: timestamp, service, instance, level, correlation_id, and details. Default: `null`.
 
   - **Any of**
 
-    - *string*
+    - <a id="properties/log_format/anyOf/0"></a>*string*
 
-    - *null*
+    - <a id="properties/log_format/anyOf/1"></a>*null*
 
 
   Examples:
@@ -111,31 +111,31 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`log_traceback`** *(boolean)*: Whether to include exception tracebacks in log messages. Default: `true`.
+- <a id="properties/log_traceback"></a>**`log_traceback`** *(boolean)*: Whether to include exception tracebacks in log messages. Default: `true`.
 
-- **`host`** *(string)*: IP of the host. Default: `"127.0.0.1"`.
+- <a id="properties/host"></a>**`host`** *(string)*: IP of the host. Default: `"127.0.0.1"`.
 
-- **`port`** *(integer)*: Port to expose the server on the specified host. Default: `8080`.
+- <a id="properties/port"></a>**`port`** *(integer)*: Port to expose the server on the specified host. Default: `8080`.
 
-- **`auto_reload`** *(boolean)*: A development feature. Set to `True` to automatically reload the server upon code changes. Default: `false`.
+- <a id="properties/auto_reload"></a>**`auto_reload`** *(boolean)*: A development feature. Set to `True` to automatically reload the server upon code changes. Default: `false`.
 
-- **`workers`** *(integer)*: Number of workers processes to run. Default: `1`.
+- <a id="properties/workers"></a>**`workers`** *(integer)*: Number of workers processes to run. Default: `1`.
 
-- **`api_root_path`** *(string)*: Root path at which the API is reachable. This is relative to the specified host and port. Default: `""`.
+- <a id="properties/api_root_path"></a>**`api_root_path`** *(string)*: Root path at which the API is reachable. This is relative to the specified host and port. Default: `""`.
 
-- **`openapi_url`** *(string)*: Path to get the openapi specification in JSON format. This is relative to the specified host and port. Default: `"/openapi.json"`.
+- <a id="properties/openapi_url"></a>**`openapi_url`** *(string)*: Path to get the openapi specification in JSON format. This is relative to the specified host and port. Default: `"/openapi.json"`.
 
-- **`docs_url`** *(string)*: Path to host the swagger documentation. This is relative to the specified host and port. Default: `"/docs"`.
+- <a id="properties/docs_url"></a>**`docs_url`** *(string)*: Path to host the swagger documentation. This is relative to the specified host and port. Default: `"/docs"`.
 
-- **`cors_allowed_origins`**: A list of origins that should be permitted to make cross-origin requests. By default, cross-origin requests are not allowed. You can use ['*'] to allow any origin. Default: `null`.
+- <a id="properties/cors_allowed_origins"></a>**`cors_allowed_origins`**: A list of origins that should be permitted to make cross-origin requests. By default, cross-origin requests are not allowed. You can use ['*'] to allow any origin. Default: `null`.
 
   - **Any of**
 
-    - *array*
+    - <a id="properties/cors_allowed_origins/anyOf/0"></a>*array*
 
-      - **Items** *(string)*
+      - <a id="properties/cors_allowed_origins/anyOf/0/items"></a>**Items** *(string)*
 
-    - *null*
+    - <a id="properties/cors_allowed_origins/anyOf/1"></a>*null*
 
 
   Examples:
@@ -148,13 +148,13 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`cors_allow_credentials`**: Indicate that cookies should be supported for cross-origin requests. Defaults to False. Also, cors_allowed_origins cannot be set to ['*'] for credentials to be allowed. The origins must be explicitly specified. Default: `null`.
+- <a id="properties/cors_allow_credentials"></a>**`cors_allow_credentials`**: Indicate that cookies should be supported for cross-origin requests. Defaults to False. Also, cors_allowed_origins cannot be set to ['*'] for credentials to be allowed. The origins must be explicitly specified. Default: `null`.
 
   - **Any of**
 
-    - *boolean*
+    - <a id="properties/cors_allow_credentials/anyOf/0"></a>*boolean*
 
-    - *null*
+    - <a id="properties/cors_allow_credentials/anyOf/1"></a>*null*
 
 
   Examples:
@@ -167,15 +167,15 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`cors_allowed_methods`**: A list of HTTP methods that should be allowed for cross-origin requests. Defaults to ['GET']. You can use ['*'] to allow all standard methods. Default: `null`.
+- <a id="properties/cors_allowed_methods"></a>**`cors_allowed_methods`**: A list of HTTP methods that should be allowed for cross-origin requests. Defaults to ['GET']. You can use ['*'] to allow all standard methods. Default: `null`.
 
   - **Any of**
 
-    - *array*
+    - <a id="properties/cors_allowed_methods/anyOf/0"></a>*array*
 
-      - **Items** *(string)*
+      - <a id="properties/cors_allowed_methods/anyOf/0/items"></a>**Items** *(string)*
 
-    - *null*
+    - <a id="properties/cors_allowed_methods/anyOf/1"></a>*null*
 
 
   Examples:
@@ -187,15 +187,15 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`cors_allowed_headers`**: A list of HTTP request headers that should be supported for cross-origin requests. Defaults to []. You can use ['*'] to allow all headers. The Accept, Accept-Language, Content-Language and Content-Type headers are always allowed for CORS requests. Default: `null`.
+- <a id="properties/cors_allowed_headers"></a>**`cors_allowed_headers`**: A list of HTTP request headers that should be supported for cross-origin requests. Defaults to []. You can use ['*'] to allow all headers. The Accept, Accept-Language, Content-Language and Content-Type headers are always allowed for CORS requests. Default: `null`.
 
   - **Any of**
 
-    - *array*
+    - <a id="properties/cors_allowed_headers/anyOf/0"></a>*array*
 
-      - **Items** *(string)*
+      - <a id="properties/cors_allowed_headers/anyOf/0/items"></a>**Items** *(string)*
 
-    - *null*
+    - <a id="properties/cors_allowed_headers/anyOf/1"></a>*null*
 
 
   Examples:
@@ -205,7 +205,7 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`generate_correlation_id`** *(boolean)*: A flag, which, if False, will result in an error when inbound requests don't possess a correlation ID. If True, requests without a correlation ID will be assigned a newly generated ID in the correlation ID middleware function. Default: `true`.
+- <a id="properties/generate_correlation_id"></a>**`generate_correlation_id`** *(boolean)*: A flag, which, if False, will result in an error when inbound requests don't possess a correlation ID. If True, requests without a correlation ID will be assigned a newly generated ID in the correlation ID middleware function. Default: `true`.
 
 
   Examples:
@@ -220,7 +220,7 @@ The service requires the following configuration parameters:
   ```
 
 
-- **`language`** *(string)*: The language. Must be one of: `["Greek", "Croatian", "French", "German"]`. Default: `"Croatian"`.
+- <a id="properties/language"></a>**`language`** *(string)*: The language. Must be one of: `["Greek", "Croatian", "French", "German"]`. Default: `"Croatian"`.
 
 
 ### Usage:
@@ -274,8 +274,8 @@ Then open this repository in VS Code and run the command
 This will give you a full-fledged, pre-configured development environment including:
 - infrastructural dependencies of the service (databases, etc.)
 - all relevant VS Code extensions pre-installed
-- preconfigured linting and auto-formatting
-- a preconfigured debugger
+- pre-configured linting and auto-formatting
+- a pre-configured debugger
 - automatic license-header insertion
 
 Moreover, inside the devcontainer, a command `dev_install` is available for convenience.
