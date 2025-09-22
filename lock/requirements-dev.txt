@@ -433,9 +433,9 @@ filelock==3.19.1 \
     --hash=sha256:66eda1888b0171c998b35be2bcc0f6d75c388a7ce20c3f3f37aa8e96c2dddf58 \
     --hash=sha256:d38e30481def20772f5baf097c122c3babc4fcdb7e14e57049eb9d88c6dc017d
     # via virtualenv
-ghga-event-schemas==10.0.0 \
-    --hash=sha256:997feaa5ed672b3eb85d82eb3fe4d37b31cd6f810d26efa65a6db53b33d6ce26 \
-    --hash=sha256:deb5260a902701cf53074e77d0ee78046d47b2f14fe8d4dae43c917ec5c6182f
+ghga-event-schemas==10.1.0 \
+    --hash=sha256:2b2ca89897b8edd85d949d02cf9615cc450441018891197b9fbf719c6c9628c1 \
+    --hash=sha256:6cf50c7228a4b960a9fa9e9c8f53da75f96062876e06f364aa8d18547920564d
     # via my-microservice (pyproject.toml)
 ghga-service-commons==5.0.0 \
     --hash=sha256:9c772d7b7fb47d95e0a8c4522f2c79fc11bc3b8125090fe6b7cee86b1685f226 \

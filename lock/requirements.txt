@@ -244,9 +244,9 @@ fastapi==0.115.14 \
     # via
     #   -c lock/requirements-dev.txt
     #   ghga-service-commons
-ghga-event-schemas==10.0.0 \
-    --hash=sha256:997feaa5ed672b3eb85d82eb3fe4d37b31cd6f810d26efa65a6db53b33d6ce26 \
-    --hash=sha256:deb5260a902701cf53074e77d0ee78046d47b2f14fe8d4dae43c917ec5c6182f
+ghga-event-schemas==10.1.0 \
+    --hash=sha256:2b2ca89897b8edd85d949d02cf9615cc450441018891197b9fbf719c6c9628c1 \
+    --hash=sha256:6cf50c7228a4b960a9fa9e9c8f53da75f96062876e06f364aa8d18547920564d
     # via
     #   -c lock/requirements-dev.txt
     #   my-microservice (pyproject.toml)
