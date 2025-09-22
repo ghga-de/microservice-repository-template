@@ -76,7 +76,7 @@ my_microservice --help
 ### Parameters
 
 The service requires the following configuration parameters:
-- <a id="properties/log_level"></a>**`log_level`** *(string)*: The minimum log level to capture. Must be one of: `["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"]`. Default: `"INFO"`.
+- <a id="properties/log_level"></a>**`log_level`** *(string)*: The minimum log level to capture. Must be one of: "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", or "TRACE". Default: `"INFO"`.
 
 - <a id="properties/service_name"></a>**`service_name`** *(string)*: Short name of this service. Default: `"my_microservice"`.
 
@@ -220,7 +220,7 @@ The service requires the following configuration parameters:
   ```
 
 
-- <a id="properties/language"></a>**`language`** *(string)*: The language. Must be one of: `["Greek", "Croatian", "French", "German"]`. Default: `"Croatian"`.
+- <a id="properties/language"></a>**`language`** *(string)*: The language. Must be one of: "Greek", "Croatian", "French", or "German". Default: `"Croatian"`.
 
 
 ### Usage:
