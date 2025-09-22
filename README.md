@@ -187,7 +187,7 @@ The service requires the following configuration parameters:
   ```
 
 
-- <a id="properties/cors_allowed_headers"></a>**`cors_allowed_headers`**: A list of HTTP request headers that should be supported for cross-origin requests. Defaults to []. You can use ['*'] to allow all headers. The Accept, Accept-Language, Content-Language and Content-Type headers are always allowed for CORS requests. Default: `null`.
+- <a id="properties/cors_allowed_headers"></a>**`cors_allowed_headers`**: A list of HTTP request headers that should be supported for cross-origin requests. Defaults to []. You can use ['*'] to allow all request headers. The Accept, Accept-Language, Content-Language, Content-Type and some are always allowed for CORS requests. Default: `null`.
 
   - **Any of**
 
@@ -196,6 +196,24 @@ The service requires the following configuration parameters:
       - <a id="properties/cors_allowed_headers/anyOf/0/items"></a>**Items** *(string)*
 
     - <a id="properties/cors_allowed_headers/anyOf/1"></a>*null*
+
+
+  Examples:
+
+  ```json
+  []
+  ```
+
+
+- <a id="properties/cors_exposed_headers"></a>**`cors_exposed_headers`**: A list of HTTP response headers that should be exposed for cross-origin responses. Defaults to []. Note that you can NOT use ['*'] to expose all response headers. The Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified and Pragma headers are always exposed for CORS responses. Default: `null`.
+
+  - **Any of**
+
+    - <a id="properties/cors_exposed_headers/anyOf/0"></a>*array*
+
+      - <a id="properties/cors_exposed_headers/anyOf/0/items"></a>**Items** *(string)*
+
+    - <a id="properties/cors_exposed_headers/anyOf/1"></a>*null*
 
 
   Examples:
