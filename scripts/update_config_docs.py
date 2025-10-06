@@ -15,8 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Generates a JSON schema from the service's Config class as well as a corresponding
-example config yaml (or check whether these files are up to date).
+"""Generate a JSON Schema from the service's Config class and an example
+config YAML file, or check whether the existing files are up to date.
 """
 
 import importlib
@@ -46,7 +46,7 @@ class ValidationError(RuntimeError):
 def get_config_class():
     """
     Dynamically imports and returns the Config class from the current service.
-    This makes the script service repo agnostic.
+    This makes the script agnostic to the service repository.
     """
     # get the name of the microservice package
     with subprocess.Popen(
@@ -82,16 +82,15 @@ def get_schema() -> str:
 
 def get_example() -> str:
     """Returns an example config YAML."""
-
     config = get_dev_config()
     normalized_config_dict = config.model_dump(mode="json", by_alias=True)
     return yaml.dump(normalized_config_dict, indent=2, sort_keys=True)
 
 
 def update_docs():
-    """Update the example config and config schema files documenting the config
-    options."""
-
+    """Update the example config YAML and JSON Schema files documenting the
+    config options.
+    """
     example = get_example()
     with open(EXAMPLE_CONFIG_YAML, "w", encoding="utf-8") as example_file:
         example_file.write(example)
@@ -102,8 +101,8 @@ def update_docs():
 
 
 def print_diff(expected: str, observed: str):
-    """Print differences between expected and observed files."""
-    echo_failure("Differences in Config YAML:")
+    """Print differences between expected and observed example config YAML."""
+    echo_failure("Differences in config YAML file:")
     for line in unified_diff(
         expected.splitlines(keepends=True),
         observed.splitlines(keepends=True),
@@ -114,11 +113,10 @@ def print_diff(expected: str, observed: str):
 
 
 def check_docs():
-    """Check whether the example config and config schema files documenting the config
-    options are up to date.
+    """Check whether the example config YAML and JSON Schema files are up to date.
 
     Raises:
-        ValidationError: if not up to date.
+        ValidationError: If not up to date.
     """
 
     example_expected = get_example()
@@ -127,7 +125,7 @@ def check_docs():
     if example_expected != example_observed:
         print_diff(example_expected, example_observed)
         raise ValidationError(
-            f"Example config YAML at '{EXAMPLE_CONFIG_YAML}' is not up to date."
+            f"Example config YAML file at '{EXAMPLE_CONFIG_YAML}' is not up to date."
         )
 
     schema_expected = get_schema()
@@ -135,7 +133,7 @@ def check_docs():
         schema_observed = schema_file.read()
     if schema_expected != schema_observed:
         raise ValidationError(
-            f"Config schema JSON at '{CONFIG_SCHEMA_JSON}' is not up to date."
+            f"Config schema JSON file at '{CONFIG_SCHEMA_JSON}' is not up to date."
         )
 
 
