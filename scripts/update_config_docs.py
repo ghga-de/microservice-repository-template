@@ -91,13 +91,8 @@ def update_docs():
     """Update the example config YAML and JSON Schema files documenting the
     config options.
     """
-    example = get_example()
-    with open(EXAMPLE_CONFIG_YAML, "w", encoding="utf-8") as example_file:
-        example_file.write(example)
-
-    schema = get_schema()
-    with open(CONFIG_SCHEMA_JSON, "w", encoding="utf-8") as schema_file:
-        schema_file.write(schema)
+    EXAMPLE_CONFIG_YAML.write_text(get_example(), encoding="utf-8")
+    CONFIG_SCHEMA_JSON.write_text(get_schema(), encoding="utf-8")
 
 
 def print_diff(expected: str, observed: str):
@@ -120,8 +115,7 @@ def check_docs():
     """
 
     example_expected = get_example()
-    with open(EXAMPLE_CONFIG_YAML, encoding="utf-8") as example_file:
-        example_observed = example_file.read()
+    example_observed = EXAMPLE_CONFIG_YAML.read_text(encoding="utf-8")
     if example_expected != example_observed:
         print_diff(example_expected, example_observed)
         raise ValidationError(
@@ -129,8 +123,7 @@ def check_docs():
         )
 
     schema_expected = get_schema()
-    with open(CONFIG_SCHEMA_JSON, encoding="utf-8") as schema_file:
-        schema_observed = schema_file.read()
+    schema_observed = CONFIG_SCHEMA_JSON.read_text(encoding="utf-8")
     if schema_expected != schema_observed:
         raise ValidationError(
             f"Config schema JSON file at '{CONFIG_SCHEMA_JSON}' is not up to date."
