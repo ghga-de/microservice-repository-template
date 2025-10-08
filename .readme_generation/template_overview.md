@@ -22,6 +22,6 @@ For further details, please refer to the explanation in [.template/README.md](/.
 Please also refer to [.readme_generation/README.md](/.readme_generation/README.md) for details on how
 to adapt this readme.
 
-The introductory section ends here; the microservice README template begins below:”
+The introductory section ends here; the microservice README template begins below:
 
 ---
