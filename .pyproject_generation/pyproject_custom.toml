@@ -4,10 +4,10 @@ name = "my_microservice"
 version = "0.1.0"
 description = "My-Microservice - a short description"
 dependencies = [
-    "typer >= 0.19.1",
-    "ghga-service-commons[api] >= 5.0",
-    "ghga-event-schemas >= 10.0",
-    "hexkit[akafka,s3,mongodb] >= 7.0",
+    "typer >= 0.21.1",
+    "ghga-service-commons[api] >= 6.1",
+    "ghga-event-schemas ~= 11.1",
+    "hexkit[akafka,s3,mongodb] >= 7.3",
 ]
 
 [project.urls]
