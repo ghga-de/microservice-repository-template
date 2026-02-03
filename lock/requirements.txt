@@ -66,15 +66,15 @@ attrs==25.4.0 \
     #   -c lock/requirements-dev.txt
     #   jsonschema
     #   referencing
-boto3==1.42.39 \
-    --hash=sha256:d03f82363314759eff7f84a27b9e6428125f89d8119e4588e8c2c1d79892c956 \
-    --hash=sha256:d9d6ce11df309707b490d2f5f785b761cfddfd6d1f665385b78c9d8ed097184b
+boto3==1.42.40 \
+    --hash=sha256:91d776b8b68006c1aca204d384be191883c2a36443f4a90561165986dae17b74 \
+    --hash=sha256:e9e08059ae1bd47de411d361e9bfaaa6f35c8f996d68025deefff2b4dda79318
     # via
     #   -c lock/requirements-dev.txt
     #   hexkit
-botocore==1.42.39 \
-    --hash=sha256:0f00355050821e91a5fe6d932f7bf220f337249b752899e3e4cf6ed54326249e \
-    --hash=sha256:9e0d0fed9226449cc26fcf2bbffc0392ac698dd8378e8395ce54f3ec13f81d58
+botocore==1.42.40 \
+    --hash=sha256:6cfa07cf35ad477daef4920324f6d81b8d3a10a35baeafaa5fca22fb3ad225e2 \
+    --hash=sha256:b115cdfece8162cb30f387fdff2ee4693713744c97ebb4b89742e53675dc521c
     # via
     #   -c lock/requirements-dev.txt
     #   boto3
@@ -270,9 +270,9 @@ h11==0.16.0 \
     #   -c lock/requirements-dev.txt
     #   httpcore
     #   uvicorn
-hexkit==7.3.0 \
-    --hash=sha256:4412482d30edf7714d95144457cbdb11cdb3277f45ae1bc728cbe981181b40ec \
-    --hash=sha256:f0cd36f5974bc32546cd504b0e26efd0c37b7ef11211511cce68969bafd6c8a6
+hexkit==8.0.0 \
+    --hash=sha256:aef4c7264d784eca6e6549a2981cadbc3f68a8a40776db919fef80576fb81150 \
+    --hash=sha256:e07631f82f41436efac20939717ab8012aaae8cdde387230b7f82ea81820f059
     # via
     #   -c lock/requirements-dev.txt
     #   my-microservice (pyproject.toml)
