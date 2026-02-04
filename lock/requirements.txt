@@ -66,15 +66,15 @@ attrs==25.4.0 \
     #   -c lock/requirements-dev.txt
     #   jsonschema
     #   referencing
-boto3==1.42.40 \
-    --hash=sha256:91d776b8b68006c1aca204d384be191883c2a36443f4a90561165986dae17b74 \
-    --hash=sha256:e9e08059ae1bd47de411d361e9bfaaa6f35c8f996d68025deefff2b4dda79318
+boto3==1.42.41 \
+    --hash=sha256:32470b1d32208e03b47cf6ce4a7adb337b8a1730aaefb97c336cfd4e2be2577f \
+    --hash=sha256:86dd2bc577e33da5cd9f10e21b22cdda01a24f83f31ca1bb5ac1f5f8b8e9e67e
     # via
     #   -c lock/requirements-dev.txt
     #   hexkit
-botocore==1.42.40 \
-    --hash=sha256:6cfa07cf35ad477daef4920324f6d81b8d3a10a35baeafaa5fca22fb3ad225e2 \
-    --hash=sha256:b115cdfece8162cb30f387fdff2ee4693713744c97ebb4b89742e53675dc521c
+botocore==1.42.41 \
+    --hash=sha256:0698967741d873d819134bea1ffe9c35decc00c741f49a42885dbd7ad8198fbc \
+    --hash=sha256:567530f7d4da668af891c1259fb80c01578ab8d9f1098127cc250451a46fb54f
     # via
     #   -c lock/requirements-dev.txt
     #   boto3
@@ -244,9 +244,9 @@ email-validator==2.3.0 \
     # via
     #   -c lock/requirements-dev.txt
     #   pydantic
-fastapi==0.120.4 \
-    --hash=sha256:2d856bc847893ca4d77896d4504ffdec0fb04312b705065fca9104428eca3868 \
-    --hash=sha256:9bdf192308676480d3593e10fd05094e56d6fdc7d9283db26053d8104d5f82a0
+fastapi==0.128.0 \
+    --hash=sha256:1cc179e1cef10a6be60ffe429f79b829dce99d8de32d7acb7e6c8dfdf7f2645a \
+    --hash=sha256:aebd93f9716ee3b4f4fcfe13ffb7cf308d99c9f3ab5622d8877441072561582d
     # via
     #   -c lock/requirements-dev.txt
     #   ghga-service-commons
@@ -256,9 +256,9 @@ ghga-event-schemas==11.1.1 \
     # via
     #   -c lock/requirements-dev.txt
     #   my-microservice (pyproject.toml)
-ghga-service-commons==6.1.0 \
-    --hash=sha256:5ae3af599be98db35f2d4dad365eae3a850443598ba8f8e2bc270b27b5b9ef75 \
-    --hash=sha256:999d455696a9fb3e62ec0b46b6c667ac89c3c7293b82e72c87fef0675235cc5d
+ghga-service-commons==7.0.0 \
+    --hash=sha256:7336920f472a202d2afc052ec357473119c7c2a5fac6b1dc9c93a6102e57e95a \
+    --hash=sha256:d7decdb2635c79b2beb53405390ad065734406bb401a4a0d5678ef4163753fd3
     # via
     #   -c lock/requirements-dev.txt
     #   my-microservice (pyproject.toml)
@@ -270,9 +270,9 @@ h11==0.16.0 \
     #   -c lock/requirements-dev.txt
     #   httpcore
     #   uvicorn
-hexkit==8.0.0 \
-    --hash=sha256:aef4c7264d784eca6e6549a2981cadbc3f68a8a40776db919fef80576fb81150 \
-    --hash=sha256:e07631f82f41436efac20939717ab8012aaae8cdde387230b7f82ea81820f059
+hexkit==8.1.0 \
+    --hash=sha256:c7d3476e606769a887a95004261043a3b4b852b2d6980b4655bb5b30cbfa5044 \
+    --hash=sha256:ee54ed2a3892241bb4534c9a1fc2b86b37081f04391abdc27e170938841ab3c0
     # via
     #   -c lock/requirements-dev.txt
     #   my-microservice (pyproject.toml)
@@ -859,9 +859,9 @@ six==1.17.0 \
     # via
     #   -c lock/requirements-dev.txt
     #   python-dateutil
-starlette==0.49.3 \
-    --hash=sha256:1c14546f299b5901a1ea0e34410575bc33bbd741377a10484a54445588d00284 \
-    --hash=sha256:b579b99715fdc2980cf88c8ec96d3bf1ce16f5a8051a7c2b84ef9b1cdecaea2f
+starlette==0.50.0 \
+    --hash=sha256:9e5391843ec9b6e472eed1365a78c8098cfceb7a74bfd4d6b1c0c0095efb3bca \
+    --hash=sha256:a2a17b22203254bcbc2e1f926d2d55f3f9497f769416b3190768befe598fa3ca
     # via
     #   -c lock/requirements-dev.txt
     #   fastapi
@@ -896,9 +896,9 @@ urllib3==2.6.3 \
     # via
     #   -c lock/requirements-dev.txt
     #   botocore
-uvicorn==0.38.0 \
-    --hash=sha256:48c0afd214ceb59340075b4a052ea1ee91c16fbc2a9b1469cca0e54566977b02 \
-    --hash=sha256:fd97093bdd120a2609fc0d3afe931d4d4ad688b6e75f0f929fde1bc36fe0e91d
+uvicorn==0.40.0 \
+    --hash=sha256:839676675e87e73694518b5574fd0f24c9d97b46bea16df7b8c05ea1a51071ea \
+    --hash=sha256:c6c8f55bc8bf13eb6fa9ff87ad62308bbbc33d0b67f84293151efe87e0d5f2ee
     # via
     #   -c lock/requirements-dev.txt
     #   ghga-service-commons
