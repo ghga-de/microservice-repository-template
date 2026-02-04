@@ -40,6 +40,7 @@ RUN adduser -D appuser
 WORKDIR /service
 RUN rm -rf /usr/local/lib/python3.13
 COPY --from=dep-builder /usr/local/lib/python3.13 /usr/local/lib/python3.13
+COPY --from=dep-builder /usr/local/bin /usr/local/bin
 COPY --from=builder /service/dist/ /service
 RUN pip install --no-cache-dir --no-deps *.whl && \
     rm *.whl
