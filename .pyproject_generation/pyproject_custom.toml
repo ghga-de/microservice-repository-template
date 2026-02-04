@@ -5,9 +5,9 @@ version = "0.1.0"
 description = "My-Microservice - a short description"
 dependencies = [
     "typer >= 0.21.1",
-    "ghga-service-commons[api] >= 6.1",
+    "ghga-service-commons[api] >= 7.0",
     "ghga-event-schemas ~= 11.1",
-    "hexkit[akafka,s3,mongodb] >= 7.3",
+    "hexkit[akafka,s3,mongodb] >= 8.1",
 ]
 
 [project.urls]
