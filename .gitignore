@@ -145,4 +145,6 @@ desktop.ini
 thumbs.db
 
 # LLM Stuff
-.claude/*
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/agent-memory-local/
