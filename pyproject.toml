@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "setuptools>=80.10",
+    "setuptools>=82",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -24,9 +24,9 @@ name = "my_microservice"
 version = "0.1.0"
 description = "My-Microservice - a short description"
 dependencies = [
-    "typer >= 0.21.1",
+    "typer >= 0.24.1",
     "ghga-service-commons[api] >= 7.0",
-    "ghga-event-schemas ~= 11.1",
+    "ghga-event-schemas ~= 12.0",
     "hexkit[akafka,s3,mongodb] >= 8.1",
 ]
 
