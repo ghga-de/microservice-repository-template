@@ -46,7 +46,8 @@ FROM ${BASE} AS runner
 COPY --from=dep-builder /usr/lib/python3.13 /usr/lib/python3.13
 COPY --from=dep-builder /opt/runtime-bin/ /usr/local/bin/
 
-# USER doesn't have to be manually set because the base image already runs as non-root
+# Base image already runs as non-root (65532), but we use 1000 to be consistent
+USER 1000
 
 # Please adapt to package name
 COPY --from=dep-builder /usr/bin/my-microservice /usr/local/bin/my-microservice
