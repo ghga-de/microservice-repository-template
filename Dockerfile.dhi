@@ -13,37 +13,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# creating building container
-FROM python:3.13-slim-trixie AS builder
-# update and install dependencies
-RUN apt-get update && apt-get upgrade -y
+# BASE: a base image with updated packages
+FROM dhi.io/python:3.13-alpine3.23-sfw-dev AS base
+RUN apk upgrade --no-cache --available
+
+# BUILDER: a container to build the service wheel
+FROM base AS builder
 RUN pip install build
-# copy code
 COPY . /service
 WORKDIR /service
-# build wheel
 RUN python -m build
 
-# creating running container
-FROM python:3.13-slim-trixie
-# update and install dependencies
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-# create new user first
-RUN useradd --create-home appuser
-# copy and install requirements and wheel
+# DEP-BUILDER: a container to (build and) install dependencies
+FROM base AS dep-builder
+RUN apk update && \
+    apk add build-base gcc g++ libffi-dev zlib-dev python3-dev && \
+    apk upgrade --available
 WORKDIR /service
 COPY --from=builder /service/lock/requirements.txt /service
-RUN pip install --no-cache-dir --no-deps -r requirements.txt && \
-    rm requirements.txt
+RUN pip install --no-deps -r requirements.txt
 COPY --from=builder /service/dist/ /service
 RUN pip install --no-cache-dir --no-deps *.whl && rm *.whl
-# switch to non-root user
-WORKDIR /home/appuser
-USER appuser
-# set environment
+# Binaries that are needed at runtime
+RUN mkdir -p /opt/runtime-bin
+RUN cp /usr/local/bin/opentelemetry-instrument /opt/runtime-bin/ 2>/dev/null || true
+
+# RUNNER: a container to run the service
+FROM dhi.io/python:3.13-alpine3.23 AS runner
+COPY --from=dep-builder /usr/lib/python3.13 /usr/lib/python3.13
+COPY --from=dep-builder /opt/runtime-bin/ /usr/local/bin/
+
+# Please adapt to package name
+COPY --from=dep-builder /usr/bin/my-microservice /usr/local/bin/my-microservice
+
 ENV PYTHONUNBUFFERED=1
 
 # Please adapt to package name:
