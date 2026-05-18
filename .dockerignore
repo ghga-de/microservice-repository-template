@@ -1,0 +1,44 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+.github
+
+# Dev tooling and IDE
+.devcontainer
+.claude
+.pre-commit-config.yaml
+.pyproject_generation
+.readme_generation
+.template
+
+# Caches
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.coverage
+__pycache__
+*.pyc
+*.pyo
+
+# Build artifacts
+dist
+build
+*.egg-info
+
+# Dev/lock files not needed for production build
+lock/requirements-dev.txt
+lock/requirements-dev.in
+lock/requirements-dev-template.in
+lock/README.md
+
+# Tests and scripts
+tests
+scripts
+
+# Example and runtime config
+example_data
+example_config.yaml
+openapi.yaml
+config_schema.json
+prof
