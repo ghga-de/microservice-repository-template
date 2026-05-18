@@ -13,19 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# BASE: a base image with updated packages
-FROM dhi.io/python:3.13-alpine3.23-sfw-dev AS base
+# Define the non-dev base-image
+ARG BASE=dhi.io/python:3.13-alpine3.23
+
+# BUILDER-BASE: a base image with updated packages using the socket firewall dev variant
+FROM ${BASE}-sfw-dev AS builder-base
 RUN apk upgrade --no-cache --available
 
 # BUILDER: a container to build the service wheel
-FROM base AS builder
+FROM builder-base AS builder
 RUN pip install build
 COPY . /service
 WORKDIR /service
 RUN python -m build
 
 # DEP-BUILDER: a container to (build and) install dependencies
-FROM base AS dep-builder
+FROM builder-base AS dep-builder
 RUN apk update && \
     apk add build-base gcc g++ libffi-dev zlib-dev python3-dev && \
     apk upgrade --available
@@ -39,9 +42,11 @@ RUN mkdir -p /opt/runtime-bin
 RUN cp /usr/local/bin/opentelemetry-instrument /opt/runtime-bin/ 2>/dev/null || true
 
 # RUNNER: a container to run the service
-FROM dhi.io/python:3.13-alpine3.23 AS runner
+FROM ${BASE} AS runner
 COPY --from=dep-builder /usr/lib/python3.13 /usr/lib/python3.13
 COPY --from=dep-builder /opt/runtime-bin/ /usr/local/bin/
+
+# USER doesn't have to be manually set because the base image already runs as non-root
 
 # Please adapt to package name
 COPY --from=dep-builder /usr/bin/my-microservice /usr/local/bin/my-microservice
