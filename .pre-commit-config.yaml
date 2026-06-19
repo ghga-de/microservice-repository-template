@@ -1,7 +1,7 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 
-minimum_pre_commit_version: 4.5.1
+minimum_pre_commit_version: "4.6"
 
 repos:
   - repo: local
@@ -45,7 +45,7 @@ repos:
       - id: no-commit-to-branch
         args: [--branch, dev, --branch, int, --branch, main]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.13
+    rev: v0.15.18
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
