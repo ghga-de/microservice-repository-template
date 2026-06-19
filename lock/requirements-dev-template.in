@@ -1,14 +1,11 @@
 # common requirements for development and testing of services
 
+# special requirements (snakeviz, logot) for debugging and testing
+# should be added manually or per service if needed
+
 pytest>=9.1
 pytest-asyncio>=1.4
 pytest-cov>=7.1
-
-# log-based testing
-# logot>=1.7
-
-# profile viewer
-# snakeviz>=2.2
 
 pre-commit>=4.6
 
