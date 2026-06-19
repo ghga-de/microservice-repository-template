@@ -4,7 +4,8 @@ pytest>=9.1
 pytest-asyncio>=1.4
 pytest-cov>=7.1
 
-logot>=1.7
+# log-based testing
+# logot>=1.7
 
 # profile viewer
 # snakeviz>=2.2

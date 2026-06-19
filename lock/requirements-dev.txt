@@ -744,10 +744,6 @@ librt==0.11.0 \
     --hash=sha256:fa475675db22290c3158e1d42326d0f5a65f04f44a0e68c3630a25b53560fb9c \
     --hash=sha256:ff0fbaf5f44a21beeb0110f2ab64f45135a9536a834b79c0d1ef018f2786bbfa
     # via mypy
-logot==1.7.0 \
-    --hash=sha256:5c7a8b561d22f0d08dcf3524359507d61400cb9ee61dc921b73b965c60fbab0c \
-    --hash=sha256:b917189ebe1fb2ba298014f886fa72ff85f75be8d5a48d94c138e14b4f31fbb8
-    # via -r lock/requirements-dev-template.in
 markdown==3.10.2 \
     --hash=sha256:994d51325d25ad8aa7ce4ebaec003febcce822c3f8c911e3b17c52f7f589f950 \
     --hash=sha256:e91464b71ae3ee7afd3017d9f358ef0baf158fd9a298db92f1d4761133824c36
