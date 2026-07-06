@@ -11,7 +11,7 @@ pre-commit>=4.6
 
 mypy>=2.1
 
-ruff>=0.15.13
+ruff>=0.15.20
 
 click>=8.4
 typer>=0.26
