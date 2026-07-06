@@ -36,7 +36,7 @@ BORDER_STYLE = Style(dim=True, color=TABLE_COLOR)
 
 
 def get_issues(abc_class: type, imp_class: type) -> list[str]:
-    """Return a list of issue strings for mismatches between the ABC and implementation."""
+    """Return issue strings for mismatches between the ABC and implementation."""
     methods = [m for m in abc_class.__abstractmethods__ if not m.startswith("_")]  # type: ignore
     issues = []
     for method in methods:

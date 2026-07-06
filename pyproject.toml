@@ -24,10 +24,10 @@ name = "my_microservice"
 version = "0.1.0"
 description = "My-Microservice - a short description"
 dependencies = [
-    "typer >= 0.25.1",
-    "ghga-service-commons[api] >= 7.0.2",
+    "typer >= 0.26.8",
+    "ghga-service-commons[api] >= 7.0.5",
     "ghga-event-schemas ~= 13.0",
-    "hexkit[akafka,s3,mongodb] >= 8.3",
+    "hexkit[akafka,s3,mongodb] >= 8.4.1",
 ]
 
 [project.license]
@@ -72,6 +72,8 @@ ignore = [
     "E111",
     "E114",
     "E116",
+    "E117",
+    "W191",
     "PLW",
     "RUF001",
     "RUF010",
@@ -100,6 +102,13 @@ select = [
     "RUF",
     "SIM",
     "D",
+    "E",
+    "W",
+    "ASYNC",
+    "LOG",
+    "PERF",
+    "RET",
+    "C4",
 ]
 
 [tool.ruff.lint.mccabe]
@@ -111,6 +120,7 @@ max-complexity = 10
     "S",
     "SIM",
     "D",
+    "E402",
 ]
 "tests/*" = [
     "S",
