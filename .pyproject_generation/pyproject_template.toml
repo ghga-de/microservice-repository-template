@@ -46,11 +46,11 @@ ignore = [
     # Rules that conflict with ruff-format, kept in sync with Ruff's
     # "formatter-incompatible rules" list:
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
-    # (E501/line-too-long is deliberately NOT ignored here, see the "E" entry in select)
     "E111", # indentation with invalid multiple (for formatter)
     "E114", # indentation with invalid multiple comment (for formatter)
     "E116", # unexpected indentation of comment (for formatter)
     "E117", # over-indented (for formatter)
+    "E501", # line too long
     "W191", # tab indentation (for formatter)
     "PLW", # pylint warnings
     "RUF001", # ambiguous unicode character strings
@@ -81,9 +81,6 @@ select = [
     "SIM", # flake8-simplify
     "D", # pydocstyle
     "E", # pycodestyle errors (E402 import-not-at-top, E721 type ==, E731 lambda assign)
-    # E501 (line-too-long) is intentionally left enabled: ruff-format already wraps code to
-    # line-length, so E501 only fires on strings/comments/URLs the formatter cannot break -
-    # downstream repos fix the handful of offenders rather than hide them.
     "W", # pycodestyle warnings, incl. W605 invalid escape sequence (e.g. in regexes)
     "ASYNC", # flake8-async, catches blocking calls inside async def (high value for async services)
     "LOG", # flake8-logging, logging-call correctness
