@@ -17,37 +17,43 @@
 ARG BASE=dhi.io/python:3.13-alpine3.23
 
 # BUILDER-BASE: a base image with updated packages using the socket firewall dev variant
+# hadolint ignore=DL3006
 FROM ${BASE}-sfw-dev AS builder-base
 RUN apk upgrade --no-cache --available
 
 # BUILDER: a container to build the service wheel
 FROM builder-base AS builder
-RUN pip install build
+# build backend, intentionally unpinned
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir build
 COPY . /service
 WORKDIR /service
 RUN python -m build
 
 # DEP-BUILDER: a container to (build and) install dependencies
 FROM builder-base AS dep-builder
-RUN apk update && \
-    apk add build-base gcc g++ libffi-dev zlib-dev python3-dev && \
-    apk upgrade --available
+# build tools are build-only, intentionally unpinned
+# hadolint ignore=DL3018
+RUN apk add --no-cache build-base gcc g++ libffi-dev zlib-dev python3-dev && \
+    apk upgrade --no-cache --available
 WORKDIR /service
 COPY --from=builder /service/lock/requirements.txt /service
-RUN pip install --no-deps -r requirements.txt
+RUN pip install --no-cache-dir --no-deps -r requirements.txt
 COPY --from=builder /service/dist/ /service
-RUN pip install --no-cache-dir --no-deps *.whl && rm *.whl
-# Binaries that are needed at runtime
-RUN mkdir -p /opt/runtime-bin
-RUN cp /usr/local/bin/opentelemetry-instrument /opt/runtime-bin/ 2>/dev/null || true
+RUN pip install --no-cache-dir --no-deps ./*.whl && rm ./*.whl
+# Binaries that are needed at runtime (opentelemetry-instrument is optional)
+RUN mkdir -p /opt/runtime-bin \
+ && { cp /usr/local/bin/opentelemetry-instrument /opt/runtime-bin/ 2>/dev/null || true; }
 
 # RUNNER: a container to run the service
+# hadolint ignore=DL3006
 FROM ${BASE} AS runner
+ARG UID=1000
 COPY --from=dep-builder /usr/lib/python3.13 /usr/lib/python3.13
 COPY --from=dep-builder /opt/runtime-bin/ /usr/local/bin/
 
 # Base image already runs as non-root (65532), but we use 1000 to be consistent
-USER 1000
+USER ${UID}
 
 # Please adapt to package name
 COPY --from=dep-builder /usr/bin/my-microservice /usr/local/bin/my-microservice

@@ -19,36 +19,37 @@ RUN apk upgrade --no-cache --available
 
 # BUILDER: a container to build the service wheel
 FROM base AS builder
-RUN pip install build
+# build backend, intentionally unpinned
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir build
 COPY . /service
 WORKDIR /service
 RUN python -m build
 
 # DEP-BUILDER: a container to (build and) install dependencies
 FROM base AS dep-builder
-RUN apk update && \
-    apk add build-base gcc g++ libffi-dev zlib-dev && \
-    apk upgrade --available
+# build tools are build-only, intentionally unpinned
+# hadolint ignore=DL3018
+RUN apk add --no-cache build-base gcc g++ libffi-dev zlib-dev && \
+    apk upgrade --no-cache --available
 WORKDIR /service
 COPY --from=builder /service/lock/requirements.txt /service
 RUN pip install --no-cache-dir --no-deps -r requirements.txt
-# Binaries that are needed at runtime
-RUN mkdir -p /opt/runtime-bin
-RUN cp /usr/local/bin/opentelemetry-instrument /opt/runtime-bin/ 2>/dev/null || true
+# Binaries that are needed at runtime (opentelemetry-instrument is optional)
+RUN mkdir -p /opt/runtime-bin \
+ && { cp /usr/local/bin/opentelemetry-instrument /opt/runtime-bin/ 2>/dev/null || true; }
 
 # RUNNER: a container to run the service
 FROM base AS runner
-# create new user first
-RUN adduser -D appuser
+ARG UID=1000
 WORKDIR /service
 RUN rm -rf /usr/local/lib/python3.13
 COPY --from=dep-builder /usr/local/lib/python3.13 /usr/local/lib/python3.13
 COPY --from=dep-builder /opt/runtime-bin/ /usr/local/bin/
 COPY --from=builder /service/dist/ /service
-RUN pip install --no-cache-dir --no-deps *.whl && rm *.whl
-# switch to non-root user
-WORKDIR /home/appuser
-USER appuser
+RUN pip install --no-cache-dir --no-deps ./*.whl && rm ./*.whl
+# switch to non-root user (numeric UID for OpenShift arbitrary-UID compatibility)
+USER ${UID}
 ENV PYTHONUNBUFFERED=1
 
 # Please adapt to package name:
